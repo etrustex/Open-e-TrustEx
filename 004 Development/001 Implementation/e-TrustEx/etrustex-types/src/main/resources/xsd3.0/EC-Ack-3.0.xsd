@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="ec:schema:xsd:Ack-3" xmlns:eccc="ec:schema:xsd:CommonComponents-3" targetNamespace="ec:schema:xsd:Ack-3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1">
+	
+	<xsd:import namespace="ec:schema:xsd:CommonComponents-3" schemaLocation="../xsd3.0/custom/EC-CommonComponents-3.0.xsd"/>
+	
+	<xsd:element name="Acknowledgment" type="AcknowledgmentType"/>
+	<xsd:complexType name="AcknowledgmentType">
+		<xsd:sequence>
+			<xsd:element ref="eccc:UUID" minOccurs="0"/>
+			<xsd:element ref="eccc:ID" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueDate" minOccurs="0"/>
+			<xsd:element ref="eccc:AckIndicator"/>
+			<xsd:element ref="eccc:AcknowledgedDocumentReference" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

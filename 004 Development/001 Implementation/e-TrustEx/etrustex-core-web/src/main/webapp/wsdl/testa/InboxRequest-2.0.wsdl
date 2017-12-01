@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:tns="ec:services:wsdl:InboxRequest-2" 
+xmlns:req="ec:schema:xsd:InboxRequest-2"
+xmlns:res="ec:schema:xsd:InboxResponse-2" 
+xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" 
+xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" 
+xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+name="InboxRequest" targetNamespace="ec:services:wsdl:InboxRequest-2">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:InboxRequest-2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:InboxRequest-2" schemaLocation="../../xsd/maindoc/EC-InboxRequest-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:InboxResponse-2" schemaLocation="../../xsd/maindoc/EC-InboxResponse-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../../xsd/maindoc/EC-Fault-1.0.xsd"/>
+			<xsd:element name="SubmitInboxRequestRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InboxRequest" type="req:InboxRequestType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitInboxRequestResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InboxResponse" type="res:InboxResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	<message name="inboxRequestRequest">
+		<part name="InboxRequestRequest" element="tns:SubmitInboxRequestRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="inboxRequestResponse">
+		<part name="InboxRequestResponse" element="tns:SubmitInboxRequestResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	<portType name="inboxRequestPortType">
+		<operation name="submitInboxRequest">
+			<input message="tns:inboxRequestRequest"/>
+			<output message="tns:inboxRequestResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="inboxRequestBinding" type="tns:inboxRequestPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>		
+		<operation name="submitInboxRequest">
+			<soap:operation style="document"/>
+			<input>
+				<soap:body parts="InboxRequestRequest" use="literal"/>
+				<soap:header message="tns:inboxRequestRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="InboxRequestResponse" use="literal"/>
+				<soap:header message="tns:inboxRequestResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="inboxRequestService">
+		<port name="inboxRequestPort" binding="tns:inboxRequestBinding">
+			<soap:address location="${etrustex.testa.location}/services"/>
+		</port>
+	</service>
+</definitions>

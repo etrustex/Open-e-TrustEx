@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.2.xsd">
+	
+	
+	<bean id="etrustExSubmitSupplierSoapEndpoint"
+		class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExSubmitSupplierSoapIN" />
+		<property name="replyChannel" ref="trustExSubmitSoapOut" />	
+		<property name="readService" value="false"/>	
+	</bean>
+	<bean id="etrustExSubmitCustomerSoapEndpoint"
+		class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExSubmitCustomerSoapIN" />
+		<property name="replyChannel" ref="trustExSubmitSoapOut" />	
+		<property name="readService" value="false"/>	
+	</bean>
+	
+	<int:channel id="trustExSubmitSupplierSoapIN"/>
+	<int:channel id="trustExSubmitCustomerSoapIN"/>
+	
+	<int:chain input-channel="trustExSubmitSupplierSoapIN" output-channel="trustSynchSubmitIN">
+ 		 <!-- We must set the reply channel in the header in this case will be SOAP will be different for other endpoints(EJB,REST,...) -->
+ 		 <int:header-enricher>
+		 	<int:header name="replyTO" value="SOAP"/>
+		 </int:header-enricher >
+		 <int:transformer method="transformIncomingMessage">
+		 	<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+		 		<property name="senderType" value="SUPPLIER"/>
+		 	</bean>
+		 </int:transformer> 
+	 </int:chain>
+	<int:chain input-channel="trustExSubmitCustomerSoapIN" output-channel="trustSynchSubmitIN">
+ 		 <!-- We must set the reply channel in the header in this case will be SOAP will be different for other endpoints(EJB,REST,...) -->
+ 		 <int:header-enricher>
+		 	<int:header name="replyTO" value="SOAP"/>
+		 </int:header-enricher >
+		 <int:transformer method="transformIncomingMessage">
+		 	<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+		 		<property name="senderType" value="CUSTOMER"/>
+		 	</bean>
+		 </int:transformer> 
+	 </int:chain>
+	
+	<bean id="etrustExReadSupplierSoapEndpoint"
+		class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExSupplierReadSoapIN" />
+		<property name="replyChannel" ref="trustExReadSoapOut" />	
+		<property name="readService" value="true"/>	
+	</bean>
+	<bean id="etrustExReadCustomerSoapEndpoint"
+		class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExCustomerReadSoapIN" />
+		<property name="replyChannel" ref="trustExReadSoapOut" />
+		<property name="readService" value="true"/>		
+	</bean>
+		
+	<int:channel id="trustExSupplierReadSoapIN"/>
+	<int:channel id="trustExCustomerReadSoapIN"/>	
+
+	 <int:chain input-channel="trustExSupplierReadSoapIN" output-channel="trustExReadIN">
+ 		 <int:header-enricher>
+		 	<int:header name="replyTO" value="SOAP"/>
+		 </int:header-enricher >
+		 <int:transformer method="transformIncomingMessage">
+		 	<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+		 		<property name="senderType" value="SUPPLIER"/>
+		 	</bean>
+		 </int:transformer>
+	 </int:chain>
+	<int:chain input-channel="trustExCustomerReadSoapIN" output-channel="trustExReadIN">
+ 		 <int:header-enricher>
+		 	<int:header name="replyTO" value="SOAP"/>
+		 </int:header-enricher >
+		 <int:transformer method="transformIncomingMessage">
+		 	<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+		 		<property name="senderType" value="CUSTOMER"/>
+		 	</bean>
+		 </int:transformer>
+	 </int:chain>		
+
+</beans>

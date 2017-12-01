@@ -1,0 +1,68 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<div class="section-title-bullet"> <h1><fmt:message key="user.subtitle.accessRights.list"/></h1></div>
+
+<div class="inner-box no-background clear">
+	<c:choose> 
+		<c:when test="${empty userForm.userAccessRights or fn:length(userForm.userAccessRights) < 1}">
+			<div id="noRecordDiv">
+			    <div class="notification note-attention small" style="margin-bottom:2px" >
+			        <p class="normal">
+			            <fmt:message key="warning.user.minOneConfig"/>
+			        </p>
+			    </div>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div id="userResultsListTableDiv">
+				<table id="userConfigurationListTable" class="default tablesorter-table">
+					<thead>
+						<tr>
+							<th><fmt:message
+									key="user.search.list.header.role" /></th>
+							<th><fmt:message
+									key="user.search.list.header.businessDomain" /></th>
+							<th><fmt:message
+									key="user.search.list.header.party" /></th>
+							<th><fmt:message
+									key="table.column.actions" /></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<c:forEach var="accessRight" items="${userForm.userAccessRights}" varStatus="accessRightsListStatus">
+						    <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.id" />
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].isMarkedForDeletion"/>
+
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.role.code"/>
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.role.id" />
+
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.businessDomain.name"/>
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.businessDomain.id" />
+
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.party.name"/>
+                            <form:hidden path="userForm.userAccessRights[${accessRightsListStatus.index}].uar.party.id" />
+
+                            <c:if test="${!accessRight.isMarkedForDeletion}">
+                                <tr id="${accessRight.uar.id}" class=" ${accessRightsListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }" data-index="${accessRightsListStatus.index}">
+                                    <td id="${accessRight.uar.role.id}">${accessRight.uar.role.code}</td>
+                                    <td id="${accessRight.uar.businessDomain.id}">${accessRight.uar.businessDomain.name}</td>
+                                    <td id="${accessRight.uar.party.id}">${accessRight.uar.party.name}</td>
+                                    <td class="action">
+                                        <a class="deleteUserAccessRightsRow"><span class="icon icon-reject"></span></a>
+                                        <a class="editUserAccessRightsRow"><span class="icon icon-edit"></span></a>
+                                    </td>
+
+                                </tr>
+                            </c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</div>

@@ -1,0 +1,27 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:choose>
+	<c:when test="${pageMode eq ''}">
+		<j:field label_key="transaction.document">
+			<span id="displayDocumentName" class="field-view" style="width:200px;">${transactionSearchForm.document_search.name}</span>
+		</j:field>
+		<form:hidden id="documentId" path="transactionSearchForm.document_search.id"/>
+		<form:hidden id="documentName" path="transactionSearchForm.document_search.name"/>
+		<cipa:error_label fieldPath="transactionSearchForm.document_search.id"/>
+	</c:when>
+	<c:otherwise>
+		<j:field label_key="transaction.document"  field_class="required" >
+			<span id="displayDocumentName" class="field-view JS_live-validation" style="width:200px;">${transactionForm.document.name} ${transactionForm.document.version}</span>
+		</j:field>
+		<form:hidden id="documentId" path="transactionForm.document.id"/>
+		<form:hidden id="documentName" path="transactionForm.document.name"/>
+		<form:hidden id="documentVersion" path="transactionForm.document.version"/>
+		<cipa:error_label fieldPath="transactionForm.document.id"/>
+	</c:otherwise>
+</c:choose>
+<j:button action_id="action_search_document" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-search" tooltip_key="button.search"/>
+<j:button action_id="action_remove_document" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-reset" tooltip_key="button.remove"/>

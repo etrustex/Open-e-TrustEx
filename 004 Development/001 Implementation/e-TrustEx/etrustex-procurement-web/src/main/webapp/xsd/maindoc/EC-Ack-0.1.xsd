@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Tue 29/04/2008 17:34:50.73 Ack
+-->
+<!--
+Package 0.01
+Copyright EC DIGIT by PwC-->
+<!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns="ec:schema:xsd:Ack-0.1" 
+xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:eccbc="ec:schema:xsd:CommonBasicComponents-0.1" targetNamespace="ec:schema:xsd:Ack-0.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="ec:schema:xsd:CommonBasicComponents-0.1" schemaLocation="../custom/EC-CommonBasicComponents-0.1.xsd"/>
+	<!-- ===== Root Element ===== -->
+	<xsd:element name="AckIndicator" type="AckIndicatorType"/>
+	<xsd:complexType name="AckIndicatorType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>AckIndicator</ccts:DictionaryEntryName>
+					<ccts:Definition>Return after Request</ccts:Definition>
+					<ccts:ObjectClass>Ack</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="eccbc:AckIndicator"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

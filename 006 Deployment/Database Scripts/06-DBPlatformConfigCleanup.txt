@@ -1,0 +1,18 @@
+-- //////////////////////////////////////////////////////
+-- Clean the DB from Platform Configuration:
+-- The following tables are used to configure the 
+-- credentials and party configurations to be able
+-- to send messages
+-- //////////////////////////////////////////////////////
+
+DELETE FROM etr_tb_ica_partyrole;
+
+DELETE FROM etr_tb_interchange_agr;
+
+DELETE FROM etr_tb_party_role;
+
+DELETE FROM etr_tb_partyagreement;
+
+DELETE FROM etr_tb_party_id;
+
+DELETE FROM etr_tb_party;

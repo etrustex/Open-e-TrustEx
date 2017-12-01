@@ -1,0 +1,35 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://eu.europa.ec.digit.jscaf/tags" prefix="j" %>
+
+<ul class="top-bar clear">
+
+    <li>
+        <a id="app_action_logout"><span class="icon-inline-text icon-logout always-visible"></span>LOGOUT</a>
+    </li>
+    <li class="separator">&nbsp;</li>
+
+    <li class="help">
+        <a id="app_action_show_help_popup" class="text-color-yellow"><span class="icon-inline-text icon-help-yellow"></span>HELP</a>
+    </li>
+    <li class="contact fixed">
+        <a id="app_action_show_contact_popup" class="text-color-yellow"><span class="icon-inline-text icon-contact-yellow"></span>CONTACT</a>
+    </li>
+    <li class="separator">&nbsp;</li>
+    <li id="display-settings-container" class="JS_tooltip fixed" data-trigger-type="onClick">
+        <a id="display_settings"><span class="icon-inline-text icon-config"></span>Display settings</a>
+    </li>
+    
+    <jsp:include page="header_top_bar_display_settings_container.jspf"/>
+    
+    <li class="separator read-only-hidden">&nbsp;</li>
+    <li class="read-only-hidden">
+        <a id="action_show_about"><span class="icon-inline-text icon-info no-mr always-visible"></span></a>
+    </li>    
+
+
+</ul>
+
+
+

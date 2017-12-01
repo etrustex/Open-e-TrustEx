@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.2.xsd">
+		
+	<bean id="authorisationServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.AuthorisationServiceActivator"/>
+	<bean id="validationServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.XSDValidationServiceActivator"/>
+	<bean id="storeMessageServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.StoreMessageServiceActivator"/>
+	<bean id="retriveMessageServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.RetriveMessageServiceActivator"/>
+	<bean id="schematronServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.SchematronServiceActivator"/>
+	<bean id="parentDocumentHandlerServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.ParentDocumentHandlerServiceActivator"/>
+	<bean id="dataExtractorServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.DataExtractorServiceActivator"/>
+	<bean id="businessServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.BusinessServiceActivator"/>
+	<bean id="dispatcherServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.MessageDispatcherServiceActivator"/>
+	<bean id="messageBinaryServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.MessageBinaryServiceActivator"/>	
+	<bean id="logServiceActivatorReturnMessage" class="eu.europa.ec.cipa.etrustex.integration.service.LogServiceActivator">
+		<property name="returnMessage" value="true"/>
+	</bean>
+	<bean id="logServiceActivatorReturnNull" class="eu.europa.ec.cipa.etrustex.integration.service.LogServiceActivator">
+		<property name="returnMessage" value="false"/>
+	</bean>	
+	<bean id="messageIdValidatorSubmitServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.MessageIdValidatorServiceActivator">
+	    <property name="readService" value="false"/>
+	</bean>
+	<bean id="messageIdValidatorReadServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.MessageIdValidatorServiceActivator">
+	    <property name="readService" value="true"/>
+	</bean>
+	<bean id="humanReadableServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.HumanReadableServiceActivator">
+		<property name="xmlService" ref="xmlService" />
+	</bean>
+	<bean id="generateAckServiceActivator" class="eu.europa.ec.cipa.etrustex.integration.service.GenerateAckServiceActivator"/>	
+
+<!-- 	<bean id="messageDispatcher" abstract="true" class="eu.europa.ec.cipa.etrustex.integration.dispatcher.MessageDispatcher"/> -->
+<!-- 	<bean id="wsMessageDispatcher" parent="messageDispatcher" class="eu.europa.ec.cipa.etrustex.integration.dispatcher.WSMessageDispatcher" /> -->
+	<int:channel id="controlBusChannel"/>
+ 	<int:logging-channel-adapter id="logger" level="DEBUG" log-full-message="true" />
+	<int:control-bus id="controlBus" input-channel="controlBusChannel"/>
+	
+	<int:channel id="dispatcherChannel"/>	
+	<int:chain input-channel="dispatcherChannel" output-channel="nullChannel">
+		<int:service-activator ref="dispatcherServiceActivator" method="processASynchMessage" />
+	</int:chain>
+	
+	<!-- Submit ApplicationResponse 2 -->
+	<int:channel id="SubmitApplicationResponse-2.0BusinessGatewayIn"/>
+	<int:channel id="SubmitApplicationResponse-2.0BusinessGatewayOut"/>
+	<int:gateway id="SubmitApplicationResponse-2.0"
+		service-interface="eu.europa.ec.cipa.etrustex.integration.api.IASynchBusinessService"		
+		default-request-channel="SubmitApplicationResponse-2.0BusinessGatewayIn"
+		default-reply-channel="SubmitApplicationResponse-2.0BusinessGatewayOut">
+	</int:gateway>	
+	<int:chain input-channel="SubmitApplicationResponse-2.0BusinessGatewayIn" output-channel="SubmitApplicationResponse-2.0BusinessGatewayOut">
+	<int:service-activator ref="SubmitApplicationResponseService-2.0" method="processMessage" />
+		<int:service-activator ref="humanReadableServiceActivator"/>
+	</int:chain>
+
+</beans>

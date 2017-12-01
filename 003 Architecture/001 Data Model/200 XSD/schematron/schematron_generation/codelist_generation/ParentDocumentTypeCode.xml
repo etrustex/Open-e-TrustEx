@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Identification>
+		<ShortName>ParentDocumentTypeCode</ShortName>
+		<LongName>Parent Document Type Code</LongName>
+		<Version>0.1</Version>
+		<CanonicalUri>Placeholder</CanonicalUri>
+		<CanonicalVersionUri>Placeholder</CanonicalVersionUri>
+		<AgencyLongName>European Commision</AgencyLongName>
+		<Locale>en</Locale>
+	</Identification>
+	<ValuesSet>
+		<ValueSet>
+			<Code>BDL</Code>
+			<Value>DocumentBundle</Value>
+		</ValueSet>
+	</ValuesSet>
+</CodeList>

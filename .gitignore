@@ -1,0 +1,10 @@
+.metadata
+.project
+target
+.classpath
+.settings
+${env.JBOSS_HOME}
+/004 Development/001 Implementation/e-TrustEx/etrustex-procurement-web/.project
+/004 Development/001 Implementation/e-TrustEx/etrustex-procurement-web/.settings
+/004 Development/001 Implementation/e-TrustEx/etrustex-procurement-web/target
+/004 Development/001 Implementation/e-TrustEx/etrustex-procurement-web/.classpath

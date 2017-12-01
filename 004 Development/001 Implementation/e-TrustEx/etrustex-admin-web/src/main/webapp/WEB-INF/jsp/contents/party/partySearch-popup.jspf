@@ -1,0 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+
+<div id="popupPartySearchDialog">
+		<h1 class="section-title-bullet"><fmt:message key="search.criteria"/></h1>
+		<form id="partySearchForm">
+			<div class="inner-box compressed blue clear" id="searchCriteriaDiv">
+					<jsp:include page="fragments/searchCriteria.jspf"/>
+			</div>
+		</form> 
+	
+		<jsp:include page="fragments/dialog_search_buttons.jspf"/>
+	<br>
+	
+    <h1 class="section-title-bullet"><fmt:message key="search.results"/></h1>
+    <div id="partyResultsListContentDiv">
+        <jsp:include page="fragments/searchResults.jspf"/>
+    </div>
+</div>

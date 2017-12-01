@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+
+<li class="row-1 help"  data-serialexpand="#header-user-help">
+	<a href="#" class="link-1 help">Help</a>
+	<div id="header-user-help" class="dropdown-outer serialexpand-dropdown">
+		<div class="dropdown-inner">
+			<div class="dropdown-title">Help</div>
+			<ul class="item-list">
+				<li class="item"><a href="#">Dashboard help</a></li>
+				<li class="item"><a href="#">SYSPER2 help</a></li>
+			</ul>
+		</div>
+	</div><!-- #header-user-help .dropdown-outer .serialexpand-dropdown -->
+</li><!-- .row-1 .help -->

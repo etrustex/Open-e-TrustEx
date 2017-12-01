@@ -1,0 +1,37 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<input type="hidden" id="txCannotBeRemoved" value="${txCannotBeRemoved}" />
+
+<table id="txResultsListTable" class="default tablesorter-table">
+    <thead>
+        <tr>
+            <th><fmt:message key="transaction.search.list.header.name" /></th>
+            <th><fmt:message key="transaction.search.list.header.version" /></th>
+            <th><fmt:message key="table.column.action" /></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <c:forEach var="tx" items="${partyAgreementForm.transactions}" varStatus="status">
+            <tr id="${tx.id}" class="${status.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+                <td>${tx.name}</td>
+                <td>${tx.version}</td>
+                <td>
+                    <j:button
+                        action_id="action_remove_tx${status.index}"
+                        action_class="action_remove_tx"
+                        button_style="margin-top:7px; margin-left:4px;"
+                        button_icon_class="icon-delete"
+                        tooltip_key="tooltip.button.delete"
+                        data="data-tx-id=\"${tx.id}\""/>
+                </td>
+                <form:hidden path="partyAgreementForm.transactions[${status.index}].id"/>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+

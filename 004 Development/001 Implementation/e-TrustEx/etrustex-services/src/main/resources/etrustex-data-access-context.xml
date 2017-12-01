@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:util="http://www.springframework.org/schema/util" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/util 
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd" 
+       default-autowire="byName">
+
+<!-- 	<bean id="proxyStore" class="net.sf.gilead.core.store.stateless.StatelessProxyStore"> -->
+<!-- 		<property name="persistenceUtil" ref="persistenceUtil" /> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="persistenceUtil" class="net.sf.gilead.core.hibernate.jpa.HibernateJpaUtil"> -->
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="persistentBeanManager" class="net.sf.gilead.core.PersistentBeanManager"> -->
+<!-- 		<property name="proxyStore" ref="proxyStore" /> -->
+<!-- 		<property name="persistenceUtil" ref="persistenceUtil" /> -->
+<!-- 	</bean> -->
+	<context:load-time-weaver/>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		  <property name="persistenceUnitName" value="etrustex"/>
+		  <property name="dataSource" ref="eTrustExDS"/>
+	</bean>
+	
+	<bean id="eTrustExDS" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${datasource.name}"/>
+	</bean>
+	
+	<!-- Liquibase -->
+<!-- 	<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase"> -->
+<!-- 	    <property name="dataSource" ref="eTrustExDS"/> -->
+<!-- 	    <property name="changeLog" value="classpath:liquibase/db.changelog-master.xml"/> -->
+<!-- 	    <property name="defaultSchema" value="${liquibase.default.schema}"/> -->
+<!-- 	</bean> -->
+	
+	
+	<bean id="metadataDAO" class="eu.europa.ec.cipa.etrustex.services.dao.MetadataDAO" />
+	<bean id="xmlDAO" class="eu.europa.ec.cipa.etrustex.services.dao.XmlDAO" />
+		
+
+	<bean id="transactionDAO" class="eu.europa.ec.cipa.etrustex.services.dao.TransactionDAO"/>	
+	<bean id="partyDAO" class="eu.europa.ec.cipa.etrustex.services.dao.PartyDAO"/>
+	<bean id="serviceEndpointDAO" class="eu.europa.ec.cipa.etrustex.services.dao.ServiceEndpointDao"/>
+	<bean id="interchangeAgreementDAO" class="eu.europa.ec.cipa.etrustex.services.dao.InterchangeAgreementDAO"/>
+	<bean id="partyAgreementDAO" class="eu.europa.ec.cipa.etrustex.services.dao.PartyAgreementDAO"/>
+	<bean id="credentialsDAO" class="eu.europa.ec.cipa.etrustex.services.dao.CredentialsDAO"/>
+	<bean id="messageResponseCodeDAO" class="eu.europa.ec.cipa.etrustex.services.dao.MessageResponseCodeDAO"/>
+	<bean id="endpointDAO" class="eu.europa.ec.cipa.etrustex.services.dao.EndpointDAO"/>
+	<bean id="decDAO" class="eu.europa.ec.cipa.etrustex.services.dao.DataExtractionConfigDAO"/>
+	<bean id="queryResultDAO" class="eu.europa.ec.cipa.etrustex.services.dao.QueryResultDAO"/>
+	
+	<bean id="messageBinaryDAO" class="eu.europa.ec.cipa.etrustex.services.dao.MessageBinaryDAO">
+		<property name="insertMessageBinaryQuery">
+			<value>
+				INSERT INTO 
+					ETR_TB_MESSAGE_BINARY(MSG_BIN_TYPE,MSG_BIN_MIME,MSG_BIN_MSG_ID,CRE_DT,CRE_ID,MOD_DT,MOD_ID,MSG_BIN_FILE)
+					VALUES(?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<property name="linkBinaryQuery">
+			<value>
+				UPDATE
+					ETR_TB_MESSAGE_BINARY set MSG_BIN_MSG_ID= ? where MSG_BIN_ID=?
+			</value>
+		</property>
+		<property name="retrieveBinaryQuery">
+			<value>
+				SELECT MSG_BIN_FILE FROM ETR_TB_MESSAGE_BINARY where MSG_BIN_MSG_ID=? and MSG_BIN_TYPE=?
+			</value>
+		</property>
+		
+		<property name="streamBinaryQuery">
+			<value>
+				update ETR_TB_MESSAGE_BINARY set MSG_BIN_FILE= ? where MSG_BIN_ID=?
+			</value>
+		</property>
+		<property name="retrieveBinaryStreamQuery">
+			<value>
+				SELECT MSG_BIN_FILE FROM ETR_TB_MESSAGE_BINARY where MSG_BIN_ID=?
+			</value>
+		</property>
+		 
+		
+		 <property name="encryptionKey">
+        	<value>XbwXQaT+LcFUXYX3Cnt6tQ8n8QKxcNRjpfZYQ9BGUdI=</value>
+        </property>
+        
+        <property name="keySize">
+        	<value>128</value>
+        </property>	
+		
+		
+	</bean>
+	
+	<bean id="messageDAO" class="eu.europa.ec.cipa.etrustex.services.dao.MessageDAO">
+		<property name="insertMessageQuery">
+			<value>
+        		INSERT INTO
+        			ETR_TB_MESSAGE(CRE_DT,CRE_ID,MOD_DT,MOD_ID,MSG_CORRELATION_ID,MSG_DOCUMENT_ID,MSG_STS_CD,MSG_AGR_ID,MSG_ISSUER_ID,MSG_TRANS_ID,MSG_RECEIPT_DT,MSG_ISSUE_DT,MSG_RECEIVER_ID,MSG_SENDER_ID,MSG_DOC_TYPE_CD,MSG_RETRIEVED_FL)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<property name="selectMessageQuery">
+			<value>
+				SELECT MSG_ID FROM ETR_TB_MESSAGE where MSG_SENDER_ID=? and MSG_DOCUMENT_ID=? and MSG_TRANS_ID=?
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="roleDAO" class="eu.europa.ec.cipa.etrustex.services.dao.RoleDAO"/>
+	<bean id="userDAO" class="eu.europa.ec.cipa.etrustex.services.dao.admin.UserDAO"/>
+	<bean id="profileDAO" class="eu.europa.ec.cipa.etrustex.services.dao.ProfileDAO"/>
+	<bean id="businessDomainDAO" class="eu.europa.ec.cipa.etrustex.services.dao.BusinessDomainDAO"/>
+	
+	<bean id="slaPolicyDAO" class="eu.europa.ec.cipa.etrustex.services.dao.SlaPolicyDAO"/>
+	<bean id="messageRoutingDAO" class="eu.europa.ec.cipa.etrustex.services.dao.MessageRoutingDAO"/>
+	<bean id="eventNotificationDAO" class="eu.europa.ec.cipa.etrustex.services.dao.EventNotificationDAO"/>
+
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	
+</beans>

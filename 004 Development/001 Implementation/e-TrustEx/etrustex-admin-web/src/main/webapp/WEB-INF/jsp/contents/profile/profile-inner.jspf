@@ -1,0 +1,22 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<div class="columns clear">
+	<form:hidden id="profileId" path="profileForm.id" />
+	
+	<jsp:include page="fragments/profileDetails.jspf"/>
+	
+	<jsp:include page="fragments/transactions.jspf"/>
+	<div class="hr"></div>
+
+	<c:choose>
+		<c:when test="${pageMode == 'new'}">
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/create_buttons.jspf"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/edit_buttons.jspf"/>
+		</c:otherwise>
+	</c:choose>
+</div>

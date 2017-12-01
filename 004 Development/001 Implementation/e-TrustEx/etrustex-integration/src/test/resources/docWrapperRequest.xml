@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns6:DocumentWrapperRequest
+	xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+	xmlns="ec:schema:xsd:DocumentWrapperRequest-1"
+	xmlns:ns4="ec:schema:xsd:CommonAggregateComponents-2"
+	xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:ns5="ec:services:wsdl:DocumentWrapper-2" xmlns:ns6="ec:schema:xsd:DocumentWrapperRequest-1">
+	<ns3:SenderParty>
+		<EndpointID>0088:000886688004</EndpointID>
+	</ns3:SenderParty>
+	<ns4:DocumentReferenceRequest>
+		<ID>UC110_SC663_MS01_IN01</ID>
+		<DocumentTypeCode>BINARY</DocumentTypeCode>
+	</ns4:DocumentReferenceRequest>
+</ns6:DocumentWrapperRequest>

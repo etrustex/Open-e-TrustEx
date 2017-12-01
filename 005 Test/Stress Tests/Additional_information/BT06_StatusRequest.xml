@@ -1,0 +1,27 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="ec:services:wsdl:StatusRequest-2" xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <soapenv:Header>
+      <ec:Header>
+         <ec1:BusinessHeader>
+            <stan:Sender>
+               <stan:Identifier>TRUSTSUPPARTY1</stan:Identifier>
+            </stan:Sender>
+         </ec1:BusinessHeader>
+      </ec:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ec:SubmitStatusRequestRequest xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+         <ec:StatusRequest>
+            <cac:SenderParty>
+               <cbc:EndpointID>TRUSTSUPPARTY1</cbc:EndpointID>
+            </cac:SenderParty>
+            <cac:ReceiverParty>
+               <cbc:EndpointID>TRUSTCUSTPARTY1</cbc:EndpointID>
+            </cac:ReceiverParty>
+            <ec1:DocumentReferenceRequest>
+               <cbc:ID>ID11</cbc:ID>
+               <cbc:DocumentTypeCode>BDL</cbc:DocumentTypeCode>
+            </ec1:DocumentReferenceRequest>
+         </ec:StatusRequest>
+      </ec:SubmitStatusRequestRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

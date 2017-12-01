@@ -1,0 +1,19 @@
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+<j:button action_id="action_cancel" 
+		  action_class="fr"
+		  button_type_class="alternate blue_button"
+		  button_optional_class="no-icon" 
+		  label_key="button.cancel" />
+		  
+<j:button action_id="action_delete" 
+		  action_class="fr" 
+		  button_type_class="alternate gray_button" 
+		  button_icon_class="icon-bw-delete" 
+		  label_key="button.delete" />
+
+<j:button action_id="action_edit" 
+		  action_class="fr" 
+		  button_type_class="alternate gray_button" 
+		  button_icon_class="icon-bw-edit" 
+		  label_key="button.edit" />

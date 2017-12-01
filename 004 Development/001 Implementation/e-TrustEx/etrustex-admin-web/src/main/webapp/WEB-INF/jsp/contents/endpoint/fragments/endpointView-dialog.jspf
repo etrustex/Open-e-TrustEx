@@ -1,0 +1,204 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<input type="hidden" id="endpointId" name="endpointId" value="${endpointForm.id}" />
+<input type="hidden" id="configurationType" value="${endpointForm.configurationType}" />
+
+
+<c:choose>
+	<c:when test="${endpointForm.configurationType eq 'JMS'}">
+		<div class="inner-box columns clear no-background">
+            <h1><fmt:message key="endpoint.jmsConfiguration.title"/></h1>
+			<div class="col-50">
+				<j:field label_key="endpoint.destinationJndiName">
+					<span class="field-view no-border text-color-light-grey">${endpointForm.destinationJndiName}</span>
+				</j:field>
+				<div class="cl"/>
+				
+				<j:field label_key="endpoint.initalContextFactory">
+					<span class="field-view no-border text-color-light-grey">${endpointForm.initalContextFactory}</span>
+				</j:field>
+				<div class="cl"/>
+				
+				<j:field label_key="endpoint.connectionFactoryJndiName">
+					<span class="field-view no-border text-color-light-grey">${endpointForm.connectionFactoryJndiName}</span>
+				</j:field>
+				<div class="cl"/>
+			</div>
+			
+			<div class="col-50">
+				<j:field label_key="endpoint.isSupportingReplyTo">
+					<span class="field-view no-border text-color-light-grey">
+						<c:choose>
+					 		<c:when test="${endpointForm.isSupportingReplyTo}"><fmt:message key="common.yes"/></c:when>
+					 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+					 	</c:choose> 
+					</span>
+				</j:field>
+				<div class="cl"/>
+				
+				<j:field label_key="endpoint.providerUrl">
+					<span class="field-view no-border text-color-light-grey">${endpointForm.providerUrl}</span>
+				</j:field>
+				<div class="cl"/>
+				
+				<j:field label_key="endpoint.messageConverterClass">
+					<span class="field-view no-border text-color-light-grey overflow-span">${endpointForm.messageConverterClass}</span>
+				</j:field>
+				<div class="cl"/>
+			</div>
+		</div>
+	</c:when>
+	<c:when test="${endpointForm.configurationType eq 'WS'}">
+		<div class="inner-box columns clear no-background">
+            <h1><fmt:message key="endpoint.wsConfiguration.title"/></h1>
+			<j:field label_key="endpoint.wsEndpointURL">
+				<span class="field-view no-border text-color-light-grey">${endpointForm.wsEndpointURL}</span>
+			</j:field>
+			<div class="cl"/>
+			
+			<j:field label_key="endpoint.signCall">
+				<span class="field-view no-border text-color-light-grey">
+					<c:choose>
+				 		<c:when test="${endpointForm.signCall}"><fmt:message key="common.yes"/></c:when>
+				 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+				 	</c:choose> 
+				</span>
+			</j:field>
+			<div class="cl"/>
+			
+			<j:field label_key="endpoint.checkResponseSignature">
+				<span class="field-view no-border text-color-light-grey">
+					<c:choose>
+				 		<c:when test="${endpointForm.checkResponseSignature}"><fmt:message key="common.yes"/></c:when>
+				 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+				 	</c:choose> 
+				</span>
+			</j:field>
+			<div class="cl"/>	
+		</div>
+	</c:when>
+	<c:otherwise>
+	    <div class="inner-box cl no-background">
+            <h1><fmt:message key="endpoint.amqpConfiguration.title"/></h1>
+            <j:field label_key="endpoint.providerUrl">
+                <span class="field-view no-border text-color-light-grey">${endpointForm.providerUrl}</span>
+            </j:field>
+            <div class="cl"/>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+<div class="inner-box columns clear no-background">
+    <h1><fmt:message key="endpoint.generalConfiguration.title"/></h1>
+	<div class="columns clear">
+		<div class="col-50">
+			<j:field label_key="endpoint.endointMessageType">
+				<span class="field-view no-border text-color-light-grey">${endpointForm.endointMessageType}</span>
+			</j:field>
+		</div>
+		
+		<div class="col-50">
+			<j:field label_key="endpoint.isActive">
+				<span class="field-view no-border text-color-light-grey">
+					<c:choose>
+				 		<c:when test="${endpointForm.isActive}"><fmt:message key="common.yes"/></c:when>
+				 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+				 	</c:choose> 
+				</span>
+			</j:field>
+		</div>
+	</div>
+	
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+        <h1><fmt:message key="endpoint.authentication.info.title"/></h1>
+		<div class="col-50">
+			<j:field label_key="endpoint.isAuthenticationRequired">
+				<span class="field-view no-border text-color-light-grey">
+					<c:choose>
+				 		<c:when test="${endpointForm.isAuthenticationRequired}"><fmt:message key="common.yes"/></c:when>
+				 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+				 	</c:choose> 
+				</span>
+			</j:field>
+		</div>
+		
+		<div class="col-50">
+			<j:field label_key="endpoint.authentication.credentials">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.credentials ? endpointForm.credentials.user : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="password">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.credentials ? endpointForm.credentials.password : ''}</span>
+			</j:field>
+		</div>
+	</div>
+	
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+        <h1><fmt:message key="endpoint.proxy.info.title"/></h1>
+		<div class="col-50">
+			<j:field label_key="endpoint.isUsingProxy">
+				<span class="field-view no-border text-color-light-grey">
+					<c:choose>
+				 		<c:when test="${endpointForm.useProxy}"><fmt:message key="common.yes"/></c:when>
+				 		<c:otherwise><fmt:message key="common.no"/></c:otherwise>
+				 	</c:choose> 
+				</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="endpoint.proxyHost">
+				<span class="field-view no-border text-color-light-grey">${endpointForm.proxyHost}</span>
+			</j:field>
+		</div>
+		
+		<div class="col-50">
+			<j:field label_key="endpoint.proxyCredential">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.proxyCredential ? endpointForm.proxyCredential.user : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="password">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.proxyCredential ? endpointForm.proxyCredential.password : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="endpoint.proxyPort">
+				<span class="field-view no-border text-color-light-grey">${endpointForm.proxyPort}</span>
+			</j:field>
+		</div>
+	</div>
+	
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+        <h1><fmt:message key="endpoint.message.info.title"/></h1>
+		<div class="col-50">
+			<j:field label_key="party.businessDomain">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.businessDomain ? endpointForm.businessDomain.name : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="metadata.transaction">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.tansaction ? ''.concat(endpointForm.tansaction.name).concat(' ').concat(endpointForm.tansaction.version) : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="party.title">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.party ? endpointForm.party.name : ''}</span>
+			</j:field>
+		</div>
+		
+		<div class="col-50">
+			<j:field label_key="profile">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.profile ? endpointForm.profile.name : ''}</span>
+			</j:field>
+			<div class="cl"/>
+			<j:field label_key="metadata.ica">
+				<span class="field-view no-border text-color-light-grey">${not empty endpointForm.interchangeAgreement ? endpointForm.interchangeAgreement.id : ''}</span>
+			</j:field>
+		</div>
+	</div>
+</div>
+
+<j:button action_id="action_cancel"
+		  action_class="fr"
+		  button_type_class="alternate blue_button"
+		  button_optional_class="no-icon"
+		  label_key="button.cancel" />

@@ -1,0 +1,94 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<j:box box_title_key="role.available">	
+	<c:choose>
+		<c:when test="${empty roleList}">
+			<div id="noRecordDiv">
+				<span class="icon-bullet-line">
+					<fmt:message key="no.roles.found"/>
+				</span>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="columns">
+				<div class="header-right fr top">
+					<div class="field">
+						<div class="field-label">
+							<h6>
+								<fmt:message key="table.filter" />
+							</h6>
+						</div>
+						<input class="table-filter field-value"
+							tableidtofilter="role_table" type="text">
+					</div>
+				</div>
+			</div>
+			<div class="cl"/>
+			<div id="partyListTableDiv" class="scrollable-table-y">
+				<table id="role_table" class="default tablesorter-table">
+					<caption>
+						<fmt:message key="role.records.found">
+							<fmt:param value="${fn:length(roleList)}" />
+						</fmt:message>
+					</caption>
+	
+					<thead>
+						<tr>
+							<th><fmt:message key="role.tableHeader.code" /></th>
+							<th><fmt:message key="role.tableHeader.name" /></th>
+							<th><fmt:message key="role.tableHeader.technicalFlag" /></th>
+							<th><fmt:message key="role.tableHeader.bidirectionalFlag" /></th>
+							<sec:authorize access="hasAnyRole('ADM')">
+								<th class="action" width="20%"><fmt:message key="role.tableHeader.actions" /></th>
+							</sec:authorize>
+						</tr>
+					</thead>
+	
+					<tbody>
+						<c:forEach var="role" items="${roleList}"
+							varStatus="roleListStatus">
+							<tr id="${role.id}"
+								class="${roleListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+								<td>${role.code}</td>
+								<td>${role.name}</td>
+								<td>
+									<c:choose>
+										<c:when test="${role.technicalFlag}">
+											<fmt:message key="common.yes" />
+										</c:when>
+										<c:otherwise>
+											<fmt:message key="common.no" />
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td>
+									<c:choose>
+										<c:when test="${role.bidirectionalFlag}">
+											<fmt:message key="common.yes" />
+										</c:when>
+										<c:otherwise>
+											<fmt:message key="common.no" />
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<sec:authorize access="hasAnyRole('ADM')">
+									<td class="action">
+										<fmt:message key="tooltip.button.delete" var="deleteTooltip"/>
+										<fmt:message key="tooltip.button.edit" var="editTooltip"/>
+										<a title="${deleteTooltip}" class="deleteRoleRow"><span class="icon icon-reject"></span></a> 
+										<a title="${editTooltip}" class="editRoleRow"><span class="icon icon-edit"></span></a>
+									</td>
+								</sec:authorize>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</j:box>

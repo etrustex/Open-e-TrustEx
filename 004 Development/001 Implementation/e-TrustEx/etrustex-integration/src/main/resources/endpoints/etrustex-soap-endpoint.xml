@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.2.xsd">
+
+	<bean id="sunMessageFactory" class="com.sun.xml.messaging.saaj.soap.MessageFactoryImpl" factory-method="newInstance">
+		<property name="lazyAttachmentOptimization" value="true" />
+	</bean>
+
+	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory">
+		<property name="messageFactory" ref="sunMessageFactory" />
+	</bean>
+
+	<bean class="org.springframework.ws.transport.http.WebServiceMessageReceiverHandlerAdapter">
+		<property name="messageFactory" ref="messageFactory" />
+	</bean>
+
+	<bean id="soapTransformer" class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer" />
+
+	<bean id="etrustExSubmitSoapEndpoint" class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExSubmitSoapIN" />
+		<property name="replyChannel" ref="trustExSubmitSoapOut" />
+		<property name="readService" value="false" />
+	</bean>
+
+	<bean id="etrustExReadSoapEndpoint" class="eu.europa.ec.cipa.etrustex.integration.gateway.ETrustEXSoapInboundGateway">
+		<property name="requestChannel" ref="trustExReadSoapIN" />
+		<property name="replyChannel" ref="trustExReadSoapOut" />
+		<property name="readService" value="true" />
+	</bean>
+
+	<bean id="etrustExWrapperSoapEndpoint" class="eu.europa.ec.cipa.etrustex.integration.gateway.EtrustEXWrapperEndpoint">
+		<property name="messageProcessingGateway" ref="messageProcessingGateway" />
+		<property name="messageBinaryGateway" ref="messageBinaryGateway" />
+		<property name="authorisationService" ref="authorisationService" />
+		<property name="metadataService" ref="metadataService" />
+		<property name="xmlService" ref="xmlService" />
+	</bean>
+
+	<int:channel id="trustExSubmitSoapIN" />
+	<int:channel id="trustExSubmitSoapOut" />
+	<int:channel id="trustExSubmitTransformToSoapOut" />
+
+	<int:channel id="trustExReadSoapIN" />
+	<int:channel id="trustExReadSoapOut" />
+	<int:channel id="trustExReadTransformToSoapOut" />
+
+	<!-- The Message handler Chain that aggregates the different message handlers that participates insoap message processing -->
+	<int:chain input-channel="trustExSubmitSoapIN" output-channel="trustSynchSubmitIN">
+		<!-- We must set the reply channel in the header in this case will be SOAP will be different for other endpoints(EJB,REST,...) -->
+		<int:header-enricher>
+			<int:header name="replyTO" value="SOAP" />
+		</int:header-enricher>
+		<int:transformer method="transformIncomingMessage">
+			<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+				<property name="endpointName" value="etrustExSubmitSoapEndpoint" />
+			</bean>
+		</int:transformer>
+	</int:chain>
+
+	<int:chain input-channel="trustExReadSoapIN" output-channel="trustExReadIN">
+		<!-- We must set the reply channel in the header in this case will be SOAP will be different for other endpoints(EJB,REST,...) -->
+		<int:header-enricher>
+			<int:header name="replyTO" value="SOAP" />
+		</int:header-enricher>
+		<int:transformer method="transformIncomingMessage">
+			<bean class="eu.europa.ec.cipa.etrustex.integration.transformers.SAAJSOAPToTrustExMessageTransformer">
+				<property name="endpointName" value="etrustExReadSoapEndpoint" />
+			</bean>
+		</int:transformer>
+	</int:chain>
+
+	<!-- The Message handler Chain that aggregates the different message handlers that participates insoap message processing -->
+	<int:chain input-channel="trustExSubmitTransformToSoapOut" output-channel="trustExSubmitSoapOut">
+		<int:transformer ref="soapTransformer" method="transformOutgoingMessage" />
+	</int:chain>
+
+	<!-- The Message handler Chain that aggregates the different message handlers that participates insoap message processing -->
+	<int:chain input-channel="trustExReadTransformToSoapOut" output-channel="trustExReadSoapOut">
+		<int:transformer ref="soapTransformer" method="transformOutgoingMessage" />
+	</int:chain>
+
+
+	<bean id="keyStoreHandler" class="org.springframework.ws.soap.security.xwss.callback.KeyStoreCallbackHandler">
+		<property name="trustStore" ref="trustStore" />
+		<property name="keyStore" ref="keyStore" />
+		<property name="privateKeyPassword" value="EtrustEx2013" />
+	</bean>
+
+	<bean id="trustStore" class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+		<property name="location" value="classpath:stores/truststore.jks" />
+		<property name="password" value="EtrustEx2013" />
+	</bean>
+
+	<bean id="keyStore" class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+		<property name="location" value="classpath:stores/keystore.jks" />
+		<property name="password" value="EtrustEx2013" />
+	</bean>
+	<bean id="exceptionResolver" class="org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver">
+		<property name="defaultFault" value="SERVER" />
+		<property name="exceptionMappings">
+			<value>
+				com.sun.xml.messaging.saaj.SOAPExceptionImpl=CLIENT,Request xml was not well formed
+
+			</value>
+		</property>
+	</bean>
+	<bean id="resolver" class="eu.europa.ec.cipa.etrustex.integration.util.ETrustExEndpointExceptionResolver" />
+	<bean id="wsSecurityInterceptor" class="eu.europa.ec.cipa.etrustex.integration.security.xwss.XwsSecurityInterceptor">
+		<property name="policyConfiguration" value="classpath:securityPolicy.xml" />
+		<property name="authorisationService" ref="authorisationService" />
+		<property name="exceptionResolver" ref="resolver" />
+		<property name="callbackHandlers">
+			<list>
+				<ref bean="keyStoreHandler" />
+			</list>
+		</property>
+	</bean>
+
+	
+	<bean id="httpLoggingInterceptor"
+		  class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor">
+		<property name="logRequest" value="true"/>
+		<property name="logResponse" value="true"/>
+		<property name="logFault" value="true"/>		
+		<property name="loggerName" value="httplog"/>
+	</bean>
+	
+	<bean id="outgoingWebServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+		<constructor-arg ref="messageFactory" />
+		<!-- <property name="messageSender"> -->
+		<!-- <bean class="org.springframework.ws.transport.http.CommonsHttpMessageSender"> -->
+		<!-- <property name="credentials"> -->
+		<!-- <bean class="org.apache.commons.httpclient.UsernamePasswordCredentials"> -->
+		<!-- <constructor-arg value="TestBundlePartyTwo"/> -->
+		<!-- <constructor-arg value="TestBundlePartyTwo"/> -->
+		<!-- </bean> -->
+		<!-- </property> -->
+		<!-- </bean> -->
+		<!-- </property> -->
+		<!-- <property name="defaultUri" value="http://localhost:8080/etrustex/services"/> -->
+		<property name="interceptors">
+			<list>			
+				<ref local="wsSecurityInterceptor" />				
+				<!-- <ref local="httpLoggingInterceptor" /> -->
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

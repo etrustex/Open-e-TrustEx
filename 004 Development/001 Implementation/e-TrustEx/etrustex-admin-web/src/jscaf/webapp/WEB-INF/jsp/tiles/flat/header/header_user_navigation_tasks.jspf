@@ -1,0 +1,31 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+
+<li class="row-1 tasks"  data-serialexpand="#header-user-tasks">
+	<a href="#" class="link-1 tasks"><span class="icon tasks"></span></a>
+	<span class="notification-count"><span class="notification-count-inner">3</span></span>
+	<div id="header-user-tasks" class="dropdown-outer serialexpand-dropdown">
+		<div class="dropdown-inner">
+			<div class="dropdown-title">To Dos <span class="notification-count">[21]</span></div>
+			<ul class="task-list-tabs-navigation">
+				<li class="tab"><a href="#" data-serialtabs="#today">Today</a></li>
+				<li class="tab"><a href="#" data-serialtabs="#7days">7 Days</a></li>
+				<li class="tab"><a href="#" data-serialtabs="#1month">1 Month</a></li>
+			</ul><!-- .task-list-tabs-navigation -->
+
+
+			<jsp:include page="header_user_navigation_tasks_day.jspf" flush="true"/>
+
+			<jsp:include page="header_user_navigation_tasks_week.jspf" flush="true"/>
+
+			<jsp:include page="header_user_navigation_tasks_month.jspf" flush="true"/>
+
+
+		</div><!-- . dropdown-inner -->
+	</div><!-- #header-user-tasks .dropdown-outer .serialexpand-dropdown -->
+</li><!-- .row-1 .tasks -->
+
+

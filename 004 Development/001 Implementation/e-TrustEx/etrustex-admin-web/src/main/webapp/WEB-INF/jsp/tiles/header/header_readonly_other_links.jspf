@@ -1,0 +1,28 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authentication property="principal" var="userInfo"/>
+<sec:authorize access="isAuthenticated()" var="isAuthenticated"/>
+<div class="other-links-wrapper clear">
+	<br>
+	<c:if test="${isAuthenticated && userInfo != null}">
+    	<div id="hdrUserWelcomeDiv" class="user-welcome field">
+	    	<div id="headerUserMsg" class="field-label">
+				<h6>
+					<fmt:message key="user.welcome">
+						<fmt:param value="${userInfo.username}" />
+						<fmt:param value="${userInfo.role.description}" />
+					</fmt:message>
+					:
+				</h6>
+			</div>
+			<span>${userInfo.businessDomain.name}</span>
+		</div>
+		<div class="cl"></div>
+	</c:if>
+</div>

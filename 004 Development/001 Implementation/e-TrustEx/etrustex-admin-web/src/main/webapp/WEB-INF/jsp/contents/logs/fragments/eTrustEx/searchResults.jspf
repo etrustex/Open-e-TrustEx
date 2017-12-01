@@ -1,0 +1,78 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa" %>
+
+	<c:choose>
+		<c:when test="${empty logs}">
+			<div id="noRecordDiv">
+				<span class="icon-bullet-line">
+					<fmt:message key="no.record.found"></fmt:message>
+				</span>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="notification note-info small no-margin">
+	            <p class="normal">
+	                <fmt:message key="search.select.log"></fmt:message>
+	            </p>
+	        </div>
+			
+			<div class="field fr">
+				<div class="field-label">
+					<h6>
+						<fmt:message key="table.filter" />
+					</h6>
+				</div>
+				<input class="table-filter field-value" tableidtofilter="logResultsListTable" type="text"/>
+			</div>
+
+			
+			<div class="cl"/>
+					
+			<div id="logResultsListTableDiv" class="scrollable-table-y">
+				<table id="logResultsListTable" class="default tablesorter-table">
+					<cipa:pagination_caption page="${param.page}" size="${param.size}"/>
+					<thead>
+						<tr>
+							<th><fmt:message key="log.search.list.header.date" /></th>
+							<th><fmt:message key="log.search.list.header.type" /></th>
+							<th><fmt:message key="log.search.list.header.businessDomain" /></th>
+							<th><fmt:message key="log.search.list.header.username" /></th>
+							<th><fmt:message key="log.search.list.header.userRole" /></th>
+							<th><fmt:message key="log.search.list.header.operation" /></th>
+							<th><fmt:message key="log.search.list.header.issuerParty" /></th>
+							<th><fmt:message key="log.search.list.header.senderParty" /></th>
+							<th><fmt:message key="log.search.list.header.receiverParty" /></th>
+							<th><fmt:message key="log.search.list.header.documentId" /></th>
+							<th><fmt:message key="log.search.list.header.documentTypeCode" /></th>
+							<th><fmt:message key="log.search.list.header.correlationId" /></th>
+							<th><fmt:message key="log.search.list.header.businessCorrelationId" /></th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<c:forEach var="log" items="${logs}" varStatus="logListStatus">
+							<tr id="${log.id}" class="clickable ${logListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+								<td ><a class="select-log"><fmt:formatDate value="${log.accessInfo.creationDate}" pattern="dd/MM/yyyy HH:mm:ss"/></a></td>
+								<td>${log.logType}</td>
+								<td>${log.businessDomain.name}</td>
+								<td>${log.username}</td>
+								<td>${log.userRole}</td>
+								<td>${log.operation}</td>
+								<td>${log.issuerParty.id}</td>
+								<td>${log.senderParty.id}</td>
+								<td>${log.receiverParty.id}</td>
+								<td>${log.documentId}</td>
+								<td>${log.documentTypeCode}</td>
+								<td>${log.correlationId}</td>
+								<td>${log.businessCorrelationId}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<cipa:pagination functionName="p.search" maxPages="${maxPages}" page="${param.page}" size="${param.size}"/>
+		</c:otherwise>
+	</c:choose>

@@ -1,0 +1,85 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<c:choose>
+    <c:when test="${empty routing}">
+        <div id="noRecordDiv">
+            <span class="icon-bullet-line">
+                <fmt:message key="no.record.found"></fmt:message>
+            </span>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div id="routingListTableDiv" class="scrollable-table-y">
+            <c:set var="showRedispatchBtn" value="${isInReceivedState}"/>
+            <table id="routingListTable" class="default tablesorter-table">
+                <thead>
+                    <tr>
+                        <th><fmt:message key="message.routing.endpoint.type"/></th>
+                        <th><fmt:message key="message.routing.endpoint"/></th>
+                        <th><fmt:message key="message.routing.endpoint.isActive"/></th>
+                        <th><fmt:message key="message.routing.dispatched"/></th>
+                        <th><fmt:message key="common.on"/></th>
+                        <th><fmt:message key="common.at"/></th>
+                        <sec:authorize access="hasRole('ADM')"><c:if test="${showRedispatchBtn}">
+                            <th><fmt:message key="table.column.action"/></th>
+                        </c:if></sec:authorize>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var="r" items="${routing}" varStatus="endpointListStatus">
+                        <tr id="${r.endpoint.id}" class="clickable ${endpointListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+                            <c:choose>
+                                <c:when test="${r.endpoint.getClass().name eq 'eu.europa.ec.cipa.etrustex.domain.routing.JMSEndpoint'}">
+                                    <td><a class="select-endpoint">'JMS'</a></td>
+                                    <td>${r.endpoint.providerUrl}<br/>${r.endpoint.destinationJndiName}</td>
+                                </c:when>
+                                <c:when test="${r.endpoint.getClass().name eq 'eu.europa.ec.cipa.etrustex.domain.routing.WSEndpoint'}">
+                                    <td><a class="select-endpoint">'Web Service'</a></td>
+                                    <td>${r.endpoint.wsEndpointURL}</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><a class="select-endpoint">'AMQP'</a></td>
+                                    <td>${r.endpoint.providerUrl}</td>
+                                </c:otherwise>
+                            </c:choose>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${r.endpoint.isActive}"><fmt:message key="common.yes"/></c:when>
+                                    <c:otherwise><fmt:message key="common.no"/></c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${r.processed}"><fmt:message key="common.yes"/></c:when>
+                                    <c:otherwise><fmt:message key="common.no"/></c:otherwise>
+                                </c:choose>
+                            </td>
+                             <td><fmt:formatDate pattern="dd/MM/yyyy" value="${r.accessInfo.modificationDate}" /></td>
+                             <td><fmt:formatDate pattern="HH:mm:ss" value="${r.accessInfo.modificationDate}" /></td>
+                             <sec:authorize access="hasRole('ADM')"><c:if test="${showRedispatchBtn}">
+                                <td>
+                                    <c:if test="${showRedispatchBtn && r.endpoint.isActive}">
+                                        <j:button action_id="${r.id}" action_class="fr" button_type_class="alternate gray_button routing_action_redispatch" button_optional_class="no-icon" label_key="button.redispatch" />
+                                    </c:if>
+                                </td>
+                            </c:if></sec:authorize>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+<j:button action_id="dialog_stuff_action_cancel"
+		  action_class="fr"
+		  button_type_class="alternate blue_button"
+		  button_optional_class="no-icon"
+		  label_key="button.cancel" />

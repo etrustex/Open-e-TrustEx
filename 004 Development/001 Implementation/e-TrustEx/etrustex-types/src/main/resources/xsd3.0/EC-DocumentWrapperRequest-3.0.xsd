@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="ec:schema:xsd:DocumentWrapperRequest-3"
+			xmlns:eccc="ec:schema:xsd:CommonComponents-3"
+			xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="ec:schema:xsd:DocumentWrapperRequest-3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<!-- ===== Imports ===== -->
+	<xsd:import namespace="ec:schema:xsd:CommonComponents-3" schemaLocation="custom/EC-CommonComponents-3.0.xsd"/>
+	<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+	<!-- ===== Root Element ===== -->
+	<xsd:element name="DocumentWrapperRequest" type="DocumentWrapperRequestType"/>
+	<xsd:complexType name="DocumentWrapperRequestType">
+		<xsd:sequence>
+			<xsd:element ref="eccc:CustomizationID" minOccurs="0"/>
+			<xsd:element ref="eccc:ProfileID" minOccurs="0"/>
+			<xsd:element ref="eccc:ID" minOccurs="0"/>
+			<xsd:element ref="eccc:CopyIndicator" minOccurs="0"/>
+			<xsd:element ref="eccc:UUID" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueDate" minOccurs="0"/>
+			<xsd:element ref="eccc:Note" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="eccc:SenderParty" minOccurs="0"/>
+			<xsd:element ref="eccc:ReceiverParty" minOccurs="0"/>
+			<xsd:element ref="eccc:ActionCode" minOccurs="0"/>
+			<xsd:element ref="eccac:DocumentReferenceRequest"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

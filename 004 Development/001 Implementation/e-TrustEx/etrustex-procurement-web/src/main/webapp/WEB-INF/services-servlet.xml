@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.0.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.0.xsd
+			http://www.springframework.org/schema/web-services
+       		http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+       		http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	
+	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<list>
+				<value>classpath:log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+	  
+	<bean id="messageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="endpointMapping"/>
+        <property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property>         
+    </bean>
+	
+	<bean id="customerMessageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="customerEndpointMapping"/>
+        <property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property>         
+    </bean>
+    
+    <bean id="supplierMessageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="supplierEndpointMapping"/>
+        <property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property>         
+    </bean>
+    
+	<!-- This is the definition of the endpoint mapping for the web service calls the MessageDispacherServlet
+	  delegates incoming soap message processing to this bean. We use content base routing to determine
+	  to which spring integration endpoint the message should be forwarded -->
+	<bean id="endpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping" >
+		<property name="mappings"> 
+ 			<props>
+				<prop key="{ec:services:wsdl:CreateParty-2}CreatePartyRequest">etrustExReadSoapEndpoint</prop> 
+				<prop key="{ec:services:wsdl:CreateInterchangeAgreement-2}CreateInterchangeAgreementRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:InboxRequest-0.1}SubmitInboxRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-2}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-2.2}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-3}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>								
+ 			</props>
+		</property>
+		<property name="defaultEndpoint" ref="etrustExSubmitSoapEndpoint"/>
+		<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>
+	</bean>	
+	<bean id="supplierEndpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping" >
+		<property name="mappings">
+			<props>
+				<prop key="{ec:services:wsdl:StatusRequest-0.2}SubmitStatusRequestRequest">etrustExReadSupplierSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveRequest-0.1}SubmitRetrieveRequestRequest">etrustExReadSupplierSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:ViewRequest-0.1}SubmitViewRequestRequest">etrustExReadSupplierSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequest-0.2}SubmitQueryRequestRequest">etrustExReadSupplierSoapEndpoint</prop>
+			</props>
+		</property>
+		<property name="defaultEndpoint" ref="etrustExSubmitSupplierSoapEndpoint" />
+				<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>	
+	</bean>	
+	<bean id="customerEndpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping" >
+		<property name="mappings">
+			<props>
+				<prop key="{ec:services:wsdl:RetrieveRequest-0.1}SubmitRetrieveRequestRequest">etrustExReadCustomerSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequest-0.1}SubmitQueryRequestRequest">etrustExReadCustomerSoapEndpoint</prop>	
+				<prop key="{ec:services:wsdl:ViewRequest-0.2}SubmitViewRequestRequest">etrustExReadCustomerSoapEndpoint</prop>
+			</props>
+		</property>
+		<property name="defaultEndpoint" ref="etrustExSubmitCustomerSoapEndpoint" />	
+				<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>
+	</bean>
+	
+	<bean id="resolver" class="eu.europa.ec.cipa.eprocurement.util.ETrustExEndpointExceptionResolver"/>	
+	
+</beans>

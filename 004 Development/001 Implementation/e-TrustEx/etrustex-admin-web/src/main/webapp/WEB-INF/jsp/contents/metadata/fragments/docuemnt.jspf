@@ -1,0 +1,28 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:choose>
+	<c:when test="${pageMode eq ''}">
+		<j:field label_key="metadata.document"> 
+			<span id="displayDocumentName" class="field-view" style="width:200px;">${metadataSearchForm.document_search.name} ${metadataSearchForm.document_search.version}</span>
+		</j:field>
+		<form:hidden id="documentId" path="metadataSearchForm.document_search.id"/>
+		<form:hidden id="documentName" path="metadataSearchForm.document_search.name"/>
+		<form:hidden id="documentVersion" path="metadataSearchForm.document_search.version"/>
+		<cipa:error_label fieldPath="metadataSearchForm.document_search.id"/>
+	</c:when>
+	<c:otherwise>
+		<j:field label_key="metadata.document"> 
+			<span id="displayDocumentName" class="field-view" style="width:200px;">${metadataForm.document.name} ${metadataForm.document.version}</span>
+		</j:field>
+		<form:hidden id="documentId" path="metadataForm.document.id"/>
+		<form:hidden id="documentName" path="metadataForm.document.name"/>
+		<form:hidden id="documentVersion" path="metadataForm.document.version"/>
+		<cipa:error_label fieldPath="metadataForm.document.id"/>
+	</c:otherwise>
+</c:choose>
+<j:button action_id="action_search_document" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-search" tooltip_key="button.search"/>
+<j:button action_id="action_remove_document" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-reset" tooltip_key="button.remove"/>

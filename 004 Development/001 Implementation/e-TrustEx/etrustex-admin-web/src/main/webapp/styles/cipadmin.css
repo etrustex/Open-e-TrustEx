@@ -1,0 +1,233 @@
+/********************************************************************/
+/********** TARGET APPLICATION SUBCLASS of BASE COMMON.CSS **********/
+/********************************************************************/
+
+/* dummy logo image generated using : http://www.dummyimage.com/190x50 */
+#header .logo {
+	height: 100px;
+	background-image: url('images/_app/logos/CIPAdmin_100x100.png');
+}
+
+/*#header {
+	height: 130px;
+	background-color: #8241C3;
+}*/
+#header {
+	height: 130px;
+	background-color: white;
+}
+
+#header.read-only {
+	height: 100px;
+}
+#header.read-only .logo {
+	margin-top: -5px;
+}
+
+#header #top-nav-multi, #header .breadcrumbs {
+	border-top: 1px solid #8241C3;
+	border-bottom: 1px solid #6D7D86;
+	background-color: #A170D2;
+	top: 110px;
+}
+
+#top-nav-multi > ul > li > a {
+  color: #FFFFFF;
+  padding: 8px;
+  text-decoration: none;
+  text-transform: none;
+  transition: color 0.2s ease 0s;
+}
+
+#top-nav-multi ul ul li a {
+  background: none repeat scroll 0 0 #A170D2;
+  color: #FFFFFF;
+  width: 190px;
+}
+
+#top-nav-multi > ul > li.has-sub > a:after {
+  border-bottom: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+}
+
+#top-nav-multi > ul > li.has-sub:hover > a:after {
+	border-color: #FFFF00; 
+}
+
+/*#header .top-bar {
+	background-color: #FFEB00;
+}*/
+#header .top-bar {
+	background-color: white;
+}
+
+#header .top-bar li {
+	background: #633097;
+}
+
+#header .top-bar li:hover {
+	background-color: #560EAD;
+}
+
+
+/*#header .other-links-wrapper .user-welcome {
+	color: #FFEB00;
+}*/
+#header .other-links-wrapper .user-welcome {
+	color: #633097;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+#headerUserMsg {
+	width: 350px;
+}
+/*
+#languageWrapperDiv, #hdrUserWelcomeDiv{
+	margin-top: 0px;
+}*/
+
+#page-title-wrapper h1 {
+color: #633097;
+}
+
+/*
+.icon-dashboard-contact {
+	background-image: url(images/_app/dashboard/dashboard-contact.png);
+}
+
+.icon-dashboard-help {
+	background-image: url(images/_app/dashboard/dashboard-help.png);
+}
+
+.icon-dashboard-search {
+	background-image: url(images/_app/dashboard/dashboard-search.png);
+}*/
+
+#language {
+	font-size: 1em;
+}
+
+/*#main-content {width: 100%; left:0%; }
+
+#roleCreationForm .inner-inner-box {width: 98.5%;}
+#profileCreationForm .inner-inner-box {width: 98.5%;}
+
+.scrollable-table-y {
+	overflow-y: scroll;
+}
+
+div.buttons {float: right; padding-top: 2px; padding-bottom: 5px;}*/
+
+.inner-box {
+	width: 99%;
+}
+
+.no-background {
+	background: none;
+}
+
+/* Scrollable tables */
+
+.scrollable-table-y {
+	height: 500px; 
+	overflow-y: auto;
+	
+}
+
+.textarea-wrap{
+	overflow: hidden;
+    padding: 0 !important;
+}
+
+.error-label { color: #ff2e2e !important; padding-top: 0; margin-bottom: 0; }
+
+.col-45                         { width: 49.4%; float: left; margin-right: 0; } 
+.col-55                         { width: 50.6%; float: left; margin-right: 0; }
+
+/* equal length buttons */
+#user_action_add_party span span span, 
+#user_action_remove_parties span span span, 
+#user_action_add_configuration span span span {
+	width: 160px;
+}
+
+.disabled {
+	color: grey;
+	pointer-events: none;
+  	cursor: default;
+}
+
+.field select.field-value       { height: 25px; max-width: 250px;}
+
+
+.pagination-footer { background: none transparent; padding: 2px 12px   2px 0; text-align: center;}
+
+
+.overflow-span {
+    max-width: 400px;
+    min-height: 30px;
+    overflow: auto !important;
+}
+
+.notification ul {
+  margin: 0 0 0 10px;
+}
+
+.notification li {
+  margin: 4px 0 4px 10px;
+}
+
+#pwdReccommendations {
+    margin-bottom: 0;
+}
+
+.input-group.date {
+  float: right;
+}
+
+.field-label.datepicker-label {
+    margin-top: 12px !important;
+}
+
+.timepicker .timepicker-picker table td, .timepicker-widget .timepicker-picker table td span, .timepicker-widget .timepicker-picker table td a span, .bootstrap-datetimepicker-widget .timepicker .timepicker-picker table td span {
+  height: 15px;
+  line-height: 15px;
+  padding: 0;
+  width: 15px;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+/*
+
+.bootstrap-datetimepicker-widget table td, .bootstrap-datetimepicker-widget table th {
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+*/
+
+.timepicker-picker a.btn {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+}
+
+.field-view.field-view-list {
+  height: auto;
+}
+
+.field .field-label.large { width: 260px}
+/*
+.bootstrap-datetimepicker-widget table td.day {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+
+.bootstrap-datetimepicker-widget table td.day:hover, .bootstrap-datetimepicker-widget table td.hour:hover, .bootstrap-datetimepicker-widget table td.minute:hover, .bootstrap-datetimepicker-widget table td.second:hover {
+    background: #eeeeee none repeat scroll 0 0;
+    cursor: pointer;
+}*/

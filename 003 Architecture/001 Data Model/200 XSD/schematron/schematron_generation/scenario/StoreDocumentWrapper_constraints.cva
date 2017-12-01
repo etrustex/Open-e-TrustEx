@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValueListConstraints 
+ xmlns="http://docs.oasis-open.org/codelist/ns/ContextValueAssociation/cd2-1.0/"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+  xmlns:cct="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentParameters-2"
+  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+  xmlns:udt="urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2"
+  xmlns:stat="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0"
+  xmlns:ec="ec:schema:xsd:DocumentWrapper-0.1"
+  name="StoreDocumentWrapper_code_list_rules"
+  version="Version 0.1">
+  <Annotation>
+    <Description>
+      CVA file for the StoreDocumentWrapper code list rules for the e-TrustEx project at the European Commission (DIGIT)
+    </Description>
+  </Annotation>
+  <Title>
+    StoreDocumentWrapper code list rules for the e-TrustEx project at the European Commission (DIGIT) by PwC
+  </Title>
+  <!--list all of the genericode expressions of agreed-upon code list
+      value enumerations-->
+  <ValueLists>
+  </ValueLists>
+  <!--list all of the contexts in which the value enumerations are used;
+      where two or more contexts might match a given node in the input,
+      list them here in order of most-important to least important match-->
+  <Contexts>
+  </Contexts>
+</ValueListConstraints>

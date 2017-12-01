@@ -1,0 +1,68 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<c:choose>
+	<c:when test="${empty partyAgreements}">
+		<div id="noRecordDiv">
+			<span class="icon-bullet-line">
+				<fmt:message key="no.record.found"></fmt:message>
+			</span>
+		</div>
+	</c:when>
+	<c:otherwise>
+	<%--
+		<div class="notifpartyAgreementtion note-info small no-margin">
+            <p class="normal">
+                <fmt:message key="partyAgreement.result.infos"/>
+            </p>
+        </div>
+    --%>
+		<div class="field fr">
+			<div class="field-label">
+				<h6>
+					<fmt:message key="table.filter" />
+				</h6>
+			</div>
+			<input class="table-filter field-value" tableidtofilter="resultsListTable" type="text"/>
+		</div>
+
+		<div class="cl"/>
+
+        <div id="resultsListTableDiv" class="scrollable-table-y">
+			<table id="resultsListTable" class="default tablesorter-table">
+				<caption>
+					<fmt:message key="partyAgreement.records.found">
+						<fmt:param value="${fn:length(partyAgreements)}" />
+					</fmt:message>
+				</caption>
+
+				<thead>
+					<tr>
+						<th><fmt:message key="partyAgreement.authorizingParty" /></th>
+						<th><fmt:message key="partyAgreement.delegateParty" /></th>
+						<th><fmt:message key="partyAgreement.transactions.all" /></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="partyAgreement" items="${partyAgreements}" varStatus="status">
+						<tr id="${partyAgreement.id}" class="clickable ${status.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+							<td><a class="select-partyAgreement">${partyAgreement.authorizingParty.name}</a></td>
+							<td>${partyAgreement.delegateParty.name}</td>
+							<td>
+                                <c:choose>
+                                    <c:when test="${empty partyAgreement.transactions}"><fmt:message key="common.yes"/></c:when>
+                                    <c:otherwise><fmt:message key="common.no"/></c:otherwise>
+                                </c:choose>
+                            </td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:otherwise>
+</c:choose>

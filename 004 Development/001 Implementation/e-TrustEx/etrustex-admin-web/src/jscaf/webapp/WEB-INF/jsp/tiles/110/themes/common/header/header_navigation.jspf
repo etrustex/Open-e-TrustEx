@@ -1,0 +1,53 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://eu.europa.ec.digit.jscaf/tags" prefix="j" %>
+
+<ul class="top-nav">
+    <%--
+
+        <li>
+            <a href="<c:url value="/home.do"/>"><i class="icon-ft-home white mr"></i>HOME</a>
+        </li>
+
+        <li>
+            <a>Samples menu</a>
+            <div class="sub">
+                  <div class="row">
+                      <ul>
+                        <li class="child"><a href="<c:url value="/home.do"/>">Sub page</a></li>
+                      </ul>
+                  </div>
+            </div>
+        </li>
+
+    --%>
+</ul>
+
+
+<%-- ALTERNATE MENU STYLE : multi-level
+
+    <div id='top-nav-multi'>
+    <ul>
+       <li><a href="<c:url value="/home.do"/>">Home</a></li>
+       <li class='active has-sub'><a>Module 1</a>
+          <ul>
+             <li class='has-sub'><a>Sub-module 1</a>
+                <ul>
+                   <li><a href="<c:url value="/home.do"/>">Page 1</a></li>
+                   <li><a href="<c:url value="/home.do"/>">Page 2</a></li>
+                </ul>
+             </li>
+             <li class='has-sub'><a>Sub-module 2</a>
+                <ul>
+                   <li><a href="<c:url value="/home.do"/>">Page 1</a></li>
+                   <li><a href="<c:url value="/home.do"/>">Page 2</a></li>
+                </ul>
+             </li>
+          </ul>
+       </li>
+       <li><a href="<c:url value="/home.do"/>">About</a></li>
+       <li><a href="<c:url value="/home.do"/>">Contact</a></li>
+    </ul>
+    </div>
+--%>

@@ -1,0 +1,32 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="ec:services:wsdl:ApplicationResponse-2" xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <soapenv:Header>
+       <ec:Header>
+         <ec1:BusinessHeader>
+            <stan:Sender>
+               <stan:Identifier>TRUSTSUPPARTY1</stan:Identifier>
+            </stan:Sender>
+            <stan:Receiver>
+               <stan:Identifier>TRUSTCUSTPARTY1</stan:Identifier>
+            </stan:Receiver>
+         </ec1:BusinessHeader>
+      </ec:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ec:SubmitApplicationResponseRequest>
+         <ec:ApplicationResponse>
+            <urn1:ID>ID0000000001</urn1:ID>
+            <urn1:IssueDate>2013-11-01</urn1:IssueDate>
+            <urn:DocumentResponse>
+               <urn:Response>
+                  <urn1:ReferenceID>ID1012</urn1:ReferenceID>
+                  <urn1:ResponseCode>BDL:7</urn1:ResponseCode>
+               </urn:Response>
+               <urn:DocumentReference>
+                  <urn1:ID>ID1012</urn1:ID>
+                  <urn1:DocumentTypeCode>BDL</urn1:DocumentTypeCode>
+               </urn:DocumentReference>
+            </urn:DocumentResponse>
+         </ec:ApplicationResponse>
+      </ec:SubmitApplicationResponseRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,168 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
+
+<sec:authentication property="principal" var="userInfo"/>
+
+<div class="inner-box columns clear no-background">
+	<h1><fmt:message key="endpoint.generalConfiguration.title"/></h1>
+	<div class="columns clear">
+		<div class="col-50">
+			 <j:field label_key="endpoint.endointMessageType" field_class="required"> 
+			 	<form:select path="endpointForm.endointMessageType" id="endointMessageType" class="field-value JS_live-validation">
+					<form:options items="${endointMessageTypes}"/>
+				</form:select>
+			 </j:field>
+			<cipa:error_label fieldPath="endpointForm.endointMessageType"/>
+		</div>
+		
+		<div class="col-50">
+			<j:field label_key="endpoint.isActive" field_class="required"> 
+			 	<form:hidden path="endpointForm.isActive" id="isActive" class="field-value" />
+			 	<span class="field-other-input fl">
+                    <span id="isActive_bs" class="JS_buttonSet JS_live-validation" associatedPropertyId="isActive">
+              	        <c:choose>
+			                <c:when test="${endpointForm.isActive}">
+			                    <c:set var="isActiveCheckedYes" value='checked="checked"' scope="page"/>
+			                    <c:set var="isActiveCheckedNo" value='' scope="page"/>
+			                </c:when>
+			                <c:otherwise>
+			                    <c:set var="isActiveCheckedYes" value='' scope="page"/>
+			                    <c:set var="isActiveCheckedNo" value='checked="checked"' scope="page"/>
+			                </c:otherwise>
+			            </c:choose>
+			            <input type="radio" id="isActive_bs_Y" name="isActive_bs" value="true" ${isActiveCheckedYes}/>
+					   	<label for="isActive_bs_Y"><fmt:message key="common.yes"/></label>
+					   	<input type="radio" id="isActive_bs_N" name="isActive_bs"  value="false"  ${isActiveCheckedNo}/>
+					   	<label for="isActive_bs_N"><fmt:message key="common.no"/></label>
+                    </span>
+                 </span>
+			 </j:field>
+		</div>
+	</div>
+	<br/>
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+    	<h1><fmt:message key="endpoint.authentication.info.title"/></h1>
+		<div class="col-50">
+			<j:field label_key="endpoint.isAuthenticationRequired" field_class="required"> 
+			 	<form:hidden path="endpointForm.isAuthenticationRequired" id="isAuthenticationRequired" class="field-value" />
+			 	<span class="field-other-input fl">
+                    <span id="isAuthenticationRequired_bs" class="JS_buttonSet JS_live-validation" associatedPropertyId="isAuthenticationRequired">
+              	    	<c:choose>
+			                <c:when test="${endpointForm.isAuthenticationRequired}">
+			                    <c:set var="isAuthenticationRequiredCheckedYes" value='checked="checked"' scope="page"/>
+			                    <c:set var="isAuthenticationRequiredCheckedNo" value='' scope="page"/>
+			                </c:when>
+			                <c:otherwise>
+			                    <c:set var="isAuthenticationRequiredCheckedYes" value='' scope="page"/>
+			                    <c:set var="isAuthenticationRequiredCheckedNo" value='checked="checked"' scope="page"/>
+			                </c:otherwise>
+			            </c:choose>
+			            <input type="radio" id="isAuthenticationRequired_bs_Y" name="isAuthenticationRequired_bs" value="true" ${isAuthenticationRequiredCheckedYes}/>
+					   	<label for="isAuthenticationRequired_bs_Y"><fmt:message key="common.yes"/></label>
+					   	<input type="radio" id="isAuthenticationRequired_bs_N" name="isAuthenticationRequired_bs"  value="false" ${isAuthenticationRequiredCheckedNo}/>
+					   	<label for="isAuthenticationRequired_bs_N"><fmt:message key="common.no"/></label>
+                    </span>
+                </span>
+			 </j:field>
+		</div>
+		<div class="col-50">	 
+			<div style="display:inline-block;" id="authCredentialsDiv">
+				<jsp:include page="credentials.jspf"/>
+			</div>
+		</div>
+	</div>
+	
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+        <h1><fmt:message key="endpoint.proxy.info.title"/></h1>
+		<div class="col-50">
+			<j:field label_key="endpoint.isUsingProxy" field_class="required">
+			 	<form:hidden path="endpointForm.useProxy" id="useProxy" class="field-value"  value="false"/>
+			 	<span class="field-other-input fl">
+                    <span id="useProxy_bs" class="JS_buttonSet JS_live-validation" associatedPropertyId="useProxy">
+              	        <c:choose>
+			                <c:when test="${endpointForm.useProxy}">
+			                    <c:set var="useProxyCheckedYes" value='checked="checked"' scope="page"/>
+			                    <c:set var="useProxyCheckedNo" value='' scope="page"/>
+			                </c:when>
+			                <c:otherwise>
+			                    <c:set var="useProxyCheckedYes" value='' scope="page"/>
+			                    <c:set var="useProxyCheckedNo" value='checked="checked"' scope="page"/>
+			                </c:otherwise>
+			            </c:choose>
+			            <input type="radio" id="useProxy_bs_Y" name="useProxy_bs" value="true" ${useProxyCheckedYes}/>
+					   	<label for="useProxy_bs_Y"><fmt:message key="common.yes"/></label>
+					   	<input type="radio" id="useProxy_bs_N" name="useProxy_bs" value="false"  ${useProxyCheckedNo}/>
+					   	<label for="useProxy_bs_N"><fmt:message key="common.no"/></label>
+                    </span>
+                </span>
+			 </j:field>
+			<div class="cl"/>
+			<j:field label_key="endpoint.proxyHost"> 
+			 	<form:input path="endpointForm.proxyHost" id="proxyHost" class="field-value JS_live-validation JS_show_validation_error "/>
+			</j:field>
+			<cipa:error_label fieldPath="endpointForm.proxyHost"/>	 
+		</div>
+		
+		<div class="col-50">
+			 <div style="display:inline-block;" id="proxyCredentialsDiv">
+			 	<jsp:include page="proxyCredentials.jspf"/>
+			</div>
+			
+			<j:field label_key="endpoint.proxyPort"> 
+			 	<form:input path="endpointForm.proxyPort" id="proxyPort" class="field-value JS_live-validation JS_show_validation_error "/>
+			</j:field>
+			<cipa:error_label fieldPath="endpointForm.proxyPort"/>
+		</div>
+	</div>
+	
+	<div class="inner-box columns clear" style="background: inherit; width: 96%;">
+        <h1><fmt:message key="endpoint.message.info.title"/></h1>
+		<div class="col-50">
+            <j:field label_key="party.businessDomain" field_class="cl">
+			<c:choose>
+			    <c:when test="${userInfo.role.code eq 'CBO'}">
+                    <!-- CBO searching party to create Routing Endpoint Configuration -->
+                     <form:select path="endpointForm.businessDomain" class="field-value">
+                        <form:option value="${userInfo.businessDomain.id}">${userInfo.businessDomain.name}</form:option>
+                    </form:select>
+                </c:when>
+                <c:otherwise>
+                        <form:select path="endpointForm.businessDomain" id="businessDomain" cssClass="field-value JS_live-validation" items="${businessDomains}" itemValue="id" itemLabel="name"/>
+                </c:otherwise>
+            </c:choose>
+            </j:field>
+            <cipa:error_label fieldPath="endpointForm.businessDomain"/>
+
+			<div class="cl"/>
+			
+			<div style="display:inline-block;" id="transactionDiv">
+				<jsp:include page="transaction.jspf"/>
+			</div>
+
+
+            <fmt:message key="endpoint.message.routing.party.tooltip" var="partyTooltip"/>
+			<div style="display:inline-block;" id="partyDiv" title="${partyTooltip}">
+				<jsp:include page="party.jspf"/>
+			</div>	
+			<div class="cl"/>
+		</div>
+		
+		<div class="col-50">
+			<div id="profilesDiv">
+				<jsp:include page="profiles.jspf"/>
+			</div>
+			<div class="cl"/>
+		
+			<div style="display:inline-block;" id="icaDiv">
+				<jsp:include page="ica.jspf"/>
+			</div>
+			<div class="cl"/>
+		</div>
+	</div>
+</div>

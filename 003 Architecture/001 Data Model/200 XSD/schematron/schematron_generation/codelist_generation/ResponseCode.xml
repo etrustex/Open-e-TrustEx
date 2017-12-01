@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Identification>
+		<ShortName>ResponseCode</ShortName>
+		<LongName>Response Code</LongName>
+		<Version>0.1</Version>
+		<CanonicalUri>Placeholder</CanonicalUri>
+		<CanonicalVersionUri>Placeholder</CanonicalVersionUri>
+		<LocationUri> </LocationUri>
+		<AgencyLongName>European Commision</AgencyLongName>
+		<Locale>en</Locale>
+	</Identification>
+	<ValuesSet>
+		<ValueSet>
+			<Code>BDL:3</Code>
+			<Value>Document Bundle ID already exists</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>BDL:4</Code>
+			<Value>Hard business rule violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>BDL:5</Code>
+			<Value>Parent document ID does not exist</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>BDL:6</Code>
+			<Value>Missing Attachment binary data</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>BDL:7</Code>
+			<Value>Bundle has been read</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:3</Code>
+			<Value>Document Wrapper ID already exists</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:4</Code>
+			<Value>Hard business rule violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:6</Code>
+			<Value>Missing Attachment binary data</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:7</Code>
+			<Value>SLA rules violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:8</Code>
+			<Value>Document Wrapper doesn't exist</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>DWR:9</Code>
+			<Value>Document Wrapper already linked to a Document Bundle</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:3</Code>
+			<Value>Application Response ID already exists</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:4</Code>
+			<Value>Hard business rule violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:5</Code>
+			<Value>Parent document ID does not exist</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:6</Code>
+			<Value>Parent document is not in the expected state</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:7</Code>
+			<Value>Notification: processing ok</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>301:8</Code>
+			<Value>Notification: processing nok</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>PRT:3</Code>
+			<Value>Party entity already exists</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>PRT:4</Code>
+			<Value>Hard business rule violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>9</Code>
+			<Value>Multiple ContactIDs for a SenderParty in the SOAP header </Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:3</Code>
+			<Value>Document Bundle ID already exists</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:4</Code>
+			<Value>Hard business rule violated</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:5</Code>
+			<Value>Parent document ID does not exist</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:6</Code>
+			<Value>Missing Attachment binary data</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:7</Code>
+			<Value>Bundle has been read</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:8</Code>
+			<Value>No PDF file can be found</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:9</Code>
+			<Value>Missing routing information</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:10</Code>
+			<Value>The message could not be constructed, please check the Validation Report</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:11</Code>
+			<Value>Error while building the message, please check for missing information</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:12</Code>
+			<Value>The e-codex Gateway is down</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:13</Code>
+			<Value>The Delivery Evidence is not properly structured. </Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>JUS:14</Code>
+			<Value>Received document is not properly structured</Value>
+		</ValueSet>
+	</ValuesSet>
+</CodeList>

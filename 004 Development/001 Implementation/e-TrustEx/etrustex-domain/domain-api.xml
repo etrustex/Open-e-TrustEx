@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+  <id>api</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>target/classes</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+       <include>eu/europa/ec/cipa/etrustex/types/*.class</include> 
+       <include>eu/europa/ec/cipa/etrustex/domain/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/admin/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/log/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/query/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/routing/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/sla/*.class</include>
+       <include>eu/europa/ec/cipa/etrustex/domain/util/*.class</include>
+
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>

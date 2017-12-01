@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="QueryRequest" targetNamespace="ec:services:wsdl:QueryRequest-0.1" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:QueryRequest-0.1" xmlns:req="ec:schema:xsd:QueryRequest-0.1" xmlns:res="ec:schema:xsd:QueryResponse-0.1" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-0.1" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-0.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<types>
+		<xsd:schema targetNamespace="ec:services:wsdl:QueryRequest-0.1" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:QueryRequest-0.1" schemaLocation="../xsd/maindoc/EC-QueryRequest-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:QueryResponse-0.1" schemaLocation="../xsd/maindoc/EC-QueryResponse-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-0.1" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-0.1.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-0.1" schemaLocation="../xsd/maindoc/EC-Fault-0.1.xsd"/>
+			<xsd:element name="SubmitQueryRequestRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="QueryRequest" type="req:QueryRequestType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitQueryRequestResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="QueryResponse" type="res:QueryResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthorisationHeader" type="eccac:AuthorisationHeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</types>
+	
+	<message name="QueryRequestRequest">
+		<part name="QueryRequestRequest" element="tns:SubmitQueryRequestRequest"/>
+		<part name="AuthorisationHeader" element="tns:AuthorisationHeader"/>
+	</message>
+	<message name="QueryRequestResponse">
+		<part name="QueryRequestResponse" element="tns:SubmitQueryRequestResponse"/>
+		<part name="AuthorisationHeader" element="tns:AuthorisationHeader" />
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault" />
+	</message>
+	
+	<portType name="QueryRequestPortType">
+		<operation name="submitQueryRequest">
+			<input message="tns:QueryRequestRequest"/>
+			<output message="tns:QueryRequestResponse"/>
+			<fault message="tns:FaultResponse" name="FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="QueryRequestBinding" type="tns:QueryRequestPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitQueryRequest">
+			<soap:operation style="document"/>
+			<input>
+				<soap:body use="literal" parts="QueryRequestRequest"/>
+				<soap:header use="literal" message="tns:QueryRequestRequest" part="AuthorisationHeader">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body use="literal" parts="QueryRequestResponse"/>
+				<soap:header use="literal" message="tns:QueryRequestResponse" part="AuthorisationHeader">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="QueryRequestService">
+		<port name="QueryRequestPort" binding="tns:QueryRequestBinding">
+			<soap:address location="${wsdl.base.location}/eprior/services"/>
+		</port>
+	</service>
+</definitions>

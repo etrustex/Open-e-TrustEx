@@ -1,0 +1,28 @@
+<xsd:schema elementFormDefault="qualified" 
+		targetNamespace="ec:schema:xsd:DeleteDocument-3" 
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"		
+		xmlns:ccts="urn:un:unece:uncefact:documentation:2"
+		xmlns:tns="ec:schema:xsd:DeleteDocument-3" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:eccc="ec:schema:xsd:CommonComponents-3">
+ 
+	<xsd:import namespace="ec:schema:xsd:CommonComponents-3" schemaLocation="../xsd3.0/custom/EC-CommonComponents-3.0.xsd"/>
+	
+	<xsd:element name="DeleteDocument" type="tns:DeleteDocumentType"/>
+	
+	<xsd:complexType name="DeleteDocumentType">
+  		<xsd:sequence>
+  			<xsd:element ref="eccc:CustomizationID" minOccurs="0"/>
+			<xsd:element ref="eccc:ProfileID" minOccurs="0"/>
+			<xsd:element ref="eccc:ID" minOccurs="0"/>
+			<xsd:element ref="eccc:UUID" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueDate" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueTime" minOccurs="0"/>
+			<xsd:element ref="eccc:Note" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="eccc:SenderParty"/>
+			<xsd:element ref="eccc:ReceiverParty"/>
+			<xsd:element ref="eccc:DocumentReference"/>
+  		</xsd:sequence>
+	</xsd:complexType>	
+   		
+</xsd:schema>

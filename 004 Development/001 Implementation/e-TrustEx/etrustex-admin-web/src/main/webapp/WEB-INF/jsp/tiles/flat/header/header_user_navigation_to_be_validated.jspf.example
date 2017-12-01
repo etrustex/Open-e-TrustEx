@@ -1,0 +1,110 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+
+<li class="row-1 to-be-validated"  data-serialexpand="#header-user-to-be-validated">
+	<a href="#" class="link-1 to-be-validated"><span class="icon to-be-validated"></span></a>
+	<span class="notification-count"><span class="notification-count-inner">3</span></span>
+	<div id="header-user-to-be-validated" class="dropdown-outer serialexpand-dropdown">
+		<div class="dropdown-inner">
+			<div class="dropdown-title">To Be Validated <span class="notification-count">[21]</span></div>
+			<ul class="to-be-validated-list-tabs-navigation">
+				<li class="tab"><a href="#" data-serialtabs="#vacation-requests">Vacation requests</a></li>
+				<li class="tab"><a href="#" data-serialtabs="#lorem">Lorem</a></li>
+				<li class="tab"><a href="#" data-serialtabs="#ipsum">Ipsum</a></li>
+			</ul><!-- .task-list-tabs-navigation -->
+			<div id="vacation-requests" class="task-list-tabs-content">
+				<h2 class="section-title01">Vacation requests</h2>
+				<ul class="task-list">
+					<li class="task has-date">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion"><strong>15.09.2014</strong> - Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="tag js-serialaccordion">J - 258</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+					<li class="task has-date">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion"><strong>14.09.2013</strong> - Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="tag js-serialaccordion">J - 01</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+					<li class="task">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+				</ul><!-- .task-list -->
+				<h2 class="section-title01 late">In Late</h2>
+				<ul class="task-list">
+					<li class="task late">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="tag js-serialaccordion">In Late</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+				</ul>							
+			</div><!-- #vacation-requests .task-list-tabs-content -->
+			<div id="lorem" class="task-list-tabs-content">
+				<h2 class="section-title01">Lorem</h2>
+				<ul class="task-list">
+					<li class="task">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+					<li class="task">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+				</ul><!-- .task-list -->
+			</div><!-- #lorem -->
+			<div id="ipsum" class="task-list-tabs-content">
+				<h2 class="section-title01">Ipsum</h2>
+										<ul class="task-list">
+					<li class="task">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+					<li class="task">
+						<div class="task-header">
+							<span class="task-title js-serialaccordion">Lorem ipsum dolore sit amet. Cras feugiat orci et consectetur ornare.</span><span class="task-expand js-serialaccordion"></span>
+						</div>
+						<div class="task-body js-serialaccordion-content">
+							<p class="task-description">Suspendisse ultricies porttitor volutpat. Curabitur lobortis metus ac tellus volutpat fringilla. Sed non tortor mattis, pulvinar ante eu, aliquam magna.</p>
+							<p class="task-description"><a href="#">Accéder au module</a></p>
+						</div>
+					</li>
+				</ul><!-- .task-list -->
+			</div><!-- #ipsum -->
+		</div><!-- . dropdown-inner -->
+	</div><!-- #header-user-tasks .dropdown-outer .serialexpand-dropdown -->
+</li><!-- .row-1 .to-be-validated -->

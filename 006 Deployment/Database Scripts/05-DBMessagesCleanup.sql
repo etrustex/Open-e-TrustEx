@@ -1,0 +1,1 @@
+-- //////////////////////////////////////////////////////-- Clean the DB from Messages:-- It is mainly information related messages sent-- //////////////////////////////////////////////////////DELETE FROM etr_tb_message_binary;DELETE FROM etr_tb_msg_msg;DELETE FROM etr_tb_message;

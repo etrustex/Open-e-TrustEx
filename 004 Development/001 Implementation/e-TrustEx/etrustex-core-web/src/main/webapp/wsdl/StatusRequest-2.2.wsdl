@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:StatusRequest-2.2" 
+ xmlns:sta="ec:schema:xsd:StatusRequest-2" xmlns:str="ec:schema:xsd:StatusResponse-2" 
+ xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-2" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="StatusRequest" targetNamespace="ec:services:wsdl:StatusRequest-2.2">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:StatusRequest-2.2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:StatusRequest-2" schemaLocation="../xsd2.1/maindoc/EC-StatusRequest-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:StatusResponse-2" schemaLocation="../xsd2.1/maindoc/EC-StatusResponse-2.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd2.1/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-2" schemaLocation="../xsd2.1/maindoc/EC-Fault-2.0.xsd"/>
+			<xsd:element name="SubmitStatusRequestRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="StatusRequest" type="sta:StatusRequestType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitStatusRequestResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="StatusResponse" type="str:StatusResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	<message name="StatusRequestRequest">
+		<part name="StatusRequestRequest" element="tns:SubmitStatusRequestRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="StatusRequestResponse">
+		<part name="StatusRequestResponse" element="tns:SubmitStatusRequestResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	<portType name="StatusRequestPortType">
+		<operation name="submitStatusRequest">
+			<input message="tns:StatusRequestRequest"/>
+			<output message="tns:StatusRequestResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="StatusRequestBinding" type="tns:StatusRequestPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitStatusRequest">
+			<soap:operation style="document"/>
+			<input>
+				<soap:body parts="StatusRequestRequest" use="literal"/>
+				<soap:header message="tns:StatusRequestRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="StatusRequestResponse" use="literal"/>
+				<soap:header message="tns:StatusRequestResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="StatusRequestService">
+		<port name="StatusRequestPort" binding="tns:StatusRequestBinding">
+			<soap:address location="${etrustex.root.location}/services"/>
+		</port>
+	</service>
+</definitions>

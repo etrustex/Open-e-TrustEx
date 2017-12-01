@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:eccc="ec:schema:xsd:CommonComponents-3" xmlns="ec:schema:xsd:RetrieveInterchangeAgreementsRequest-3" targetNamespace="ec:schema:xsd:RetrieveInterchangeAgreementsRequest-3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	
+	<xsd:import namespace="ec:schema:xsd:CommonComponents-3" schemaLocation="../xsd3.0/custom/EC-CommonComponents-3.0.xsd"/>
+	
+	<xsd:element name="RetrieveInterchangeAgreementsRequest" type="RetrieveInterchangeAgreementsRequestType"/>
+	<xsd:complexType name="RetrieveInterchangeAgreementsRequestType">
+		<xsd:sequence>
+			<xsd:element ref="eccc:CustomizationID" minOccurs="0"/>
+			<xsd:element ref="eccc:ProfileID" minOccurs="0"/>
+			<xsd:element ref="eccc:ID" minOccurs="0"/>
+			<xsd:element ref="eccc:CopyIndicator" minOccurs="0"/>
+			<xsd:element ref="eccc:UUID" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueDate" minOccurs="0"/>
+			<xsd:element ref="eccc:IssueTime" minOccurs="0"/>
+			<xsd:element ref="eccc:Note" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="eccc:SenderParty" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="eccc:ReceiverParty" minOccurs="0" maxOccurs="1"/>
+			<xsd:element ref="eccc:DocumentTypeCode" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

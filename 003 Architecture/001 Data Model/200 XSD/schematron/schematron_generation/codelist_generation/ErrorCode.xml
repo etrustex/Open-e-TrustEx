@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CodeList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Identification>
+		<ShortName>ErrorCode</ShortName>
+		<LongName>Error Code</LongName>
+		<Version>0.1</Version>
+		<CanonicalUri>Placeholder</CanonicalUri>
+		<CanonicalVersionUri>Placeholder</CanonicalVersionUri>
+		<AgencyLongName>European Commision</AgencyLongName>
+		<Locale>en</Locale>
+	</Identification>
+	<ValuesSet>
+		<ValueSet>
+			<Code>error.documenttypecode_check</Code>
+			<Value>The DocumentTypeCode of the message cannot be empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.id_check</Code>
+			<Value>The ID of the message cannot be empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.id_invalid_char</Code>
+			<Value>The ID of the message contains an invalid character</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.id_length_check</Code>
+			<Value>The ID of the message cannot be larger than 250 characters</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.correlationid_check</Code>
+			<Value>The Correlation ID in OriginatorDocumentReference/ID must be present and not empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.contactid_check</Code>
+			<Value>The Contact ID in ReceiverParty/Contact/ID must be present and not empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.countrysubentitycode_check</Code>
+			<Value>The Contact ID in ReceiverParty/PhysicalLocation/CountrySubentityCode must be present and not empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.invalid_codetable_value_documenttypecode</Code>
+			<Value>Value supplied is unacceptable for an element controlled by codelist DocumentTypeCode</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.invalid_codetable_value_parentdocumenttypecode</Code>
+			<Value>Value supplied is unacceptable for an element controlled by codelist ParentDocumentTypeCode</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.invalid_codetable_value_sortfieldtypecode</Code>
+			<Value>Value supplied is unacceptable for an element controlled by codelist SortFieldTypeCode</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.invalid_date_range</Code>
+			<Value>Period startdate is later than enddate</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.issuedate_future</Code>
+			<Value>The IssueDate of the message is in the future</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.issuedate_old</Code>
+			<Value>The IssueDate of the message is older than 12 months</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.large_date_range</Code>
+			<Value>The difference between startdate and enddate is larger than one year</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.paginationrange_invalid_range</Code>
+			<Value>PaginationRange From is larger than To</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.paginationrange_large_range</Code>
+			<Value>The difference between PaginationRange.To and PaginationRange.From cannot be larger than 1000</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.parent_document_documenttypecode_check</Code>
+			<Value>The ParentDocumentTypeCode must exist</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.parent_document_documenttypecode_check_application_response</Code>
+			<Value>An ApplicationResponse must not refer to an ApplicationResponse in the DocumentTypeCode element </Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.parent_document_id_check</Code>
+			<Value>The ParentDocumentID cannot be empty</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.parent_document_id_invalid_char</Code>
+			<Value>The ParentDocumentID contains an invalid character</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.parent_document_id_length_check</Code>
+			<Value>The ParentDocumentID cannot be larger than 250 characters</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.period_check_enddate</Code>
+			<Value>Element Period misses child element EndDate</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.period_check_startdate</Code>
+			<Value>Element Period misses child element StartDate</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.receiverpartyid_check</Code>
+			<Value>The Sender Party Endpoint ID and the Receiver Party Endpoint ID must be present in the message payload.</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.senderpartyid_check</Code>
+			<Value>The Sender Party Endpoint ID and the Receiver Party Endpoint ID must be present in the message payload.</Value>
+		</ValueSet>
+		<ValueSet>
+			<Code>error.userid_check</Code>
+			<Value>The UserID cannot be empty</Value>
+		</ValueSet>
+	</ValuesSet>
+</CodeList>

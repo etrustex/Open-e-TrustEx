@@ -1,0 +1,77 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+
+<div  class="columns clear">
+	<div class="col-50">
+		<j:field label_key="transaction.name" field_class="required" >
+		 	<form:input path="transactionForm.name" class="field-value JS_live-validation"/> 
+		</j:field>
+		<cipa:error_label fieldPath="transactionForm.name"/>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.version" field_class="required" >
+		 	<form:input path="transactionForm.version" class="field-value JS_live-validation"/> 
+		 </j:field>
+		<cipa:error_label fieldPath="transactionForm.version"/>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.namespace" field_class="required" >
+		 	<form:input path="transactionForm.namespace" class="field-value JS_live-validation"/>
+		 </j:field>
+		<cipa:error_label fieldPath="transactionForm.namespace"/>
+		<div class="cl"/>
+		
+		<div style="display:inline-block;" id="documentDiv">
+			<jsp:include page="docuemnt.jspf"/>
+		</div>	
+		<div class="cl"/>
+	</div>
+	
+	<div class="col-50">
+		<j:field label_key="transaction.requestLocalName" field_class="required" >
+		 	<form:input path="transactionForm.requestLocalName" class="field-value JS_live-validation"/> 
+		 </j:field>
+		<cipa:error_label fieldPath="transactionForm.requestLocalName"/>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.responseLocalName" field_class="required" >
+		 	<form:input path="transactionForm.responseLocalName" class="field-value JS_live-validation"/> 
+		 </j:field>
+		<cipa:error_label fieldPath="transactionForm.responseLocalName"/>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.senderRole" field_class="required notEditable">
+		 	<form:select path="transactionForm.senderRole.id" id="senderRole" cssClass="field-value">
+		 		<form:option value=""><fmt:message key="choose.please" /></form:option>
+				<form:options items="${roleList}" itemValue="id" itemLabel="name"/>
+			</form:select>
+		 </j:field>
+		 <cipa:error_label fieldPath="transactionForm.senderRole.id"/>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.receiverRole" field_class="required notEditable">
+		 	<form:select path="transactionForm.receiverRole.id" id="receiverRole" cssClass="field-value">
+		 		<form:option value=""><fmt:message key="choose.please" /></form:option>
+				<form:options items="${roleList}" itemValue="id" itemLabel="name"/>
+			</form:select>
+		 </j:field>
+		 <cipa:error_label fieldPath="transactionForm.receiverRole.id"/>
+		<div class="cl"/>
+	</div>
+	
+	<jsp:include page="CIALevels.jspf" />
+	<div class="cl"/>
+
+	 <j:field label_key="transaction.profiles"> 
+	 	<form:select path="transactionForm.profiles" id="profiles" cssClass="form-control" multiple="true" items="${profiles}" itemValue="id" itemLabel="name"/>
+	 </j:field>
+	 <cipa:error_label fieldPath="transactionForm.profiles"/>
+	<div class="cl"/>
+</div>
+
+<div class="hr"></div>

@@ -1,0 +1,73 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<sec:authentication property="principal" var="userInfo"/>
+
+<div class="columns cl">
+	<div class="col-50">
+	    <j:field label_key="log.creation.date.from" label_class="datepicker-label">
+	        <cipa:datetime fieldPath="logsSearchForm.creationDateFrom"/>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.creationDateFrom"/>
+
+        <j:field label_key="log.creation.date.to" label_class="datepicker-label">
+		 	<cipa:datetime fieldPath="logsSearchForm.creationDateTo"/>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.creationDateTo"/>
+
+		<j:field label_key="log.logType" field_class="cl"> 
+		 	<form:select path="logsSearchForm.logType_search" id="logType_search" class="field-value action_search_on_enter">
+		 		<form:option value="">--<fmt:message key="choose.please" />--</form:option>
+				<form:options items="${logTypes}" />
+			</form:select>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.logType_search"/>
+		
+		<j:field label_key="log.operation" field_class="cl">
+		 	<form:select path="logsSearchForm.operation_search" id="operation_search" class="field-value action_search_on_enter">
+		 		<form:option value="">--<fmt:message key="choose.please" />--</form:option>
+				<form:options items="${operations}" />
+			</form:select>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.logType_search"/>
+		
+		<j:field label_key="log.entity" field_class="cl">
+		 	<form:select path="logsSearchForm.entity_search" id="entity_search" class="field-value action_search_on_enter">
+		 		<form:option value="">--<fmt:message key="choose.please" />--</form:option>
+				<form:options items="${entities}" />
+			</form:select>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.logType_search"/>
+	</div>
+	
+	<div class="col-50">
+		<j:field label_key="log.businessDomain" field_class="cl"> 
+		 	<form:select path="logsSearchForm.businessDomain_search.id" id="businessDomain_search" class="field-value action_search_on_enter">
+				<form:option value="-1">--<fmt:message key="choose.please" />--</form:option>
+				<form:options items="${userInfo.businessDomains}" itemValue="id" itemLabel="name"/>
+			</form:select>
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.businessDomain_search.id"/>
+		
+		<j:field label_key="log.username" field_class="cl"> 
+		 	<form:input path="logsSearchForm.username_search" id="username_search" class="field-value action_search_on_enter" type="text" />
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.username_search"/>
+		
+		<j:field label_key="log.sessionId" field_class="cl"> 
+		 	<form:input path="logsSearchForm.correlationId_search" id="correlationId_search" class="field-value action_search_on_enter" type="text" />
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.correlationId_search"/>
+		
+		<j:field label_key="log.entityId" field_class="cl"> 
+		 	<form:input path="logsSearchForm.entityId_search" id="entityId_search" class="field-value action_search_on_enter" type="text" />
+		</j:field>
+		<cipa:error_label fieldPath="logsSearchForm.entityId_search"/>
+	</div>
+</div>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ $Id: ContextValueAssociation.xsd,v 1.8 2008/11/11 16:32:06 gkholman Exp $
+
+Code List Representation Technical Committee - OASIS
+
+Copyright (C) OASIS Open (2008). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to others, and
+derivative works that comment on or otherwise explain it or assist in its
+implementation may be prepared, copied, published and distributed, in whole or
+in part, without restriction of any kind, provided that the above copyright
+notice and this paragraph are included on all such copies and derivative works.
+However, this document itself may not be modified in any way, such as by
+removing the copyright notice or references to OASIS, except as needed for the
+purpose of developing OASIS specifications, in which case the procedures for
+copyrights defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages other than English.
+
+The limited permissions granted above are perpetual and will not be revoked by
+OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an "AS IS"
+basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT
+INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR
+A PARTICULAR PURPOSE.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns="http://docs.oasis-open.org/codelist/ns/ContextValueAssociation/cd2-1.0/"
+ elementFormDefault="qualified"
+ targetNamespace=
+     "http://docs.oasis-open.org/codelist/ns/ContextValueAssociation/cd2-1.0/">
+
+<!-- xml:id per http://www.w3.org/TR/2005/REC-xml-id-20050909/ -->
+<xsd:import schemaLocation="xml.xsd" 
+            namespace="http://www.w3.org/XML/1998/namespace"/>
+
+<xsd:annotation>
+ <xsd:documentation xml:lang="en">
+   A document model of the association of document contexts with the
+   URIs of expressions of enumerations of values.
+ </xsd:documentation>
+</xsd:annotation>
+
+<!--The entire set is an expression of context/value constraints-->
+<xsd:element name="ValueListConstraints">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="Title" minOccurs="0"/>
+      <xsd:element ref="Include" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element ref="ValueLists"/>
+      <xsd:element ref="Contexts"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string" use="optional"/>
+    <xsd:attribute name="name" type="xsd:NMTOKEN" use="required"/>
+    <xsd:attribute name="version" type="xsd:string" use="optional"/>
+    <xsd:attribute name="queryBinding" type="xsd:NMTOKEN" use="optional"/>
+  </xsd:complexType>
+</xsd:element>
+
+<!--A short title used for the human reader-->
+<xsd:element name="Title">
+  <xsd:complexType mixed="true">
+    <xsd:sequence>
+      <xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
+               processContents="skip"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<!--A directive to include the rules from another association file-->
+<xsd:element name="Include">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="uri" type="xsd:anyURI"/>
+  </xsd:complexType>
+</xsd:element>
+
+<!--The set of lists of values declared once for re-use-->
+<xsd:element name="ValueLists">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="ValueList" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<!--A list of values with a unique identifier for reference in contexts-->
+<xsd:element name="ValueList">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="Identification" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute ref="xml:id"/>
+    <xsd:attribute name="uri" type="xsd:anyURI"/>
+    <xsd:attribute name="key" type="xsd:NMTOKEN" use="optional"/>
+  </xsd:complexType>
+</xsd:element>
+
+<!--Masquerading the external meta data with a declared set of meta data-->
+<xsd:element name="Identification">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="ShortName" minOccurs="0"/>
+      <xsd:element ref="LongName" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element ref="Version" minOccurs="0"/>
+      <xsd:element ref="CanonicalUri" minOccurs="0"/>
+      <xsd:element ref="CanonicalVersionUri" minOccurs="0"/>
+      <xsd:element ref="LocationUri" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element ref="AlternateFormatLocationUri" minOccurs="0" 
+                   maxOccurs="unbounded"/>
+      <xsd:element name="Agency" minOccurs="0">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="ShortName" minOccurs="0"/>
+            <xsd:element ref="LongName" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Identifier" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+<!--the short name for the set-->
+<xsd:element name="ShortName">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:token">
+        <xsd:attribute ref="xml:lang" use="optional"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+<!--A long name for the set-->
+<xsd:element name="LongName">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:normalizedString">
+        <xsd:attribute name="Identifier" type="xsd:normalizedString"
+                       use="optional"/>
+        <xsd:attribute ref="xml:lang" use="optional"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+<!--The version of the set-->
+<xsd:element name="Version" type="xsd:token"/>
+<!--The URI of the set-->
+<xsd:element name="CanonicalUri" type="xsd:anyURI"/>
+<!--The URI of version of the set-->
+<xsd:element name="CanonicalVersionUri" type="xsd:anyURI"/>
+<!--A location of the set-->
+<xsd:element name="LocationUri" type="xsd:anyURI"/>
+<!--A location of an alternative expression of the set-->
+<xsd:element name="AlternateFormatLocationUri">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:anyURI">
+        <xsd:attribute name="MimeType" type="xsd:normalizedString"
+                       use="optional"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+<!--An identifier for agencies-->
+<xsd:element name="Identifier">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:normalizedString">
+        <xsd:attribute ref="xml:lang" use="optional"/>
+        <xsd:attribute name="Identifier" type="xsd:normalizedString"
+                       use="optional"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
+<!--The set of document contexts to which values are associated-->
+<xsd:element name="Contexts">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="Context" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<!--A given information item, optionally expressed in a complete address
+    expression or a simple descendents context scope, pointing to the sets of
+    values; possibly attributed with a mark to distinguish this contextual
+    test from other contextual tests in the resulting reports-->
+<xsd:element name="Context">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="Annotation" minOccurs="0"/>
+      <xsd:element ref="Message" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="item" type="xsd:string" use="required"/>
+    <xsd:attribute name="scope" type="xsd:string" use="optional"/>
+    <xsd:attribute name="address" type="xsd:string" use="optional"/>
+    <xsd:attribute name="values" type="xsd:IDREFS" use="required"/>
+    <xsd:attribute name="mark" type="xsd:NMTOKEN" use="optional"/>
+  </xsd:complexType>
+</xsd:element>
+
+<!--The replacement message used in place of the built-in message that reports 
+    a violation of a context/value constraint-->
+<xsd:element name="Message">
+  <xsd:complexType mixed="true">
+    <xsd:sequence>
+      <xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
+               processContents="skip"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<!--An embedded annotation for extrinsic information-->
+<xsd:element name="Annotation">
+  <xsd:complexType>
+    <xsd:sequence>
+      <!--annotations meant for human consumption:  similar to XSD 
+          "documentation", the following is named "Description" to be 
+           the same as used in genericode-->
+      <xsd:element name="Description" minOccurs="0" maxOccurs="unbounded">
+        <xsd:complexType mixed="true">
+          <xsd:sequence>
+            <xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
+                     processContents="skip"/>
+          </xsd:sequence>
+          <xsd:attribute ref="xml:lang" use="optional"/>
+        </xsd:complexType>
+      </xsd:element>
+      <!--annotations not meant for human consumption, but for application
+          consumption-->
+      <xsd:element name="AppInfo" minOccurs="0">
+        <xsd:complexType mixed="true">
+          <xsd:sequence>
+            <xsd:any namespace="##other" minOccurs="0" maxOccurs="unbounded"
+                     processContents="skip"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

@@ -1,0 +1,16 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="ec:services:wsdl:InboxRequest-2" xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <soapenv:Header>
+      <ec:Header>
+         <ec1:BusinessHeader>
+            <stan:Sender>
+               <stan:Identifier>TRUSTSUPPARTY1</stan:Identifier>
+            </stan:Sender>
+         </ec1:BusinessHeader>
+      </ec:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ec:SubmitInboxRequestRequest>
+         <ec:InboxRequest/>
+      </ec:SubmitInboxRequestRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

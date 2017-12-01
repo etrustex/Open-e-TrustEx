@@ -1,0 +1,9 @@
+package @app.group.id@.@app.name@.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import @app.group.id@.@app.name@.entity.@module.Name@;
+
+public interface @module.Name@Repository extends CrudRepository<@module.Name@, Integer> {
+	 
+}

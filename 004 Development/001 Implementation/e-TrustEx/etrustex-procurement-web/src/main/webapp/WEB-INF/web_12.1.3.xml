@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>etrustex-procurement-web</display-name>
+ <context-param>
+  <param-name>parentContextKey</param-name>
+  <param-value>etrustex-integration-layer.context</param-value>
+ </context-param>
+ <context-param>
+  <param-name>locatorFactorySelector</param-name>
+  <param-value>classpath:etrustex-integration-layer-context.xml</param-value>
+ </context-param>
+ 
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+  <filter>
+    <filter-name>authenticationFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>   
+ <filter>
+  	<filter-name>logFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter> 
+  <filter-mapping>
+  	<filter-name>authenticationFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>  
+  <filter-mapping>
+  	<filter-name>logFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>  
+ 
+<!--  <servlet> -->
+<!--   <description>This servlet is the entry point of the webservices end points of -->
+<!-- 		open eprior application that delegates the handling of incoming webservice calls -->
+<!-- 		to the Spring Integration messaging endpoint</description> -->
+<!--   <servlet-name>services</servlet-name> -->
+<!--   <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>  -->
+<!--  <servlet-class>eu.europa.ec.cipa.eprocurement.services.CustomMessageDispatcherServlet</servlet-class> -->
+<!--   <load-on-startup>1</load-on-startup> -->
+<!--  </servlet> -->
+   
+<!--  <servlet-mapping> -->
+<!--   <servlet-name>services</servlet-name> -->
+<!--   <url-pattern>/services/*</url-pattern> -->
+<!--  </servlet-mapping> -->
+
+	<servlet>
+		<servlet-name>services</servlet-name>
+		<servlet-class>eu.europa.ec.cipa.etrustex.integration.web.CustomMessageDispatcherServlet</servlet-class>
+		<init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/services-servlet.xml</param-value>
+    	</init-param>
+    	<init-param>
+	        <param-name>messageReceiverBeanName</param-name>
+	        <param-value>messageReceiver</param-value>
+    	</init-param>
+    	<init-param>
+	    	<param-name>wl-dispatch-policy</param-name>
+	    	<param-value>epriorWorkManager</param-value>
+	    </init-param>  	
+	</servlet>
+	<servlet>
+		<servlet-name>customerServices</servlet-name>
+		<servlet-class>eu.europa.ec.cipa.etrustex.integration.web.CustomMessageDispatcherServlet</servlet-class>
+		<init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/services-servlet.xml</param-value>
+    	</init-param>
+    	<init-param>
+	        <param-name>messageReceiverBeanName</param-name>
+	        <param-value>customerMessageReceiver</param-value>
+    	</init-param>
+    	<init-param>
+	    	<param-name>wl-dispatch-policy</param-name>
+	    	<param-value>epriorWorkManager</param-value>
+	    </init-param>   
+	</servlet>
+	<servlet>
+		<servlet-name>supplierServices</servlet-name>
+		<servlet-class>eu.europa.ec.cipa.etrustex.integration.web.CustomMessageDispatcherServlet</servlet-class>
+		<init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/services-servlet.xml</param-value>
+    	</init-param>
+    	<init-param>
+	        <param-name>messageReceiverBeanName</param-name>
+	        <param-value>supplierMessageReceiver</param-value>
+    	</init-param>
+    	<init-param>
+	    	<param-name>wl-dispatch-policy</param-name>
+	    	<param-value>epriorWorkManager</param-value>
+	    </init-param>   
+	</servlet>
+	<servlet>
+	    <servlet-name>bshservlet</servlet-name>
+	    <servlet-class>bsh.servlet.BshServlet</servlet-class>
+	    <init-param>
+	    	<param-name>wl-dispatch-policy</param-name>
+	    	<param-value>epriorWorkManager</param-value>
+	    </init-param>  
+	 </servlet>
+	<servlet-mapping>
+		<servlet-name>bshservlet</servlet-name>
+		<url-pattern>/eval</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>services</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>customerServices</servlet-name>
+		<url-pattern>/services/customer/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>supplierServices</servlet-name>
+		<url-pattern>/services/supplier/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- This is the definition of the security constraint to enforce basic 
+		authentication on on soap Http web service calls -->
+</web-app>

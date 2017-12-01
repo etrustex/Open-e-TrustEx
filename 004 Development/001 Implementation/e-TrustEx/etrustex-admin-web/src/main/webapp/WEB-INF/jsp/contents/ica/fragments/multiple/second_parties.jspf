@@ -1,0 +1,24 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %> 	
+
+<input id="success_msg" type="hidden" value="${successMsg}">
+
+<div class="inner-box columns clear no-background">
+	<h1>
+		<fmt:message key="ica.secondParties" />
+	</h1>
+
+    <div id="secondPartyRolesDiv">
+        <jsp:include page="../roles.jspf">
+            <jsp:param name="partyType" value="secondMulti"/>
+        </jsp:include>
+    </div>
+
+	<div class="cl"/>
+	
+	<div id="secondParties" class="content cl">
+		<jsp:include page="/WEB-INF/jsp/contents/ica/fragments/multiple/second_parties_table.jspf" />
+	</div>
+
+</div>

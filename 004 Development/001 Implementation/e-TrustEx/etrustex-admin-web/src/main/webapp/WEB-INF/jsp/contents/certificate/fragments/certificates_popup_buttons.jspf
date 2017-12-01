@@ -1,0 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:choose>
+	<c:when test="${popupMode eq 'view'}">
+		<j:button action_id="view_certificate_action_cancel" action_class="fr"
+			button_type_class="alternate blue_button"
+			button_optional_class="no-icon" label_key="button.cancel" />
+	</c:when>
+	<c:otherwise>
+		<j:button action_id="manage_certificates_action_ok" action_class="fr"
+			button_type_class="alternate blue_button"
+			button_optional_class="no-icon" label_key="button.ok"/>
+			
+		<j:button action_id="manage_certificates_action_cancel" action_class="fr"
+			button_type_class="alternate gray_button"
+			button_optional_class="no-icon" label_key="button.cancel" />
+	</c:otherwise>
+</c:choose>
+	

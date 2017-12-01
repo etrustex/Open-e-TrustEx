@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms" xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.2.xsd
+			http://www.springframework.org/schema/integration/mail
+            http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.2.xsd
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.2.xsd">
+
+	<bean id="mailTransformer" class="eu.europa.ec.cipa.etrustex.integration.transformers.MessageToMailTransformer" />
+
+	<int:channel id="trustExASynchSubmitIN">
+		<int:interceptors>
+			<int:wire-tap channel="logger" />
+		</int:interceptors>
+	</int:channel>
+	<int:channel id="mailSenderChannel">
+		<int:interceptors>
+			<int:wire-tap channel="logger" />
+		</int:interceptors>
+	</int:channel>
+
+	<!-- chain for asynch. processing -->
+	<int:chain input-channel="trustExASynchSubmitIN">
+		<int:service-activator ref="retriveMessageServiceActivator" method="retrieveMessageContent" />
+		<int:service-activator ref="validationServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="schematronServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="parentDocumentHandlerServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="dataExtractorServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="businessServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="dispatcherServiceActivator" method="processASynchMessage" />
+		<int:service-activator ref="logServiceActivatorReturnNull" method="logSuccessfulProcessing" />
+	</int:chain>
+
+	<int:channel id="errorChannel">
+		<int:interceptors>
+			<int:wire-tap channel="logger" />
+		</int:interceptors>
+	</int:channel>
+
+	<!-- <int:chain input-channel="errorChannel" > -->
+	<!-- <int:transformer ref="mailTransformer" /> -->
+	<!-- <int:header-enricher> -->
+	<!-- <int:header name="mail_subject" -->
+	<!-- value="Error occured during etrust ex asynchrone processing" /> -->
+	<!-- <int:header name="mail_to" value="DIGIT-CIPA-SUPPORT@ec.europa.eu" /> -->
+	<!-- </int:header-enricher> -->
+	<!-- <int-mail:outbound-channel-adapter mail-sender="mailSender" auto-startup="true" /> -->
+	<!-- </int:chain> -->
+
+	<int-jms:outbound-channel-adapter id="jmsErrorOut" jms-template="toErrorQueueTemplate"
+		channel="errorChannel" />
+
+
+</beans>

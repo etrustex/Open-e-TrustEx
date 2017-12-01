@@ -1,0 +1,28 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="ec:services:wsdl:RetrieveRequest-2" xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:ec2="ec:schema:xsd:CommonBasicComponents-1" xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <soapenv:Header>
+      <ec:Header>
+         <ec1:BusinessHeader>
+            <stan:Sender>
+               <stan:Identifier>TRUSTSUPPARTY1</stan:Identifier>
+            </stan:Sender>
+         </ec1:BusinessHeader>
+      </ec:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ec:SubmitRetrieveRequestRequest>
+         <ec:RetrieveRequest>
+            <urn:SenderParty>
+               <urn1:EndpointID>TRUSTSUPPARTY1</urn1:EndpointID>
+            </urn:SenderParty>
+            <urn:ReceiverParty>
+               <urn1:EndpointID>TRUSTCUSTPARTY1</urn1:EndpointID>
+            </urn:ReceiverParty>
+            <ec1:DocumentReferenceRequest>
+               <urn1:ID>ID11</urn1:ID>
+               <urn1:DocumentTypeCode>BDL</urn1:DocumentTypeCode>
+            </ec1:DocumentReferenceRequest>
+            <ec2:RetrieveIndicator>true</ec2:RetrieveIndicator>
+         </ec:RetrieveRequest>
+      </ec:SubmitRetrieveRequestRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

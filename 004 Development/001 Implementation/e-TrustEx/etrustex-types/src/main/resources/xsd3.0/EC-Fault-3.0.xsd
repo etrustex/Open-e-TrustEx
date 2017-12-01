@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="ec:schema:xsd:Fault-3" targetNamespace="ec:schema:xsd:Fault-3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1" xmlns:eccc="ec:schema:xsd:CommonComponents-3">
+	
+	<xsd:import namespace="ec:schema:xsd:CommonComponents-3" schemaLocation="../xsd3.0/custom/EC-CommonComponents-3.0.xsd"/>
+	
+	<!-- ===== Root Element ===== -->
+	<xsd:element name="Fault" type="FaultType"/>
+	<xsd:complexType name="FaultType">
+		<xsd:sequence>
+			<xsd:element ref="eccc:ResponseCode"/>
+			<xsd:element ref="eccc:Description" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="ec:services:wsdl:ArchiveDocumentResponse-1" 
+		xmlns:arch="ec:schema:xsd:ArchiveDocumentResponse-1" 
+		xmlns:ack="ec:schema:xsd:Ack-2" 
+		xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" 
+		xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" 
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+		name="ArchiveDocumentResponse" 
+		targetNamespace="ec:services:wsdl:ArchiveDocumentResponse-1">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:ArchiveDocumentResponse-1" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:ArchiveDocumentResponse-1" schemaLocation="../xsd/maindoc/EC-ArchiveDocumentResponse-1.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../xsd/maindoc/EC-Ack-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd"/>
+			<xsd:element name="SubmitArchiveDocumentResponseRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ArchiveDocumentResponse" type="arch:ArchiveDocumentResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitArchiveDocumentResponseResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Ack" type="ack:AcknowledgmentType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	<message name="submitArchiveDocumentResponseRequest">
+		<part name="SubmitArchiveDocumentResponseRequest" element="tns:SubmitArchiveDocumentResponseRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="submitArchiveDocumentResponseResponse">
+		<part name="SubmitArchiveDocumentResponseResponse" element="tns:SubmitArchiveDocumentResponseResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	<portType name="ArchiveDocumentResponsePortType">
+		<operation name="submitArchiveDocumentResponse">
+			<input message="tns:submitArchiveDocumentResponseRequest"/>
+			<output message="tns:submitArchiveDocumentResponseResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="archiveDocumentResponseBinding" type="tns:ArchiveDocumentResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsaw:UsingAddressing wsdl:required="false" />
+		<operation name="submitArchiveDocumentResponse">
+			<input>
+				<soap:body parts="SubmitArchiveDocumentResponseRequest" use="literal"/>
+				<soap:header message="tns:submitArchiveDocumentResponseRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="SubmitArchiveDocumentResponseResponse" use="literal"/>
+				<soap:header message="tns:submitArchiveDocumentResponseResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="archiveDocumentResponseService">
+		<port name="archiveDocumentResponsePort" binding="tns:archiveDocumentResponseBinding">
+			<soap:address location="http://localhost:18181/archiveDocumentResponseService/archiveDocumentResponsePort"/>
+		</port>
+	</service>
+</definitions>

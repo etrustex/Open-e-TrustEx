@@ -1,0 +1,24 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ec="ec:services:wsdl:DocumentWrapper-2" xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <soapenv:Header>
+      <ec:Header>
+         <ec1:BusinessHeader>
+            <stan:Sender>
+               <stan:Identifier>TRUSTSUPPARTY1</stan:Identifier>
+            </stan:Sender>
+         </ec1:BusinessHeader>
+      </ec:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ec:RetrieveDocumentWrapperRequestRequest>
+         <ec:DocumentWrapperRequest>
+            <urn:SenderParty>
+               <urn1:EndpointID>TRUSTSUPPARTY1</urn1:EndpointID>
+            </urn:SenderParty>
+            <ec1:DocumentReferenceRequest>
+               <urn1:ID>ID01</urn1:ID>
+               <urn1:DocumentTypeCode>BINARY</urn1:DocumentTypeCode>
+            </ec1:DocumentReferenceRequest>
+         </ec:DocumentWrapperRequest>
+      </ec:RetrieveDocumentWrapperRequestRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
