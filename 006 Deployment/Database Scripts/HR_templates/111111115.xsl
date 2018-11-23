@@ -8,7 +8,7 @@
 		<xsl:param name="pText" select="."/>
 		<xsl:choose>
 			<xsl:when test="not(contains($pText, '&#xA;'))">
-				<xsl:copy-of select="$pText"/>
+			<xsl:value-of select="$pText" />
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="substring-before($pText, '&#xA;')"/>
@@ -107,10 +107,42 @@ body, td {
 						</b>
 						<xsl:value-of select="cac:Contract/cbc:ID"/>
 						<br/>
+					<xsl:if test="cac:Contract/cbc:ContractTypeCode = &apos;OF&apos;">
+							<b>
+							<xsl:text>Management Center: </xsl:text>
+							</b>
+						<xsl:for-each select="cbc:Note">
+							<xsl:if test="starts-with(., &apos;ManagementCenterDescription&apos;)">
+									<xsl:value-of select="substring-after(., &apos;#&apos;)"/>
+							</xsl:if>
+						</xsl:for-each>
+						<br/>
+							<b>
+								<xsl:text>Requesting Center: </xsl:text>
+							</b>
+							<xsl:for-each select="cbc:Note">
+								<xsl:if test="starts-with(., &apos;RequestingCenterDescription&apos;)">
+									<xsl:call-template name="insertBreaks">
+										<xsl:with-param name="pText" select="substring-after(., &apos;#&apos;)"/>
+									</xsl:call-template>
+								</xsl:if>
+							</xsl:for-each><br/>
+							<b>
+							<xsl:text>Commitment header Local reference: </xsl:text>
+							</b>
+							<xsl:for-each select="cbc:Note">
+								<xsl:if test="starts-with(., &apos;CommitmentHeaderLocalRef&apos;)">
+									<xsl:call-template name="insertBreaks">
+										<xsl:with-param name="pText" select="substring-after(., &apos;#&apos;)"/>
+									</xsl:call-template>
+								</xsl:if>
+							</xsl:for-each>
+							<br/><br/>
+					</xsl:if>
 						<b>
 							<xsl:text>The Parties</xsl:text>
 						</b>
-						<br/>
+							<br/>
 						<br/>
 						<xsl:text>&#160;&#160;&#160;&#160;&#160;</xsl:text>
 						<xsl:for-each select="cbc:Note">
@@ -181,7 +213,29 @@ body, td {
 							<xsl:text>/</xsl:text>
 							<xsl:value-of select="format-number(number(substring(string(.), 1, 4)), '0000')"/>
 						</xsl:for-each>
+						<xsl:if  test="cac:Contract/cbc:ContractTypeCode = &apos;OF&apos;" >
+						<b>
+							<xsl:text> Framework Contract Start Date:  </xsl:text>
+						</b>
+							<xsl:for-each select="cbc:Note">
+								<xsl:if test="starts-with(., &apos;FrameworkContractStartDate&apos;)">
+									<xsl:call-template name="insertBreaks">
+										<xsl:with-param name="pText" select="substring-after(., &apos;#&apos;)"/>
+									</xsl:call-template>
+								</xsl:if>
+							</xsl:for-each>
+						<b>
+							<xsl:text> Framework Contract End Date: </xsl:text>
+						</b>
+							<xsl:for-each select="cbc:Note">
+								<xsl:if test="starts-with(., &apos;FrameworkContractEndDate&apos;)">
+									<xsl:call-template name="insertBreaks">
+										<xsl:with-param name="pText" select="substring-after(., &apos;#&apos;)"/>
+									</xsl:call-template>
+								</xsl:if>
+							</xsl:for-each>
 						<br/>
+						</xsl:if>
 						<b>
 							<xsl:text>Request Number: </xsl:text>
 						</b>
@@ -220,7 +274,7 @@ body, td {
 							<xsl:text>End Date: </xsl:text>
 						</b>
 						<xsl:choose>
-							<xsl:when test="cac:Contract/cbc:ContractTypeCode = &apos;FP&apos; or cac:Contract/cbc:ContractTypeCode = &apos;FPM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;QTM&apos;">
+							<xsl:when test="cac:Contract/cbc:ContractTypeCode = &apos;FP&apos; or cac:Contract/cbc:ContractTypeCode = &apos;FPM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;QTM&apos;" >
 								<xsl:for-each select="cbc:Note">
 									<xsl:if test="starts-with(., &apos;EndDateClause&apos;)">
 										<xsl:value-of select="substring-after(., &apos;#&apos;)"/>
@@ -261,7 +315,7 @@ body, td {
 							</xsl:when>
 						</xsl:choose>
 						<xsl:choose>
-							<xsl:when test="(cac:Contract/cbc:ContractTypeCode = &apos;TM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;QTM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;PTM&apos;)">
+							<xsl:when test="(cac:Contract/cbc:ContractTypeCode = &apos;TM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;QTM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;PTM&apos; or cac:Contract/cbc:ContractTypeCode = &apos;OF&apos;)">
 								<b>
 									<xsl:text>Place of Delivery: </xsl:text>
 								</b>
@@ -519,6 +573,25 @@ body, td {
 										<br/>
 									</td>
 								</tr>
+							<xsl:if test="(cac:Contract/cbc:ContractTypeCode = &apos;OF&apos;)">
+									<tr>
+									<td colspan="2">
+										<br/>
+										<b>
+											<xsl:text>Remarks</xsl:text>
+										</b>
+										<br/>
+										<xsl:for-each select="cbc:Note">
+											<xsl:if test="starts-with(., &apos;OrderRemarks&apos;)">
+												<xsl:call-template name="insertBreaks">
+													<xsl:with-param name="pText" select="substring-after(., &apos;#&apos;)"/>
+												</xsl:call-template>
+											</xsl:if>
+										</xsl:for-each>
+										<br/>
+									</td>
+								</tr>
+							</xsl:if>
 							</tbody>
 						</table>
 					</xsl:for-each>

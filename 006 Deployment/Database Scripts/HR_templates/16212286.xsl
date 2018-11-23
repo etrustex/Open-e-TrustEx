@@ -12,6 +12,7 @@
 n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;CTCT&apos;) or
 n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;ELRN&apos;) or
 n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;TMTC&apos;) )"/>
+	<xsl:variable name="eCatEnabled" select="n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;STDCAT&apos;)"/>
 	 <xsl:variable name="lowValue" select="(n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;LVI&apos;) or
 n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string (&apos;LVB&apos;))"/>
     <xsl:variable name="QTM_AND_INI" select=" (n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationTypeCode = string(&apos;QTM&apos;) and  n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotationPropertyCode = string(&apos;INI&apos;))"/>
@@ -1519,6 +1520,186 @@ n1:Quotation/eccac:ECRequestForQuotationDocumentReference/eccbc:RequestForQuotat
                                               <xsl:for-each select="cac:AdditionalItemProperty">
                                                 <xsl:for-each select="cbc:Value">
                                                   <xsl:if test="../cbc:Name = string(&apos;DESC&apos;)">
+                                                    <xsl:apply-templates/>
+                                                  </xsl:if>
+                                                </xsl:for-each>
+                                              </xsl:for-each>
+                                            </xsl:for-each>
+                                          </td>
+                                        </tr>
+                                      </xsl:for-each>
+                                    </xsl:for-each>
+                                  </xsl:for-each>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </xsl:when>
+					<xsl:when test="$eCatEnabled">
+                      <table style="border:1; border-color:black; " border="1" cellPadding="3" cellSpacing="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <th style="border:1; border-color:black; " bgColor="#999999" colspan="11">
+                              <xsl:text>Formal Offer</xsl:text>
+                            </th>
+                          </tr>
+                          <tr>
+                            <td style="border:1; border-color:black; " align="left" bgcolor="#cccccc" width="20%">
+                              <xsl:text>Formal Offer Number (Internal Supplier Reference):</xsl:text>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" colspan="2" width="723">
+                              <xsl:for-each select="n1:Quotation">
+                                <xsl:for-each select="eccbc:SupplierDocumentID">
+                                  <xsl:value-of select="fn:normalize-unicode( . )"/>
+                                </xsl:for-each>
+                              </xsl:for-each>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" bgcolor="#cccccc" width="84">
+                              <xsl:text>Validity Date:</xsl:text>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" colspan="7" width="30%">
+                              <xsl:for-each select="n1:Quotation">
+                                <xsl:for-each select="cac:ValidityPeriod">
+                                  <xsl:for-each select="cbc:EndDate">
+                                    <xsl:value-of select="format-number(number(substring(string(.), 9, 2)), '00')"/>
+                                    <xsl:text>/</xsl:text>
+                                    <xsl:value-of select="format-number(number(substring(string(.), 6, 2)), '00')"/>
+                                    <xsl:text>/</xsl:text>
+                                    <xsl:value-of select="format-number(number(substring(string(string(.)), 1, 4)), '0000')"/>
+                                  </xsl:for-each>
+                                </xsl:for-each>
+                              </xsl:for-each>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="border:1; border-color:black; " align="left" bgcolor="#cccccc" width="20%">
+                              <xsl:text>Total Price:</xsl:text>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" colspan="2" width="30%">
+                              <xsl:value-of select="concat(fn:normalize-unicode(n1:Quotation/cac:QuotedMonetaryTotal/cbc:LineExtensionAmount) ,&quot; &quot;,n1:Quotation/cac:QuotedMonetaryTotal/cbc:LineExtensionAmount/@currencyID)"/>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" bgcolor="#cccccc" width="90">
+                              <xsl:text>Final Offer:</xsl:text>
+                            </td>
+                            <td style="border:1; border-color:black; " align="left" colspan="7" width="30%">
+                              <xsl:for-each select="n1:Quotation">
+                                <xsl:for-each select="cbc:CompletionIndicator">
+                                  <xsl:choose>
+                                    <xsl:when test="string( . ) =&apos;false&apos;">
+                                      <xsl:text>Not final</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                      <xsl:text>Final</xsl:text>
+                                    </xsl:otherwise>
+                                  </xsl:choose>
+                                </xsl:for-each>
+                              </xsl:for-each>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="border:1; border-color:black; " align="left" colspan="11" width="100%">
+                              <br/>
+                              <table style="border:1; border-color:black; " border="1" cellspacing="0" width="100%">
+                                <thead>
+                                  <tr>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Line</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Item Ref.</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Item Description</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Additional Properties</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Qty</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Unit Type</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Unit Price</xsl:text>
+                                    </th>
+                                    <th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Total Price</xsl:text>
+                                    </th>
+									<th style="border:1; border-color:black; " align="center" bgcolor="#cccccc">
+                                      <xsl:text>Comment</xsl:text>
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <xsl:for-each select="n1:Quotation">
+                                    <xsl:for-each select="cac:QuotationLine">
+                                      <xsl:sort select="cac:LineItem/cbc:ID" data-type="number" order="ascending"/>
+                                      <xsl:for-each select="cac:LineItem">
+                                        <tr>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cbc:ID">
+                                              <xsl:apply-templates/>
+                                            </xsl:for-each>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+												<xsl:for-each select="cac:Item">
+													<xsl:for-each select="cbc:Description">
+														<xsl:value-of select="fn:normalize-unicode( . )"/>
+													</xsl:for-each>
+												</xsl:for-each>
+										</td>
+										<td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cac:Item">
+                                              <xsl:for-each select="cac:AdditionalItemProperty">
+                                                <xsl:for-each select="cbc:Value">
+                                                  <xsl:if test="../cbc:Name = string(&apos;ITMDSC&apos;)">
+                                                    <xsl:apply-templates/>
+                                                  </xsl:if>
+                                                </xsl:for-each>
+                                              </xsl:for-each>
+                                            </xsl:for-each>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cac:Item">
+                                              <xsl:for-each select="cac:AdditionalItemProperty">
+                                                <xsl:for-each select="cbc:Value">
+                                                  <xsl:if test="../cbc:Name = string(&apos;HRDSC&apos;)">
+                                                    <xsl:apply-templates/>
+                                                  </xsl:if>
+                                                </xsl:for-each>
+                                              </xsl:for-each>
+                                            </xsl:for-each>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cbc:Quantity">
+                                              <xsl:value-of select="."/>
+                                            </xsl:for-each>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cbc:Quantity">
+                                              <xsl:for-each select="@unitCode">
+                                                <xsl:value-of select="document(&apos;UnitOfMeasureCode.xml&apos;)//SimpleCodeList[1]/Row/Value[@ColumnRef=&apos;code&apos;]/SimpleValue[.=  current()]/../../Value[@ColumnRef=&apos;name&apos;]/SimpleValue"/>
+                                              </xsl:for-each>
+                                            </xsl:for-each>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <p>
+                                              <xsl:value-of select=" concat(fn:normalize-unicode(cac:Price/cbc:PriceAmount) ,&quot; &quot;,cac:Price/cbc:PriceAmount/@currencyID)"/>
+                                            </p>
+                                          </td>
+                                          <td style="border:1; border-color:black; " align="center">
+                                            <xsl:for-each select="cbc:LineExtensionAmount">
+                                              <xsl:value-of select="concat(fn:normalize-unicode(.) ,&quot; &quot;, @currencyID)"/>
+                                            </xsl:for-each>
+                                          </td>
+										   <td style="border:1; border-color:black; " align="center">
+											   <xsl:for-each select="cac:Item">
+                                              <xsl:for-each select="cac:AdditionalItemProperty">
+                                                <xsl:for-each select="cbc:Value">
+                                                  <xsl:if test="../cbc:Name = string(&apos;ITMRMK&apos;)">
                                                     <xsl:apply-templates/>
                                                   </xsl:if>
                                                 </xsl:for-each>

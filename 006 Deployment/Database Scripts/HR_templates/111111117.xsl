@@ -420,7 +420,7 @@
 								</td>
 								<td align="center" class="cellTopBorder" colSpan="4">
 									<span>
-										<xsl:text> </xsl:text>
+										<xsl:text>??</xsl:text>
 									</span>
 									<xsl:if test="not ( normalize-space(string(n1:OrderChangeReceived/orc:OrderChange/cac:SellerSupplierParty/cac:Party/cac:PartyIdentification/cbc:ID)) = &apos;&apos; )">
 										<xsl:for-each select="n1:OrderChangeReceived">
@@ -819,7 +819,7 @@
 								</td>
 								<td align="center" class="cellNoBorder" colSpan="4" vAlign="middle">
 									<span>
-										<xsl:text> </xsl:text>
+										<xsl:text>??</xsl:text>
 									</span>
 								</td>
 							</tr>
@@ -1503,7 +1503,7 @@
 																			</span>
 																		</xsl:if>
 																		<span>
-																			<xsl:text>  </xsl:text>
+																			<xsl:text>?? </xsl:text>
 																		</span>
 																		<xsl:if test="count(./cac:TaxCategory/cbc:PerUnitAmount)&gt;0">
 																			<xsl:for-each select="cac:TaxCategory">
@@ -1661,14 +1661,14 @@
 											<xsl:for-each select="orc:OrderChange">
 												<xsl:for-each select="cac:OrderLine">
 													<span>
-														<xsl:text>  </xsl:text>
+														<xsl:text>?? ??</xsl:text>
 													</span>
 													<table style="border-bottom-style:none; border-left-style:none; border-right-style:none; border-top-style:none; " border="2" cellPadding="0" cellSpacing="0">
 														<tbody>
 															<tr bgColor="silver">
 																<td class="cellRightBorder" width="588">
 																	<span>
-																		<xsl:text> </xsl:text>
+																		<xsl:text>??</xsl:text>
 																	</span>
 																	<xsl:for-each select="cac:LineItem">
 																		<xsl:for-each select="cbc:ID">
@@ -1969,12 +1969,12 @@
 																</td>
 																<td class="cellRightBorder" width="148">
 																	<span>
-																		<xsl:text>   </xsl:text>
+																		<xsl:text> ?? </xsl:text>
 																	</span>
 																</td>
 																<td class="cellRightBorder" width="100">
 																	<span>
-																		<xsl:text>  </xsl:text>
+																		<xsl:text>?? </xsl:text>
 																	</span>
 																</td>
 																<td align="right" class="cellNoBorder" width="48">
@@ -2122,7 +2122,7 @@
 																		</xsl:for-each>
 																	</xsl:for-each>
 																	<span>
-																		<xsl:text> </xsl:text>
+																		<xsl:text>??</xsl:text>
 																	</span>
 																</td>
 																<td class="cellRightBorder" width="175">
@@ -2236,7 +2236,7 @@
 							<tr>
 								<td align="justify" class="cellRightTopBorder" colSpan="3" rowSpan="8" vAlign="middle">
 									<span style="font-family:Arial; ">
-										<xsl:text>Pursuant to the provisions of Articles 3 and 4 of the Protocol on the Privileges and Immunities of the European Union the Commission is exempt from all taxes and dues, including value added tax, on payments due in respect of this Order Form. [In Belgium, use of this order form constitutes a request for VAT exemption. The invoice must include the following statement: &quot;Commande destinée à l&apos;usage officiel de l&apos;Union Européenne. Exonération de la TVA; article 42 § 3.3 du code de la TVA&quot;.] </xsl:text>
+										<xsl:text>Pursuant to the provisions of Articles 3 and 4 of the Protocol on the Privileges and Immunities of the European Union the Commission is exempt from all taxes and dues, including value added tax, on payments due in respect of this Order Form. [In Belgium, use of this order form constitutes a request for VAT exemption. The invoice must include the following statement: &quot;Commande destinÃ©e Ã  l&apos;usage officiel de l&apos;Union EuropÃ©enne. ExonÃ©ration de la TVA; article 42 alin. 3.3 du code de la TVA&quot;.] </xsl:text>
 									</span>
 								</td>
 								<td align="left" class="cellTopBorder" colSpan="4">
@@ -2279,7 +2279,7 @@
 							<tr>
 								<td class="cellTopBorder" colSpan="4">
 									<span>
-										<xsl:text> </xsl:text>
+										<xsl:text>??</xsl:text>
 									</span>
 								</td>
 							</tr>
@@ -2323,7 +2323,7 @@
 							<tr>
 								<td class="cellTopBorder" colSpan="4">
 									<span>
-										<xsl:text> </xsl:text>
+										<xsl:text>??</xsl:text>
 									</span>
 								</td>
 							</tr>

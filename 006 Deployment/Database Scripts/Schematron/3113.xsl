@@ -184,11 +184,27 @@
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M14"/>
          <svrl:active-pattern>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <svrl:active-pattern>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <svrl:active-pattern>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <svrl:active-pattern>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <svrl:active-pattern>
             <xsl:attribute name="id">CallForTenders_code_list_rules</xsl:attribute>
             <xsl:attribute name="name">CallForTenders_code_list_rules</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
+         <xsl:apply-templates select="/" mode="M19"/>
       </svrl:schematron-output>
    </xsl:template>
 
@@ -299,37 +315,6 @@
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not ( normalize-space(./cbc:Note) = '' )"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not ( normalize-space(./cbc:Note) = '' )">
-               <xsl:attribute name="flag">error</xsl:attribute>
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>error.note_check</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M5"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M5"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M5">
-      <xsl:apply-templates select="@*|*" mode="M5"/>
-   </xsl:template>
-
-   <!--PATTERN -->
-
-
-	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M6">
-      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="*[local-name()='CallForTenders']"/>
       <xsl:variable name="apos" select="&#34;'&#34;"/>
 
 		    <!--ASSERT -->
@@ -363,18 +348,18 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M6"/>
+      <xsl:apply-templates select="@*|*" mode="M5"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M6"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M6">
-      <xsl:apply-templates select="@*|*" mode="M6"/>
+   <xsl:template match="text()" priority="-1" mode="M5"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M5">
+      <xsl:apply-templates select="@*|*" mode="M5"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M7">
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M6">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -394,18 +379,18 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M7"/>
+      <xsl:apply-templates select="@*|*" mode="M6"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M7"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M7">
-      <xsl:apply-templates select="@*|*" mode="M7"/>
+   <xsl:template match="text()" priority="-1" mode="M6"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M6">
+      <xsl:apply-templates select="@*|*" mode="M6"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M8">
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -425,18 +410,18 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M8"/>
+      <xsl:apply-templates select="@*|*" mode="M7"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M8"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M8">
-      <xsl:apply-templates select="@*|*" mode="M8"/>
+   <xsl:template match="text()" priority="-1" mode="M7"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M7">
+      <xsl:apply-templates select="@*|*" mode="M7"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="cac:ContractingParty" priority="1000" mode="M9">
+<xsl:template match="cac:ContractingParty" priority="1000" mode="M8">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ContractingParty"/>
@@ -492,6 +477,22 @@
 
 		    <!--ASSERT -->
 <xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:ContractingPartyTypeCode) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:ContractingPartyTypeCode) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.contractingparty_typecode_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
          <xsl:when test="not ( string-length(normalize-space(./cac:Party/cbc:EndpointID)) &gt; 250 )"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -521,18 +522,18 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M9"/>
+      <xsl:apply-templates select="@*|*" mode="M8"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M9"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M9">
-      <xsl:apply-templates select="@*|*" mode="M9"/>
+   <xsl:template match="text()" priority="-1" mode="M8"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M8">
+      <xsl:apply-templates select="@*|*" mode="M8"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M10">
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -549,6 +550,38 @@
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
                <svrl:text>error.tenderingprocess_procedurecode_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '1' or normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '7') and (normalize-space(./cbc:ProfileExecutionID ) != 'QT') )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '1' or normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '7') and (normalize-space(./cbc:ProfileExecutionID ) != 'QT') )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingprocess_procedurecode_profileexecutionid_qt_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( ( (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '2') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '3') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '4') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '6') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'C') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'G') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'B') ) and (normalize-space(./cbc:ProfileExecutionID ) != 'Q2T') )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( ( (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '2') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '3') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '4') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = '6') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'C') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'G') or (normalize-space(./cac:TenderingProcess/cbc:ProcedureCode ) = 'B') ) and (normalize-space(./cbc:ProfileExecutionID ) != 'Q2T') )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingprocess_procedurecode_profileexecutionid_q2t_check</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -635,6 +668,22 @@
 
 		    <!--ASSERT -->
 <xsl:choose>
+         <xsl:when test="not ( ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '9' ) and ( ( normalize-space(./cac:TenderingTerms/cbc:AwardingMethodTypeCode ) != '1' ) and ( normalize-space(./cac:TenderingTerms/cbc:AwardingMethodTypeCode ) != '2' ) ) )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '9' ) and ( ( normalize-space(./cac:TenderingTerms/cbc:AwardingMethodTypeCode ) != '1' ) and ( normalize-space(./cac:TenderingTerms/cbc:AwardingMethodTypeCode ) != '2' ) ) )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_awardingmethodtypecode_nolot_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
          <xsl:when test="not ( ( ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '1' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '2' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '3' ) ) and ( count(./cac:TenderingTerms/cbc:AwardingMethodTypeCode) &gt; 0 ) )"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -648,18 +697,34 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M10"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( ( ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '1' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '2' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '3' ) ) and ( count(./cac:ProcurementProjectLot) != count(./cac:ProcurementProjectLot/cac:TenderingTerms/cbc:AwardingMethodTypeCode) ) )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( ( ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '1' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '2' ) or ( normalize-space(./cac:TenderingProcess/cbc:PartPresentationCode ) = '3' ) ) and ( count(./cac:ProcurementProjectLot) != count(./cac:ProcurementProjectLot/cac:TenderingTerms/cbc:AwardingMethodTypeCode) ) )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_awardingmethodtypecode_lot_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M9"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M10"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M10">
-      <xsl:apply-templates select="@*|*" mode="M10"/>
+   <xsl:template match="text()" priority="-1" mode="M9"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M9">
+      <xsl:apply-templates select="@*|*" mode="M9"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M11">
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -679,6 +744,70 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M10"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M10"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M10">
+      <xsl:apply-templates select="@*|*" mode="M10"/>
+   </xsl:template>
+
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M11">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="*[local-name()='CallForTenders']"/>
+      <xsl:variable name="apos" select="&#34;'&#34;"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_tenderrecipientparty_endpointid_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( string-length(normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID) ) &gt; 250 )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( string-length(normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID) ) &gt; 250 )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_tenderrecipientparty_endpointid_length_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( translate(translate(normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID), ' !&#34;&#34;#$%&amp;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{{|}}~', ''), $apos, '') != '') "/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( translate(translate(normalize-space(./cac:TenderingTerms/cac:TenderRecipientParty/cbc:EndpointID), ' !&#34;&#34;#$%&amp;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{{|}}~', ''), $apos, '') != '')">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_tenderrecipientparty_endpointid_content_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="@*|*" mode="M11"/>
    </xsl:template>
    <xsl:template match="text()" priority="-1" mode="M11"/>
@@ -691,6 +820,70 @@
 
 	<!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M12">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="*[local-name()='CallForTenders']"/>
+      <xsl:variable name="apos" select="&#34;'&#34;"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_documentproviderparty_endpointid_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( string-length(normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID) ) &gt; 250 )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( string-length(normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID) ) &gt; 250 )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_documentproviderparty_endpointid_length_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( translate(translate(normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID), ' !&#34;&#34;#$%&amp;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{{|}}~', ''), $apos, '') != '') "/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( translate(translate(normalize-space(./cac:TenderingTerms/cac:DocumentProviderParty/cbc:EndpointID), ' !&#34;&#34;#$%&amp;()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{{|}}~', ''), $apos, '') != '')">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingterms_documentproviderparty_endpointid_content_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:apply-templates select="@*|*" mode="M12"/>
+   </xsl:template>
+
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M13">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -726,18 +919,65 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M12"/>
+      <xsl:apply-templates select="@*|*" mode="M13"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:apply-templates select="@*|*" mode="M12"/>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:apply-templates select="@*|*" mode="M13"/>
    </xsl:template>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M13">
+<xsl:template match="cac:ProcurementProjectLot" priority="1000" mode="M14">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="cac:ProcurementProjectLot"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:ID ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:ID ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingprocess_procurementprojectlot_id_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cac:ProcurementProject/cbc:Name ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cac:ProcurementProject/cbc:Name ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tenderingprocess_procurementprojectlot_name_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:apply-templates select="@*|*" mode="M14"/>
+   </xsl:template>
+
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="*[local-name()='CallForTenders']" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']"/>
@@ -840,11 +1080,11 @@
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not ( normalize-space(./cbc:ProfileExecutionID) = 'Q2T' and normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) != '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) != '' )"/>
+         <xsl:when test="not ( normalize-space(./cbc:ProfileExecutionID) = 'Q2T' and ( ( normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) != '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) != '' ) or ( normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) = '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) = '' ) ) )"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                 xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not ( normalize-space(./cbc:ProfileExecutionID) = 'Q2T' and normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) != '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) != '' )">
+                                test="not ( normalize-space(./cbc:ProfileExecutionID) = 'Q2T' and ( ( normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) != '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) != '' ) or ( normalize-space(./cac:TenderingProcess/cac:TenderSubmissionDeadlinePeriod) = '' and normalize-space(./cac:TenderingProcess/cac:ParticipationRequestReceptionPeriod) = '' ) ) )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
@@ -853,11 +1093,105 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M13"/>
+      <xsl:apply-templates select="@*|*" mode="M15"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:apply-templates select="@*|*" mode="M13"/>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:apply-templates select="@*|*" mode="M15"/>
+   </xsl:template>
+
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="cac:ParticipationRequestReceptionPeriod" priority="1000" mode="M16">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="cac:ParticipationRequestReceptionPeriod"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:EndDate ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:EndDate ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.participationrequestreceptionperiod_enddate_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:EndTime ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:EndTime ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.participationrequestreceptionperiod_endtime_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:apply-templates select="@*|*" mode="M16"/>
+   </xsl:template>
+
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="cac:TenderSubmissionDeadlinePeriod" priority="1000" mode="M17">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="cac:TenderSubmissionDeadlinePeriod"/>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:EndDate ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:EndDate ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tendersubmissiondeadlineperiod_enddate_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not ( normalize-space(./cbc:EndTime ) = '' )"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:EndTime ) = '' )">
+               <xsl:attribute name="flag">error</xsl:attribute>
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
+               </xsl:attribute>
+               <svrl:text>error.tendersubmissiondeadlineperiod_endtime_check</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:apply-templates select="@*|*" mode="M17"/>
    </xsl:template>
 
    <!--PATTERN -->
@@ -866,7 +1200,7 @@
 	<!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentType"
                  priority="1001"
-                 mode="M14">
+                 mode="M18">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentType"/>
@@ -886,13 +1220,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M14"/>
+      <xsl:apply-templates select="@*|*" mode="M18"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentTypeCode"
                  priority="1000"
-                 mode="M14">
+                 mode="M18">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentTypeCode"/>
@@ -912,11 +1246,11 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M14"/>
+      <xsl:apply-templates select="@*|*" mode="M18"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:apply-templates select="@*|*" mode="M14"/>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:apply-templates select="@*|*" mode="M18"/>
    </xsl:template>
 
    <!--PATTERN CallForTenders_code_list_rules-->
@@ -925,7 +1259,7 @@
 	<!--RULE -->
 <xsl:template match="cac:ContractingParty/cac:Party/cac:PartyLegalEntity/cac:RegistrationAddress/cac:Country/cbc:IdentificationCode"
                  priority="1024"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ContractingParty/cac:Party/cac:PartyLegalEntity/cac:RegistrationAddress/cac:Country/cbc:IdentificationCode"/>
@@ -945,13 +1279,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:ContractingParty/cac:Party/cac:PartyName/cbc:Name/@languageID"
                  priority="1023"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ContractingParty/cac:Party/cac:PartyName/cbc:Name/@languageID"/>
@@ -971,22 +1305,22 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="cac:TenderingProcess/cbc:ProcedureCode" priority="1022" mode="M15">
+<xsl:template match="cac:TenderingProcess/cbc:ProcedureCode" priority="1022" mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingProcess/cbc:ProcedureCode"/>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 2 3 C 4 6 T V A AMI VDL LOV 9 ',concat(' ',normalize-space(.),' ') ) ) )"/>
+         <xsl:when test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 2 3 4 6 7 C D G B E F T V A AMI VDL LOV 9 ',concat(' ',normalize-space(.),' ') ) ) )"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                 xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 2 3 C 4 6 T V A AMI VDL LOV 9 ',concat(' ',normalize-space(.),' ') ) ) )">
+                                test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 2 3 4 6 7 C D G B E F T V A AMI VDL LOV 9 ',concat(' ',normalize-space(.),' ') ) ) )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
@@ -995,12 +1329,12 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingProcess/cbc:PartPresentationCode" priority="1021"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingProcess/cbc:PartPresentationCode"/>
@@ -1020,12 +1354,12 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingProcess/cbc:ContractingSystemCode" priority="1020"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingProcess/cbc:ContractingSystemCode"/>
@@ -1045,12 +1379,12 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingTerms/cac:Language/cbc:LocaleCode" priority="1019"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingTerms/cac:Language/cbc:LocaleCode"/>
@@ -1070,11 +1404,11 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="cac:ProcurementProject/cbc:Name/@languageID" priority="1018" mode="M15">
+<xsl:template match="cac:ProcurementProject/cbc:Name/@languageID" priority="1018" mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ProcurementProject/cbc:Name/@languageID"/>
@@ -1094,13 +1428,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:ProcurementTypeCode"
                  priority="1017"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:ProcurementTypeCode"/>
@@ -1120,13 +1454,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:Description/@languageID"
                  priority="1016"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:Description/@languageID"/>
@@ -1146,13 +1480,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingTerms/cac:TendererQualificationRequest/cac:SpecificTendererRequirement/cbc:Description/@languageID"
                  priority="1015"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingTerms/cac:TendererQualificationRequest/cac:SpecificTendererRequirement/cbc:Description/@languageID"/>
@@ -1172,13 +1506,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingTerms/cac:TendererQualificationRequest/cac:FinancialEvaluationCriteria/cbc:Description/@languageID"
                  priority="1014"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingTerms/cac:TendererQualificationRequest/cac:FinancialEvaluationCriteria/cbc:Description/@languageID"/>
@@ -1198,13 +1532,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingTerms/cac:TendererQualificationRequest/cac:TechnicalEvaluationCriteria/cbc:Description/@languageID"
                  priority="1013"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingTerms/cac:TendererQualificationRequest/cac:TechnicalEvaluationCriteria/cbc:Description/@languageID"/>
@@ -1224,13 +1558,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:TenderingTerms/cbc:AwardingMethodTypeCode"
                  priority="1012"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:TenderingTerms/cbc:AwardingMethodTypeCode"/>
@@ -1250,13 +1584,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProjectLot/cac:TenderingTerms/cbc:AwardingMethodTypeCode"
                  priority="1011"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProjectLot/cac:TenderingTerms/cbc:AwardingMethodTypeCode"/>
@@ -1276,11 +1610,11 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
-<xsl:template match="cac:ContractingParty/cbc:ActivityTypeCode" priority="1010" mode="M15">
+<xsl:template match="cac:ContractingParty/cbc:ActivityTypeCode" priority="1010" mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ContractingParty/cbc:ActivityTypeCode"/>
@@ -1300,13 +1634,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:ProcurementSubTypeCode"
                  priority="1009"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cbc:ProcurementSubTypeCode"/>
@@ -1326,13 +1660,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount/@currencyID"
                  priority="1008"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount/@currencyID"/>
@@ -1352,13 +1686,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:TotalAmount/@currencyID"
                  priority="1007"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:TotalAmount/@currencyID"/>
@@ -1378,13 +1712,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:MinimumAmount/@currencyID"
                  priority="1006"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:ProcurementProject/cac:BudgetAmount/cbc:MinimumAmount/@currencyID"/>
@@ -1404,13 +1738,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:ProcurementProjectLot/cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount/@currencyID"
                  priority="1005"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ProcurementProjectLot/cac:ProcurementProject/cac:BudgetAmount/cbc:EstimatedOverallContractAmount/@currencyID"/>
@@ -1430,13 +1764,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:TenderingTerms/cac:TenderValidityPeriod/cbc:DurationMeasure/@unitCode"
                  priority="1004"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:TenderingTerms/cac:TenderValidityPeriod/cbc:DurationMeasure/@unitCode"/>
@@ -1456,13 +1790,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentDescription/@LanguageID"
                  priority="1003"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="*[local-name()='CallForTenders']/cac:AdditionalDocumentReference/cbc:DocumentDescription/@LanguageID"/>
@@ -1482,23 +1816,23 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:ContractingParty/cbc:ContractingPartyTypeCode" priority="1002"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ContractingParty/cbc:ContractingPartyTypeCode"/>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 4 5 6 N R 8 9 Z ',concat(' ',normalize-space(.),' ') ) ) )"/>
+         <xsl:when test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 3 4 5 6 N R 8 9 Z ',concat(' ',normalize-space(.),' ') ) ) )"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
                                 xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 4 5 6 N R 8 9 Z ',concat(' ',normalize-space(.),' ') ) ) )">
+                                test="( ( not(contains(normalize-space(.),' ')) and contains( ' 1 3 4 5 6 N R 8 9 Z ',concat(' ',normalize-space(.),' ') ) ) )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
@@ -1507,13 +1841,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:ProcurementProjectLot/cac:ProcurementProject/cac:BudgetAmount/cbc:MinimumAmount/@currencyID"
                  priority="1001"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:ProcurementProjectLot/cac:ProcurementProject/cac:BudgetAmount/cbc:MinimumAmount/@currencyID"/>
@@ -1533,13 +1867,13 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 
 	  <!--RULE -->
 <xsl:template match="cac:TenderingTerms/cac:TendererQualificationRequest/cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode"
                  priority="1000"
-                 mode="M15">
+                 mode="M19">
       <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="cac:TenderingTerms/cac:TendererQualificationRequest/cac:SpecificTendererRequirement/cbc:TendererRequirementTypeCode"/>
@@ -1559,10 +1893,10 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:apply-templates select="@*|*" mode="M15"/>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:apply-templates select="@*|*" mode="M19"/>
    </xsl:template>
 </xsl:stylesheet>

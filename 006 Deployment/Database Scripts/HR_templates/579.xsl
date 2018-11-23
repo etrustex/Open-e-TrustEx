@@ -4,6 +4,11 @@
 	<xsl:param name="SV_OutputFormat" select="'HTML'"/>
 	<xsl:decimal-format name="format1" grouping-separator="." decimal-separator=","/>
 	<xsl:template match="/">
+    <!-- ================================================= -->
+    <!-- Please update TemplateVersion for each deployment -->
+    <!-- ================================================= -->
+    <xsl:variable name="TemplateVersion">3.01</xsl:variable>
+    <!-- ================================================= -->
 		<html>
 			<head>
 				<title>Dispatch Advice Human Readable Format</title>
@@ -280,9 +285,9 @@
 							<!--<td class="cellRightTopBorder"><xsl:value-of select="cac:Item/cac:SellersItemIdentification/cbc:ID"/></td>-->
 							<td class="cellRightTopBorder"><xsl:value-of select="cac:Item/cbc:Name"/></td>
 							<td class="cellRightTopBorder" align="center">
-								<xsl:for-each select="cbc:DeliveredQuantity/@unitCode">
-									<xsl:value-of select="document(&apos;UnitOfMeasureCode.xml&apos;)//SimpleCodeList[1]/Row/Value[@ColumnRef=&apos;code&apos;]/SimpleValue[.= current()]/../../Value[@ColumnRef=&apos;name&apos;]/SimpleValue"/>
-								</xsl:for-each>
+                <xsl:call-template name="retrieveCodeTemplate">
+                  <xsl:with-param name="unitCode" select="cbc:DeliveredQuantity/@unitCode"/>
+                </xsl:call-template>
 							</td>
 							<td class="cellRightTopBorder" align="center"><xsl:value-of select="cbc:DeliveredQuantity"/></td>
               <td class="cellRightTopBorder" align="center">
@@ -328,4 +333,19 @@
 			</body>
 		</html>
 	</xsl:template>
+  <xsl:template name="retrieveCodeTemplate">
+    <xsl:param name="unitCode"/>
+    <xsl:choose>
+      <xsl:when test="not($unitCode != &apos;&apos; and $unitCode != &apos;NIL&apos;)">
+        <xsl:text> </xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:for-each select="document(&apos;UnitOfMeasureCode.xml&apos;)//SimpleCodeList/Row">
+          <xsl:if test="Value[@ColumnRef=&apos;code&apos;]/SimpleValue = $unitCode">
+            <xsl:value-of select="Value[@ColumnRef=&apos;name&apos;]/SimpleValue"/>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 </xsl:stylesheet>

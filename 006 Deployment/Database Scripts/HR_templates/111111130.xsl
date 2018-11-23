@@ -546,7 +546,7 @@
                                                 <xsl:for-each select="cac:AdditionalItemProperty">
                                                   <xsl:for-each select="cbc:Value">
                                                     <xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-                                                      <xsl:apply-templates/>
+                                                      <xsl:value-of select="fn:normalize-unicode( . )"/>
                                                     </xsl:if>
                                                   </xsl:for-each>
                                                 </xsl:for-each>
@@ -750,7 +750,7 @@
                                                     <xsl:for-each select="cac:AdditionalItemProperty">
                                                       <xsl:for-each select="cbc:Value">
                                                         <xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-                                                          <xsl:apply-templates/>
+                                                          <xsl:value-of select="fn:normalize-unicode( . )"/>
                                                         </xsl:if>
                                                       </xsl:for-each>
                                                     </xsl:for-each>
@@ -1140,7 +1140,7 @@
                                                     <xsl:for-each select="cac:AdditionalItemProperty">
                                                       <xsl:for-each select="cbc:Value">
                                                         <xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-                                                          <xsl:apply-templates/>
+                                                          <xsl:value-of select="fn:normalize-unicode( . )"/>
                                                         </xsl:if>
                                                       </xsl:for-each>
                                                     </xsl:for-each>
@@ -1329,7 +1329,7 @@
                                                 <xsl:for-each select="cac:AdditionalItemProperty">
                                                   <xsl:for-each select="cbc:Value">
                                                     <xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-                                                      <xsl:apply-templates/>
+                                                      <xsl:value-of select="fn:normalize-unicode( . )"/>
                                                     </xsl:if>
                                                   </xsl:for-each>
                                                 </xsl:for-each>
@@ -1814,8 +1814,5 @@
         </xsl:for-each>
       </body>
     </html>
-  </xsl:template>
-  <xsl:template match="text()">
-    <xsl:value-of select="replace(fn:normalize-unicode( . ), '[&#x007F;-&#x009F;]', ' ')"/>
   </xsl:template>
 </xsl:stylesheet>

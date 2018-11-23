@@ -590,7 +590,7 @@
 																				<xsl:for-each select="cac:AdditionalItemProperty">
 																					<xsl:for-each select="cbc:Value">
 																						<xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-																							<xsl:value-of select="replace(., '[&#x007F;-&#x009F;]', ' ')"/>
+																							<xsl:value-of select="."/>
 																						</xsl:if>
 																					</xsl:for-each>
 																				</xsl:for-each>
@@ -740,7 +740,7 @@
 																		<xsl:for-each select="cac:AdditionalItemProperty">
 																			<xsl:for-each select="cbc:Value">
 																				<xsl:if test="../cbc:Name = string(&apos;DOEX&apos;)">
-                                          <xsl:value-of select="replace(., '[&#x007F;-&#x009F;]', ' ')"/>
+																					<xsl:value-of select="."/>
 																				</xsl:if>
 																			</xsl:for-each>
 																		</xsl:for-each>

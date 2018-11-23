@@ -4,6 +4,7 @@
 --  him all the rights 
 -- //////////////////////////////////////////////////////
 
+DROP USER IF EXISTS 'etrustex'@'localhost';
 CREATE USER 'etrustex'@'localhost' IDENTIFIED BY 'etrustex01!';
 
 GRANT ALL ON etrustex.* TO 'etrustex'@'localhost';

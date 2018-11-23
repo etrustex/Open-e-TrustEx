@@ -6,7 +6,43 @@ xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponent
 xmlns:n1="ec:schema:xsd:InvoiceReceived-0.1" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
 xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xdt="http://www.w3.org/2005/xpath-datatypes"
 xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:functx="http://www.functx.com">
-<xsl:output version="4.0" method="html" indent="no" encoding="UTF-8" doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+<xsl:output version="4.0" method="html" indent="no" encoding="UTF-8" use-character-maps="m1" doctype-public="-//W3C//DTD HTML 4.0 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+<xsl:character-map name="m1">
+  <xsl:output-character character="&#127;" string=" "/>
+   <xsl:output-character character="&#128;" string=" "/>
+   <xsl:output-character character="&#129;" string=" "/>
+   <xsl:output-character character="&#130;" string=" "/>
+   <xsl:output-character character="&#131;" string=" "/>
+   <xsl:output-character character="&#132;" string=" "/>
+   <xsl:output-character character="&#133;" string=" "/>
+   <xsl:output-character character="&#134;" string=" "/>
+   <xsl:output-character character="&#135;" string=" "/>
+   <xsl:output-character character="&#136;" string=" "/>
+   <xsl:output-character character="&#137;" string=" "/>
+   <xsl:output-character character="&#138;" string=" "/>
+   <xsl:output-character character="&#139;" string=" "/>
+   <xsl:output-character character="&#140;" string=" "/>
+   <xsl:output-character character="&#141;" string=" "/>
+   <xsl:output-character character="&#142;" string=" "/>
+   <xsl:output-character character="&#143;" string=" "/>
+   <xsl:output-character character="&#144;" string=" "/>
+   <xsl:output-character character="&#145;" string=" "/>
+   <xsl:output-character character="&#146;" string=" "/>
+   <xsl:output-character character="&#147;" string=" "/>
+   <xsl:output-character character="&#148;" string=" "/>
+   <xsl:output-character character="&#149;" string=" "/>
+   <xsl:output-character character="&#150;" string=" "/>
+   <xsl:output-character character="&#151;" string=" "/>
+   <xsl:output-character character="&#152;" string=" "/>
+   <xsl:output-character character="&#153;" string=" "/>
+   <xsl:output-character character="&#154;" string=" "/>
+   <xsl:output-character character="&#155;" string=" "/>
+   <xsl:output-character character="&#156;" string=" "/>
+   <xsl:output-character character="&#157;" string=" "/>
+   <xsl:output-character character="&#158;" string=" "/>
+   <xsl:output-character character="&#159;" string=" "/>
+   <xsl:output-character character="&#x80;" string="&#x20AC;"/>
+</xsl:character-map>
 <xsl:param name="SV_OutputFormat" select="'HTML'"/>
 <xsl:decimal-format name="format1" grouping-separator="." decimal-separator=","/>
 
@@ -118,15 +154,18 @@ td {
 				<xsl:for-each select="mdinv:Invoice">
 				<td colspan="2"><xsl:value-of select="cbc:ID"/></td>
 				<td>
-					<xsl:text>Start date: </xsl:text>
-					<xsl:call-template name="formatDate">
-						<xsl:with-param name="date" select="cac:InvoicePeriod/cbc:StartDate"/>
-					</xsl:call-template>
-					<br/>
-					<xsl:text>End date: </xsl:text>
-					<xsl:call-template name="formatDate">
-						<xsl:with-param name="date" select="cac:InvoicePeriod/cbc:EndDate"/>
-					</xsl:call-template>
+					<xsl:for-each select="cac:InvoicePeriod">
+						<xsl:text>Start date: </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cbc:StartDate"/>
+						</xsl:call-template>
+						<br/>
+						<xsl:text>End date: </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cbc:EndDate"/>
+						</xsl:call-template>
+						<br/>
+					</xsl:for-each>
 				</td>
 				<td colspan="2">
 					<xsl:value-of select="cac:AccountingSupplierParty/cbc:CustomerAssignedAccountID"/>
@@ -164,9 +203,16 @@ td {
 					<xsl:if test="exists(cac:PostalAddress)">
 						<br/><b>Address:</b>
 					</xsl:if>
-					<xsl:if test="not ( normalize-space(string(cac:PostalAddress/cbc:Department)) = &apos;&apos; )">
-						<br/><xsl:value-of select="cac:PostalAddress/cbc:Department"/>
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="not ( normalize-space(string(/n1:InvoiceReceived/mdinv:Invoice/cbc:BuyerReference)) = &apos;&apos; )">
+							<br/>Department code: <xsl:value-of select="/n1:InvoiceReceived/mdinv:Invoice/cbc:BuyerReference"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:if test="not ( normalize-space(string(cac:PostalAddress/cbc:Department)) = &apos;&apos; )">
+								<br/>Department code: <xsl:value-of select="cac:PostalAddress/cbc:Department"/>
+							</xsl:if>
+						</xsl:otherwise>
+					</xsl:choose>
 					<xsl:if test="not ( normalize-space(string(cac:PostalAddress/cbc:BuildingName)) = &apos;&apos; )">
 						<xsl:text>&#160;</xsl:text>
 						<xsl:value-of select="cac:PostalAddress/cbc:BuildingName"/>
@@ -269,7 +315,7 @@ td {
 						<br/><b>Address:</b>
 					</xsl:if>
 					<xsl:if test="not ( normalize-space(string(cac:PostalAddress/cbc:Department)) = &apos;&apos; )">
-						<br/><xsl:value-of select="cac:PostalAddress/cbc:Department"/>
+						<br/>Department code: <xsl:value-of select="cac:PostalAddress/cbc:Department"/>
 					</xsl:if>
 					<xsl:if test="not ( normalize-space(string(cac:PostalAddress/cbc:BuildingName)) = &apos;&apos; )">
 						<xsl:text>&#160;</xsl:text><xsl:value-of select="cac:PostalAddress/cbc:BuildingName"/>
@@ -786,11 +832,13 @@ td {
 									<br/><i>Commodity code:</i><xsl:text>&#160;</xsl:text>
 									<xsl:value-of select="cac:Item/cac:CommodityClassification/cbc:CommodityCode"/>
 								</xsl:if>
-								<xsl:if test="not(normalize-space(string(cbc:Note)) = &apos;&apos;)">
-									<br/><br/>
-									<i>Note:</i><xsl:text>&#160;</xsl:text>
-									<xsl:value-of select="cbc:Note"/>
-								</xsl:if>
+								<xsl:for-each select="cbc:Note">
+									<xsl:if test="not(normalize-space(string(.)) = &apos;&apos;)">
+										<br/>
+										<i>Note:</i><xsl:text>&#160;</xsl:text>
+										<xsl:value-of select="."/>
+									</xsl:if>
+								</xsl:for-each>
 								<xsl:if test="count(cac:Item/cac:AdditionalItemProperty) &gt; 0">
 									<br/>
 									<xsl:for-each select="cac:Item/cac:AdditionalItemProperty">
@@ -1200,10 +1248,11 @@ td {
 					<xsl:value-of select="cac:DeliveryTerms/cbc:SpecialTerms"/>
 				</td>
 			</tr>
+			<xsl:for-each select="cac:Delivery">
 			<tr>
 				<td class="cellRightTopBorder" colSpan="4">
 					<xsl:text>Delivery location:</xsl:text><br/>
-					<xsl:for-each select="cac:Delivery[1]/cac:DeliveryLocation">
+					<xsl:for-each select="cac:DeliveryLocation">
 						<xsl:if test="not ( normalize-space(string(cac:Address/cbc:Department)) = &apos;&apos; )">
 							<xsl:value-of select="cac:Address/cbc:Department"/>
 							<br/>
@@ -1257,42 +1306,41 @@ td {
 					</xsl:for-each>
 				</td>
 				<td colSpan="4">
-					<xsl:text>Actual delivery date: </xsl:text>
-					<xsl:for-each select="cac:Delivery">
+					<xsl:text>Actual delivery date: </xsl:text>					
+					<xsl:call-template name="formatDate">
+						<xsl:with-param name="date" select="cbc:ActualDeliveryDate"/>
+					</xsl:call-template>
+					<br/>
+					<xsl:if test="not ( normalize-space(string(cbc:LatestDeliveryDate)) = &apos;&apos; )">
+						<xsl:text>Latest delivery date: </xsl:text>
 						<xsl:call-template name="formatDate">
-							<xsl:with-param name="date" select="cbc:ActualDeliveryDate"/>
+							<xsl:with-param name="date" select="cbc:LatestDeliveryDate"/>
+						</xsl:call-template>
+					</xsl:if>
+					<xsl:if test="not ( normalize-space(string(cac:RequestedDeliveryPeriod/cbc:StartDate)) = &apos;&apos; )">
+						<xsl:text>Requested delivery period: </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cac:RequestedDeliveryPeriod/cbc:StartDate"/>
+						</xsl:call-template>
+						<xsl:text> - </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cac:RequestedDeliveryPeriod/cbc:EndDate"/>
 						</xsl:call-template>
 						<br/>
-						<xsl:if test="not ( normalize-space(string(cbc:LatestDeliveryDate)) = &apos;&apos; )">
-							<xsl:text>Latest delivery date: </xsl:text>
-							<xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="cbc:LatestDeliveryDate"/>
-							</xsl:call-template>
-						</xsl:if>
-						<xsl:if test="not ( normalize-space(string(cac:RequestedDeliveryPeriod/cbc:StartDate)) = &apos;&apos; )">
-							<xsl:text>Requested delivery period: </xsl:text>
-							<xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="cac:RequestedDeliveryPeriod/cbc:StartDate"/>
-							</xsl:call-template>
-							<xsl:text> - </xsl:text>
-							<xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="cac:RequestedDeliveryPeriod/cbc:EndDate"/>
-							</xsl:call-template>
-							<br/>
-						</xsl:if>
-						<xsl:if test="not ( normalize-space(string(cac:EstimatedDeliveryPeriod/cbc:StartDate)) = &apos;&apos; )">
-							<xsl:text>Estimated delivery period: </xsl:text>
-							<xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="cac:EstimatedDeliveryPeriod/cbc:StartDate"/>
-							</xsl:call-template>
-							<xsl:text> - </xsl:text>
-							<xsl:call-template name="formatDate">
-								<xsl:with-param name="date" select="cac:EstimatedDeliveryPeriod/cbc:EndDate"/>
-							</xsl:call-template>
-						</xsl:if>
-					</xsl:for-each>
+					</xsl:if>
+					<xsl:if test="not ( normalize-space(string(cac:EstimatedDeliveryPeriod/cbc:StartDate)) = &apos;&apos; )">
+						<xsl:text>Estimated delivery period: </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cac:EstimatedDeliveryPeriod/cbc:StartDate"/>
+						</xsl:call-template>
+						<xsl:text> - </xsl:text>
+						<xsl:call-template name="formatDate">
+							<xsl:with-param name="date" select="cac:EstimatedDeliveryPeriod/cbc:EndDate"/>
+						</xsl:call-template>
+					</xsl:if>					
 				</td>
 			</tr>
+			</xsl:for-each>
 			<tr class="bg1 labelBoldMedium labelWhite">
 				<td colSpan="8">Additional document information</td>
 			</tr>

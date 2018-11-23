@@ -1191,7 +1191,7 @@
             <SimpleValue>A1</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>15 °C calorie</SimpleValue>
+            <SimpleValue>15 Â°C calorie</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -8215,7 +8215,7 @@
             <SimpleValue>H1</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>half page  electronic</SimpleValue>
+            <SimpleValue>half page electronic</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9519,7 +9519,7 @@
             <SimpleValue>J40</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (international table) foot per hour square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (international table) foot per hour square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9527,7 +9527,7 @@
             <SimpleValue>J41</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (international table) inch per hour square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (international table) inch per hour square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9535,7 +9535,7 @@
             <SimpleValue>J42</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (international table) inch per second square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (international table) inch per second square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9567,7 +9567,7 @@
             <SimpleValue>J46</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (thermochemical) foot per hour square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (thermochemical) foot per hour square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9583,7 +9583,7 @@
             <SimpleValue>J48</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (thermochemical) inch per hour square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (thermochemical) inch per hour square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -9591,7 +9591,7 @@
             <SimpleValue>J49</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>British thermal unit (thermochemical) inch per second square foot degree Fahrenheit</SimpleValue>
+            <SimpleValue>British thermal unit (thermochemical) inch per second square foot degree Fahrenheit</SimpleValue>
          </Value>
       </Row>
       <Row>
@@ -12687,7 +12687,7 @@
             <SimpleValue>MWH</SimpleValue>
          </Value>
          <Value ColumnRef="name">
-            <SimpleValue>megawatt hour (1000 kW.h)</SimpleValue>
+            <SimpleValue>megawatt hour (1000 kW.h)</SimpleValue>
          </Value>
       </Row>
       <Row>

@@ -8,9 +8,6 @@
                 xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
                 xmlns:udt="urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2"
                 xmlns:stat="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0"
-                xmlns:ec="ec:schema:xsd:CreateParty-2"
-                xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 version="1.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. The name or details of 
     this mode may change during 1Q 2007.-->
@@ -20,7 +17,9 @@
 
 
 <!--PROLOG-->
-<xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" method="xml"
+<xsl:output xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+               method="xml"
                omit-xml-declaration="no"
                standalone="yes"
                indent="yes"/>
@@ -132,8 +131,9 @@
 
    <!--SCHEMA METADATA-->
 <xsl:template match="/">
-      <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                              title="Business rules for e-TrustEx CreateParty version 2.1"
+      <svrl:schematron-output xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                              xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                              title="Business rules for e-PRIOR Query Request"
                               schemaVersion="">
          <svrl:ns-prefix-in-attribute-values uri="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
                                              prefix="qdt"/>
@@ -147,164 +147,130 @@
                                              prefix="udt"/>
          <svrl:ns-prefix-in-attribute-values uri="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0"
                                              prefix="stat"/>
-         <svrl:ns-prefix-in-attribute-values uri="ec:schema:xsd:CreateParty-2" prefix="ec"/>
-         <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
-         <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
          <svrl:active-pattern>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M10"/>
+         <xsl:apply-templates select="/" mode="M7"/>
          <svrl:active-pattern>
-            <xsl:attribute name="id">DeleteDocumentWrapper_code_list_rules</xsl:attribute>
-            <xsl:attribute name="name">DeleteDocumentWrapper_code_list_rules</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M11"/>
+         <xsl:apply-templates select="/" mode="M8"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="id">QueryRequest_code_list_rules</xsl:attribute>
+            <xsl:attribute name="name">QueryRequest_code_list_rules</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M9"/>
       </svrl:schematron-output>
    </xsl:template>
 
    <!--SCHEMATRON PATTERNS-->
-<svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Business rules for e-TrustEx CreateParty version 2.1</svrl:text>
+<svrl:text xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:svrl="http://purl.oclc.org/dsdl/svrl">Business rules for e-PRIOR Query Request</svrl:text>
 
    <!--PATTERN -->
 
 
 	<!--RULE -->
-<xsl:template match="*[local-name()='CreateParty']/cac:Party" priority="1002" mode="M10">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="*[local-name()='CreateParty']/cac:Party"/>
+<xsl:template match="cac:Period" priority="1000" mode="M7">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="cac:Period"/>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="fn:count(cac:PartyName) = 1"/>
+         <xsl:when test="not ( normalize-space(./cbc:StartDate) = '' )"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="fn:count(cac:PartyName) = 1">
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:StartDate) = '' )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
-               <svrl:text>Party must contain exactly one PartyName</svrl:text>
+               <svrl:text>error.period_check_startdate</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="fn:count(cac:PartyIdentification) &gt;= 1"/>
+         <xsl:when test="not ( normalize-space(./cbc:EndDate) = '' )"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="fn:count(cac:PartyIdentification) &gt;= 1">
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not ( normalize-space(./cbc:EndDate) = '' )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
-               <svrl:text>Party must contain at least one PartyIdentification</svrl:text>
+               <svrl:text>error.period_check_enddate</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M10"/>
+      <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M7"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M7"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M7">
+      <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M7"/>
    </xsl:template>
 
-	  <!--RULE -->
-<xsl:template match="*[local-name()='CreateParty']/cac:Party/cac:PartyName/cbc:Name"
-                 priority="1001"
-                 mode="M10">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="*[local-name()='CreateParty']/cac:Party/cac:PartyName/cbc:Name"/>
+   <!--PATTERN -->
+
+
+	<!--RULE -->
+<xsl:template match="cbc:StartDate" priority="1000" mode="M8">
+      <svrl:fired-rule xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="cbc:StartDate"/>
+      <xsl:variable name="startYear" select="number(substring(.,1,4))"/>
+      <xsl:variable name="startMonth" select="number(substring(.,6,2))"/>
+      <xsl:variable name="startDay" select="number(substring(.,9,2))"/>
+      <xsl:variable name="endYear" select="number(substring(../cbc:EndDate,1,4))"/>
+      <xsl:variable name="endMonth" select="number(substring(../cbc:EndDate,6,2))"/>
+      <xsl:variable name="endDay" select="number(substring(../cbc:EndDate,9,2))"/>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(fn:normalize-space(.) = '')"/>
+         <xsl:when test="( $startYear &lt; $endYear ) or ( ( $startYear = $endYear ) and ( $startMonth &lt; $endMonth ) ) or ( ( $startYear = $endYear ) and ( $startMonth = $endMonth ) and ( $startDay &lt;= $endDay ) )"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not(fn:normalize-space(.) = '')">
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="( $startYear &lt; $endYear ) or ( ( $startYear = $endYear ) and ( $startMonth &lt; $endMonth ) ) or ( ( $startYear = $endYear ) and ( $startMonth = $endMonth ) and ( $startDay &lt;= $endDay ) )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
-               <svrl:text>Party name is empty</svrl:text>
+               <svrl:text>error.invalid_date_range</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
 
 		    <!--ASSERT -->
 <xsl:choose>
-         <xsl:when test="not(string-length(normalize-space(.)) &gt; 255)"/>
+         <xsl:when test="( $startYear = $endYear ) or ( ( $startYear &gt;= ($endYear - 1) ) and ( $startMonth &gt; $endMonth ) ) or ( ( $startYear &gt;= ($endYear - 1) ) and ( $startMonth = $endMonth ) and ( $startDay &gt;= $endDay ) )"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not(string-length(normalize-space(.)) &gt; 255)">
+            <svrl:failed-assert xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                                xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="( $startYear = $endYear ) or ( ( $startYear &gt;= ($endYear - 1) ) and ( $startMonth &gt; $endMonth ) ) or ( ( $startYear &gt;= ($endYear - 1) ) and ( $startMonth = $endMonth ) and ( $startDay &gt;= $endDay ) )">
                <xsl:attribute name="flag">error</xsl:attribute>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-get-full-path"/>
                </xsl:attribute>
-               <svrl:text>Party name must be at most 255 characters long</svrl:text>
+               <svrl:text>error.large_date_range</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M10"/>
+      <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M8"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M8"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M8">
+      <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M8"/>
    </xsl:template>
 
-	  <!--RULE -->
-<xsl:template match="*[local-name()='CreateParty']/cac:Party/cac:PartyIdentification/cbc:ID"
-                 priority="1000"
-                 mode="M10">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="*[local-name()='CreateParty']/cac:Party/cac:PartyIdentification/cbc:ID"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(fn:normalize-space(.) = '')"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not(fn:normalize-space(.) = '')">
-               <xsl:attribute name="flag">error</xsl:attribute>
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Party identifier is empty</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(string-length(normalize-space(.)) &gt; 255)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not(string-length(normalize-space(.)) &gt; 255)">
-               <xsl:attribute name="flag">error</xsl:attribute>
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Party identifier must be at most 255 characters long</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(string-length(normalize-space(@schemeID)) &gt; 255)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="not(string-length(normalize-space(@schemeID)) &gt; 255)">
-               <xsl:attribute name="flag">error</xsl:attribute>
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-get-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Scheme ID must be at most 255 characters long</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M10"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M10"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M10">
-      <xsl:apply-templates select="*" mode="M10"/>
-   </xsl:template>
-
-   <!--PATTERN DeleteDocumentWrapper_code_list_rules-->
-<xsl:template match="text()" priority="-1" mode="M11"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M11">
-      <xsl:apply-templates select="*" mode="M11"/>
+   <!--PATTERN QueryRequest_code_list_rules-->
+<xsl:template match="text()" priority="-1" mode="M9"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M9">
+      <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M9"/>
    </xsl:template>
 </xsl:stylesheet>
