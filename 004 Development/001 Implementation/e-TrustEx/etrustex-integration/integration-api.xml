@@ -11,12 +11,12 @@
       <directory>target/classes</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-       <include>eu/europa/ec/cipa/etrustex/types/*.class</include> 
-        <include>eu/europa/ec/cipa/etrustex/integration/api/*.class</include>
-         <include>eu/europa/ec/cipa/etrustex/integration/exception/*.class</include>
-        <include>eu/europa/ec/cipa/etrustex/integration/message/*.class</include>
-        <include>eu/europa/ec/cipa/etrustex/integration/util/JmsHeaders.class</include>
-         <include>eu/europa/ec/cipa/etrustex/integration/ejb/facades/*.class</include>
+       <include>eu/europa/ec/etrustex/types/*.class</include> 
+        <include>eu/europa/ec/etrustex/integration/api/*.class</include>
+         <include>eu/europa/ec/etrustex/integration/exception/*.class</include>
+        <include>eu/europa/ec/etrustex/integration/message/*.class</include>
+        <include>eu/europa/ec/etrustex/integration/util/JmsHeaders.class</include>
+         <include>eu/europa/ec/etrustex/integration/ejb/facades/*.class</include>
       </includes>
     </fileSet>
   </fileSets>

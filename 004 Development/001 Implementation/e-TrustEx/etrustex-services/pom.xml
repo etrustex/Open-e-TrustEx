@@ -1,10 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>etrustex-parent</artifactId>
-		<groupId>eu.europa.ec.cipa</groupId>
+		<groupId>eu.europa.ec.etrustex</groupId>
+		<artifactId>etrustex-node</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../etrustex-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>etrustex-services</artifactId>
 	<version>${etrustex.version}</version>
@@ -13,40 +12,32 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>eu.europa.ec.cipa</groupId>
+			<groupId>eu.europa.ec.etrustex</groupId>
 			<artifactId>etrustex-domain</artifactId>
 			<version>${etrustex.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>eu.europa.ec.cipa</groupId>
+			<groupId>eu.europa.ec.etrustex</groupId>
 			<artifactId>etrustex-types</artifactId>
 			<version>${etrustex.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${org.springframework.version}</version>
+			<groupId>eu.europa.ec.etrustex</groupId>
+			<artifactId>etrustex-dao</artifactId>
+			<version>${etrustex.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.2.1.Final</version>
-			<scope>${hibernate.scope}</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>dom4j</artifactId>
-					<groupId>dom4j</groupId>
-				</exclusion>				
-			</exclusions>
+		   <groupId>javax.el</groupId>
+		   <artifactId>javax.el-api</artifactId>
+		   <scope>test</scope>
+		</dependency>
+		<dependency>
+			<artifactId>xml-apis</artifactId>
+			<groupId>xml-apis</groupId>
 		</dependency>
 		<dependency> 
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.1</version>
 			<type>jar</type>
 			<scope>test</scope>
 			<exclusions>
@@ -61,101 +52,57 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.3.3</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-<!-- 		<dependency>
+		<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.1.0</version>
 			<scope>test</scope>
-		</dependency> -->
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.7.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${org.springframework.version}</version>
-			<scope>test</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>${org.springframework.version}</version>
-		</dependency>
+		</dependency>		
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.48</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>javax</groupId> -->
-		<!-- <artifactId>javaee-api</artifactId> -->
-		<!-- <version>6.0</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>javax.persistence</groupId> -->
-		<!-- <artifactId>persistence-api</artifactId> -->
-		<!-- <version>2.0.0</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
-			<version>9.5.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
-			<version>2.9.1</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>xml-apis</artifactId>
@@ -164,53 +111,48 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>commons-scxml</groupId>
-			<artifactId>commons-scxml</artifactId>
-			<version>0.9</version>
-		</dependency>
-		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
-			<version>2.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-jexl</groupId>
-			<artifactId>commons-jexl</artifactId>
-			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.liquibase</groupId>
-		    <artifactId>liquibase-maven-plugin</artifactId>
-		    <version>3.3.5</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-		    <version>1.9</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 			  <groupId>org.apache.poi</groupId>
 			  <artifactId>poi</artifactId>
-			  <version>3.15</version>
-		 </dependency>		
+		 </dependency>
+		<dependency>
+			  <groupId>net.sf.ehcache</groupId>
+			  <artifactId>ehcache</artifactId>
+		 </dependency>
+		 <dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-security</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-ws-core</artifactId>
+					<groupId>org.springframework.ws</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-security-core</artifactId>
+					<groupId>org.springframework.security</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xmlsec</artifactId>
+					<groupId>org.apache.santuario</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>		 
 	</dependencies>
 	<build>
 		<resources>
@@ -220,6 +162,7 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>**/*.xml</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 			<resource>
@@ -227,21 +170,31 @@
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>**/*.xml</exclude>
+					<exclude>**/*.properties</exclude>
 				</excludes>
 			</resource>
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<compilerArgument>-proc:none</compilerArgument>
+					<skipTests>false</skipTests>
 				</configuration>
 			</plugin>
-		</plugins>
-
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.9</version>
+				<executions>
+					<execution>
+						<id>default-report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+    </plugins>
 	</build>
 </project>

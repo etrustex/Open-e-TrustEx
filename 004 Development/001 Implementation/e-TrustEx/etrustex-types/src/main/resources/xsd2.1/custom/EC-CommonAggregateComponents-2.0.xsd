@@ -542,6 +542,7 @@ Copyright EC DIGIT by PwC
 	</xsd:complexType>
 	<xsd:complexType name="TechnicalHeaderType">
 		<xsd:sequence>
+			<xsd:element ref="eccbc:HRTemplateID" minOccurs="0"/>
 			<xsd:element ref="cbc:VersionID" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="PayloadDigestValue" minOccurs="0"/>
 			<xsd:element ref="PayloadDigestMethod" minOccurs="0"/>
@@ -558,7 +559,6 @@ Copyright EC DIGIT by PwC
 							<ccts:ComponentType>BBIE</ccts:ComponentType>
 							<ccts:DictionaryEntryName>Item Property. Name</ccts:DictionaryEntryName>
 							<ccts:Definition>The name of the Item Property.</ccts:Definition>
-							<ccts:Cardinality>1</ccts:Cardinality>
 							<ccts:ObjectClass>Item Property</ccts:ObjectClass>
 							<ccts:PropertyTerm>Name</ccts:PropertyTerm>
 							<ccts:RepresentationTerm>Name</ccts:RepresentationTerm>

@@ -10,7 +10,7 @@
       <display-name>IntegrationQueueMessageListener</display-name>
       <ejb-name>IntegrationQueueMessageListener</ejb-name>
       <mapped-name>${integrationqueue.name}</mapped-name>
-      <ejb-class>eu.europa.ec.cipa.etrustex.integration.ejb.IntegrationQueueMessageListener</ejb-class>
+      <ejb-class>eu.europa.ec.etrustex.integration.ejb.IntegrationQueueMessageListener</ejb-class>
       <transaction-type>Container</transaction-type>
       <activation-config>
         <activation-config-property>
@@ -27,7 +27,7 @@
       <display-name>WaitingRoomMessageListener</display-name>
       <ejb-name>WaitingRoomMessageListener</ejb-name>
       <mapped-name>${waitingroomqueue.name}</mapped-name>
-      <ejb-class>eu.europa.ec.cipa.etrustex.integration.ejb.WaitingRoomMessageListener</ejb-class>
+      <ejb-class>eu.europa.ec.etrustex.integration.ejb.WaitingRoomMessageListener</ejb-class>
       <transaction-type>Container</transaction-type>
       <activation-config>
         <activation-config-property>
@@ -41,27 +41,10 @@
       </activation-config>
     </message-driven>
     <message-driven>
-      <display-name>ServiceQueueMessageListener</display-name>
-      <ejb-name>ServiceQueueMessageListener</ejb-name>
-      <mapped-name>${sevicequeue.name}</mapped-name>
-      <ejb-class>eu.europa.ec.cipa.etrustex.integration.ejb.ServiceQueueMessageListener</ejb-class>
-      <transaction-type>Container</transaction-type>
-      <activation-config>
-        <activation-config-property>
-          <activation-config-property-name>destinationType</activation-config-property-name>
-          <activation-config-property-value>javax.jms.Queue</activation-config-property-value>
-        </activation-config-property>
-        <activation-config-property>
-          <activation-config-property-name>destination</activation-config-property-name>
-          <activation-config-property-value>${sevicequeue.name}</activation-config-property-value>
-        </activation-config-property> 
-      </activation-config>
-    </message-driven>    
-    <message-driven>
       <display-name>RoutingQueueMessageListener</display-name>
       <ejb-name>RoutingQueueMessageListener</ejb-name>
       <mapped-name>${routingqueue.name}</mapped-name>
-      <ejb-class>eu.europa.ec.cipa.etrustex.integration.ejb.RoutingQueueMessageListener</ejb-class>
+      <ejb-class>eu.europa.ec.etrustex.integration.ejb.RoutingQueueMessageListener</ejb-class>
       <transaction-type>Container</transaction-type>
       <activation-config>
         <activation-config-property>
@@ -75,6 +58,4 @@
       </activation-config>
     </message-driven>        
   </enterprise-beans>
-  <assembly-descriptor>
-  </assembly-descriptor>
 </ejb-jar>

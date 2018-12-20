@@ -2,36 +2,26 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>etrustex-parent</artifactId>
-		<groupId>eu.europa.ec.cipa</groupId>
+		<groupId>eu.europa.ec.etrustex</groupId>
+		<artifactId>etrustex-node</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../etrustex-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>etrustex-procurement-integration</artifactId>
 	<version>${eprior.version}</version>
-	<packaging>jar</packaging>
-  	
+	<packaging>jar</packaging> 	
 	<dependencies>
 		<dependency>
-			<groupId>eu.europa.ec.cipa</groupId>
+			<groupId>eu.europa.ec.etrustex</groupId>
 			<artifactId>etrustex-integration</artifactId>
 			<version>${etrustex.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>jms</artifactId>
-			<version>1.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>bsh</groupId>
-			<artifactId>bsh</artifactId>
-			<version>1.3.0</version>
+			<artifactId>bsh</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
-			<version>1.5</version>
 		</dependency>
 	</dependencies>  	
 	
@@ -53,15 +43,15 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
-			</plugin> -->
+ 			</plugin>
 
 		</plugins>
 	</build>	

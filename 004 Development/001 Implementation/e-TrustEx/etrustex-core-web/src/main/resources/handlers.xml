@@ -2,7 +2,7 @@
     <handler-chain>
        <handler>
            <handler-name>ServiceSigHandler</handler-name>
-           <handler-class>eu.europa.ec.cipa.services.jws.SigHandler</handler-class>
+           <handler-class>eu.europa.ec.etrustex.services.jws.SigHandler</handler-class>
        </handler>
 	</handler-chain>
 </handler-chains>

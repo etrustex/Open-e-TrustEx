@@ -67,6 +67,7 @@
   <xsd:element name="CardTypeCode" type="CardTypeCodeType"/>
   <xsd:element name="CargoTypeCode" type="CargoTypeCodeType"/>
   <xsd:element name="CarrierAssignedID" type="CarrierAssignedIDType"/>
+  <xsd:element name="CaseNumber" type="CaseNumberType"/>
   <xsd:element name="CatalogueIndicator" type="CatalogueIndicatorType"/>
   <xsd:element name="CategoryName" type="CategoryNameType"/>
   <xsd:element name="CertificateType" type="CertificateTypeType"/>
@@ -738,6 +739,11 @@
   <xsd:complexType name="CarrierAssignedIDType">
     <xsd:simpleContent>
       <xsd:extension base="udt:IdentifierType"/>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="CaseNumberType">
+    <xsd:simpleContent>
+      <xsd:extension base="udt:TextType"/>
     </xsd:simpleContent>
   </xsd:complexType>
   <xsd:complexType name="CatalogueIndicatorType">

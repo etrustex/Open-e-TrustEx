@@ -28,6 +28,7 @@ Copyright EC DIGIT by PwC
 	<xsd:element name="IntegrityLevelCode" type="IntegrityLevelCodeType"/>
 	<xsd:element name="AvailabilityLevelCode" type="AvailabilityLevelCodeType"/>
 	<xsd:element name="KeyUsageCode" type="KeyUsageCodeType"/>
+	<xsd:element name="HRTemplateID" type="HRTemplateIDType"/>
 	
 	<!-- ===== Complex Types ===== -->
 	<xsd:complexType name="AckIndicatorType">
@@ -171,6 +172,11 @@ Copyright EC DIGIT by PwC
 		  <xsd:extension base="udt:CodeType"/>
 		</xsd:simpleContent>
     </xsd:complexType>
+    <xsd:complexType name="HRTemplateIDType">
+		<xsd:simpleContent>
+			<xsd:extension base="udt:TextType" />
+		</xsd:simpleContent>
+	</xsd:complexType>
     
 	<!--===== e-Request Elements =====-->
 	<xsd:element name="AutomaticIndicator" type="AutomaticIndicatorType"/>

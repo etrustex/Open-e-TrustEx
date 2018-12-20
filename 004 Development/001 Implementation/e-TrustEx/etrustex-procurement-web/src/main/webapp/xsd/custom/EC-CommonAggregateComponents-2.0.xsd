@@ -556,6 +556,7 @@ Copyright EC DIGIT by PwC
 	</xsd:complexType>
 	<xsd:complexType name="TechnicalHeaderType">
 		<xsd:sequence>
+			<xsd:element ref="eccbc:HRTemplateID" minOccurs="0"/>
 			<xsd:element ref="cbc:VersionID" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="PayloadDigestValue" minOccurs="0"/>
 			<xsd:element ref="PayloadDigestMethod" minOccurs="0"/>

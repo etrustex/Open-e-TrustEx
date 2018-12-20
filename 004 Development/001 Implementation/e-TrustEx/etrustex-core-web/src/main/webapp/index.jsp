@@ -1,6 +1,6 @@
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
-<%@page import="eu.europa.ec.cipa.etrustex.services.IMonitoringService"%>
+<%@page import="eu.europa.ec.etrustex.services.IMonitoringService"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

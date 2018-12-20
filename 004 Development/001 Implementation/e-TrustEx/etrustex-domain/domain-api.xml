@@ -11,14 +11,14 @@
       <directory>target/classes</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-       <include>eu/europa/ec/cipa/etrustex/types/*.class</include> 
-       <include>eu/europa/ec/cipa/etrustex/domain/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/admin/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/log/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/query/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/routing/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/sla/*.class</include>
-       <include>eu/europa/ec/cipa/etrustex/domain/util/*.class</include>
+       <include>eu/europa/ec/etrustex/types/*.class</include> 
+       <include>eu/europa/ec/etrustex/domain/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/admin/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/log/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/query/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/routing/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/sla/*.class</include>
+       <include>eu/europa/ec/etrustex/domain/util/*.class</include>
 
       </includes>
     </fileSet>

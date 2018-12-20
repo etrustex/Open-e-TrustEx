@@ -50,6 +50,7 @@
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:element>
+			<xsd:element ref="cbc:CaseNumber"  minOccurs="0"/>
 			<xsd:element ref="cbc:Note" minOccurs="0" maxOccurs="unbounded">
 				<xsd:annotation>
 					<xsd:documentation>

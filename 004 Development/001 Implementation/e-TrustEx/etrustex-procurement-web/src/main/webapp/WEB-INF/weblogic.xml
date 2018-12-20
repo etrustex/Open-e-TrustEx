@@ -5,7 +5,7 @@
     <wls:container-descriptor>
         <wls:allow-all-roles>true</wls:allow-all-roles>
     </wls:container-descriptor>
-    <wls:context-root>eprior</wls:context-root>
+    <wls:context-root>etrustex-procurement-web</wls:context-root>
     <wls:work-manager>
         <wls:name>epriorWorkManager</wls:name>
         <wls:max-threads-constraint>

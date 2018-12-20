@@ -302,6 +302,7 @@ Copyright EC DIGIT by PwC
 			<xsd:element ref="cac:SenderParty" minOccurs="0"/>
 			<xsd:element ref="cac:ReceiverParty" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="cac:LineResponse" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="cbc:CaseNumber" minOccurs="0" maxOccurs="1"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="DocumentReferenceResponseRelatedDocsType">
@@ -570,6 +571,7 @@ Copyright EC DIGIT by PwC
 	</xsd:complexType>
 	<xsd:complexType name="TechnicalHeaderType">
 		<xsd:sequence>
+			<xsd:element ref="eccbc:HRTemplateID" minOccurs="0"/>
 			<xsd:element ref="cbc:VersionID" minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element ref="PayloadDigestValue" minOccurs="0"/>
 			<xsd:element ref="PayloadDigestMethod" minOccurs="0"/>

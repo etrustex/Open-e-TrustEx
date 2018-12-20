@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<p:DocumentWrapperRequest xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:p="ec:schema:xsd:DocumentWrapperRequest-1" xmlns:p1="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:p2="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:p3="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:p4="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:p5="ec:schema:xsd:CommonAggregateComponents-2" xmlns:p6="ec:schema:xsd:CommonBasicComponents-1" xmlns:p7="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" xmlns:p8="urn:oasis:names:specification:ubl:schema:xsd:SignatureAggregateComponents-2" xmlns:p9="urn:oasis:names:specification:ubl:schema:xsd:SignatureBasicComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ec:schema:xsd:DocumentWrapperRequest-1 ../../../target/etrustex-core-web-0.0.1-SNAPSHOT/xsd/maindoc/EC-DocumentWrapperRequest-1.0.xsd ">
-  <p5:DocumentReferenceRequest>
-    <p2:ID>p2:ID</p2:ID>
-    <p2:DocumentTypeCode>p2:DocumentTypeCode</p2:DocumentTypeCode>
-  </p5:DocumentReferenceRequest>
-</p:DocumentWrapperRequest>

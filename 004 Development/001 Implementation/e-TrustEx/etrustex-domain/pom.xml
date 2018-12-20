@@ -2,10 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>etrustex-parent</artifactId>
-		<groupId>eu.europa.ec.cipa</groupId>
+		<groupId>eu.europa.ec.etrustex</groupId>
+		<artifactId>etrustex-node</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../etrustex-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>etrustex-domain</artifactId>
 	<version>${etrustex.version}</version>
@@ -13,17 +12,14 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>1.0.1.Final</version>
-		</dependency>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+		</dependency>		 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
-			<version>4.2.1.Final</version>
 			<scope>${hibernate.scope}</scope>
 			<exclusions>
 				<exclusion>
@@ -34,60 +30,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-infinispan</artifactId>
-			<version>4.2.1.Final</version>
-			<scope>${hibernate.scope}</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.2.1.Final</version>
-<!-- 			<scope>${hibernate.scope}</scope> -->
-			<exclusions>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>dom4j</artifactId>
-					<groupId>dom4j</groupId>
-				</exclusion>				
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jpamodelgen</artifactId>
 			<scope>compile</scope>
-			<version>1.1.1.Final</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>9.5.0.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.48</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version> 
-		</dependency>		
 	</dependencies>
 	<build>
 		<resources>
@@ -102,19 +51,29 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<compilerArgument>-proc:none</compilerArgument>
-				</configuration>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>${apt-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<skipTests>true</skipTests>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -137,6 +96,7 @@
 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
+				<version>3.3.2</version>
 				<executions>
 					<execution>
 						<id>process</id>
@@ -145,6 +105,9 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
+							<processors>
+                    			<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                			</processors>
 							<outputDirectory>target/metamodel</outputDirectory>
 						</configuration>
 					</execution>

@@ -1,7 +1,8 @@
 <soapenv:Envelope 
 		xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
 		xmlns:ec="${TRANSACTION_NS}" 
-		xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2" 
+		xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2"
+		xmlns:ec2="ec:schema:xsd:CommonBasicComponents-1"
 		xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader" 
 		xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
 		xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -22,7 +23,12 @@
 	            <stan:DocumentIdentification>${DOCUMENT_ID}</stan:DocumentIdentification>	
 	            <stan:CreationDateAndTime>${RECEPTION_DATE}</stan:CreationDateAndTime>
 	            <ec1:ValidationResult>${SCHEMATRON_RESULTS}</ec1:ValidationResult>     
-	        </ec1:BusinessHeader>        
+	        </ec1:BusinessHeader>
+	        <#if HR != "IS_EMPTY">
+  				<ec1:TechnicalHeader>
+            		<ec2:HRTemplateID>${HR}</ec2:HRTemplateID>
+         		</ec1:TechnicalHeader>
+			</#if>        
       	</doc:Header>
    	</soapenv:Header>
 	<soapenv:Body>   		

@@ -23,7 +23,7 @@
 			<xsd:element ref="cbc:UBLVersionID" minOccurs="0"/>
 			<xsd:element ref="cbc:CustomizationID" minOccurs="0"/>
 			<xsd:element ref="cbc:ProfileID" minOccurs="0"/>
-			<xsd:element ref="cbc:ID"/>
+			<xsd:element ref="cbc:ID" minOccurs="0"/>
 			<xsd:element ref="cbc:UUID" minOccurs="0">
 				<xsd:annotation>
 					<xsd:documentation>

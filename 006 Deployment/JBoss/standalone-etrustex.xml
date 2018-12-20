@@ -198,7 +198,7 @@
                     <managed-scheduled-executor-service name="default" jndi-name="java:jboss/ee/concurrency/scheduler/default" context-service="default" hung-task-threshold="60000" keepalive-time="3000"/>
                 </managed-scheduled-executor-services>
             </concurrent>
-            <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:/jdbc/eTrustExDs" jms-connection-factory="java:/JmsXA" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
+            <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:/jdbc/eTrustExDs" jms-connection-factory="java:jboss/DefaultJMSConnectionFactory" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ejb3:4.0">
             <session-bean>
@@ -346,7 +346,7 @@
                 <address-setting name="jms.queue.routingQueue" dead-letter-address="jms.queue.errorQueue" expiry-address="jms.queue.errorQueue" redelivery-delay="30000" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10" redistribution-delay="1000"/>
                 <address-setting name="jms.queue.documentQueue" dead-letter-address="jms.queue.errorQueue" expiry-address="jms.queue.errorQueue" redelivery-delay="30000" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10" redistribution-delay="1000"/>
                 <address-setting name="jms.queue.integrationQueue" dead-letter-address="jms.queue.errorQueue" expiry-address="jms.queue.errorQueue" redelivery-delay="30000" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10" redistribution-delay="1000"/>
-				<address-setting name="jms.queue.waitingRoomQueue" dead-letter-address="jms.queue.errorQueue" expiry-address="jms.queue.errorQueue" redelivery-delay="30000" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10" redistribution-delay="1000"/>
+                <address-setting name="jms.queue.waitingRoomQueue" dead-letter-address="jms.queue.errorQueue" expiry-address="jms.queue.errorQueue" redelivery-delay="30000" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10" redistribution-delay="1000"/>
                 <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" address-full-policy="BLOCK" message-counter-history-day-limit="10"/>
                 <http-connector name="http-connector" socket-binding="http" endpoint="http-acceptor"/>
                 <http-connector name="http-connector-throughput" socket-binding="http" endpoint="http-acceptor-throughput">
@@ -376,8 +376,8 @@
                 <jms-queue name="documentQueue" entries="java:/queue/documentQueue java:jboss/exported/jms/documentQueue"/>
                 <jms-queue name="testQueue" entries="java:jboss/exported/jms/testQueue"/>
                 <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
-                <connection-factory name="RemoteConnectionFactory" entries="RemoteConnectionFactory java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
-                <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA" connectors="in-vm" transaction="xa"/>
+                <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
+                <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
             </server>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
@@ -400,19 +400,6 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:security:1.2">
             <security-domains>
-                <security-domain name="trustexRealm" cache-type="default">
-                    <authentication>
-                        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
-                            <module-option name="dsJndiName" value="java:/jdbc/eTrustExDs"/>
-                            <module-option name="principalsQuery" value="SELECT CRED_PASSW FROM etr_tb_credentials where CRED_USER=?"/>
-                            <module-option name="rolesQuery" value="SELECT 'BUNE', 'Roles' FROM etr_tb_credentials WHERE etr_tb_credentials.CRED_USER = ?"/>
-                            <module-option name="realm" value="trustexRealm"/>
-                            <module-option name="password-stacking" value="useFirstPass"/>
-                            <module-option name="hashAlgorithm" value="SHA-1"/>
-                            <module-option name="hashEncoding" value="base64"/>
-                        </login-module>
-                    </authentication>
-                </security-domain>
                 <security-domain name="cipadminRealm" cache-type="default">
                     <authentication>
                         <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
@@ -420,16 +407,6 @@
                             <module-option name="principalsQuery" value="SELECT CUS_PASSW FROM cpa_tb_user where CUS_NAME=?"/>
                             <module-option name="hashAlgorithm" value="SHA-1"/>
                             <module-option name="hashEncoding" value="base64"/>
-                        </login-module>
-                    </authentication>
-                </security-domain>
-                <security-domain name="trustexJMSRealm" cache-type="default">
-                    <authentication>
-                        <login-module code="RealmUsersRoles" flag="optional">
-                            <module-option name="usersProperties" value="${jboss.server.config.dir}/application-users.properties"/>
-                            <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles.properties"/>
-                            <module-option name="realm" value="trustexJMSRealm"/>
-                            <module-option name="password-stacking" value="useFirstPass"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -451,12 +428,12 @@
                 </security-domain>
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
-                        <policy-module code="Delegating" flag="required"/>
+                        <policy-module code="Delegating" flag="optional"/>
                     </authorization>
                 </security-domain>
                 <security-domain name="jboss-ejb-policy" cache-type="default">
                     <authorization>
-                        <policy-module code="Delegating" flag="required"/>
+                        <policy-module code="Delegating" flag="optional"/>
                     </authorization>
                 </security-domain>
             </security-domains>

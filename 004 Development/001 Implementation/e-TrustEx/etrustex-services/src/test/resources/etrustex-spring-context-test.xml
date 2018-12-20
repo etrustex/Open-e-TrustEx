@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/util 
+       http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/cache 
+       http://www.springframework.org/schema/cache/spring-cache.xsd"
+	default-autowire="byName">
+
+	<context:annotation-config />
+   	<!-- <context:component-scan base-package="eu.europa.ec.etrustex.services" /> -->
+    <context:component-scan base-package="eu.europa.ec.etrustex.services.impl" />
+	<context:component-scan base-package="eu.europa.ec.etrustex.dao.impl" />
+    <context:property-placeholder location="classpath:testEtrustex.properties"/>
+    
+	
+	<bean id="messageService" class="eu.europa.ec.etrustex.services.impl.MessageService">
+		<property name="messageDAO" ref="messageDAO" />
+		<property name="messageBinaryDAO" ref="messageBinaryDAO" />
+		<property name="localUsefilestore">
+			<value type="java.lang.Boolean">true</value>
+		</property>
+		<property name="localFileStorePath" value="e:/data" />
+		<property name="usefilestoreMetadata">
+			<value type="java.lang.Boolean">true</value>
+		</property>
+	</bean>
+	
+	<bean id="messageDAO" class="eu.europa.ec.etrustex.dao.impl.MessageDAO"/>
+
+	<bean id="messageBinaryDAO" class="eu.europa.ec.etrustex.dao.impl.MessageBinaryDAO">
+		<property name="retrieveBinaryQuery">
+			<value>
+				SELECT binval.MSG_BIN_VAL_VALUE 
+				FROM ETR_TB_MSG_BIN_VALUE binval 
+				join ETR_TB_MESSAGE_BINARY bin on binval.MSG_BIN_VAL_ID = bin.MSG_BIN_MSG_BIN_VAL_ID 
+				where bin.MSG_BIN_MSG_ID=? and bin.MSG_BIN_TYPE=?
+			</value>
+		</property>
+		<property name="retrieveBinaryStreamQuery">
+			<value>
+				SELECT binval.MSG_BIN_VAL_VALUE 
+				FROM ETR_TB_MSG_BIN_VALUE binval 
+				join ETR_TB_MESSAGE_BINARY bin on binval.MSG_BIN_VAL_ID = bin.MSG_BIN_MSG_BIN_VAL_ID 
+				where bin.MSG_BIN_ID=?
+			</value>
+		</property>
+
+
+		<property name="encryptionKey">
+			<value>XbwXQaT+LcFUXYX3Cnt6tQ8n8QKxcNRjpfZYQ9BGUdI=</value>
+		</property>
+
+		<property name="keySize">
+			<value>128</value>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<!-- ORACLE -->
+	<bean id="eTrustExDS" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${eTrustExDS.driverClassName}" />
+		<property name="url" value="${eTrustExDS.url}" />
+		<property name="username" value="${eTrustExDS.username}" />
+		<property name="password" value="${eTrustExDS.password}" />
+	</bean>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="etrustex"/>
+		<property name="dataSource" ref="eTrustExDS"/>
+		<property name="jpaVendorAdapter">
+			<bean  class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property> 
+		 <property name="packagesToScan" >
+            <list>
+                <value>eu.europa.ec.etrustex.domain</value>
+            </list>
+        </property>
+		<property name="jpaProperties">
+            <props>  
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+            </props>
+        </property>        
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    
+     <tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="encryptionService" class="eu.europa.ec.etrustex.services.util.EncryptionService">
+		<property name="addAlgorithmPrefix" value="false" />
+		<property name="certificateAlias" value="etrustex" />
+		<property name="password" value="${keyStore.password}" />
+		<property name="keyStore" ref="keyStore" />
+    	
+    	<property name="aesAlias" value="endpointkey" />
+		<property name="aesPassword" value="${aes.keyStore.password}" />
+		<property name="aesKeyStore" ref="aesKeyStore" />
+    </bean>
+	
+	<bean id="keyStore"
+		class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+		<property name="location" value="${keyStore.location}" />
+		<property name="password" value="${keyStore.password}" />
+	</bean>
+	
+	<bean id="aesKeyStore"
+		class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+		<property name="location" value="${aes.keyStore.location}" />
+		<property name="password" value="${aes.keyStore.password}" />
+		<property name="type" value="JCEKS" />
+	</bean>
+	
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager">
+			<ref bean="ehcache" />
+		</property>
+	</bean>
+		
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:ehcache.xml" />
+</beans>

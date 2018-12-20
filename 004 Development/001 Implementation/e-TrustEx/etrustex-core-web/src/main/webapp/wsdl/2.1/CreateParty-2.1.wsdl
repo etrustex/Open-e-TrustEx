@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:CreateParty-2_1" xmlns:cpr="ec:schema:xsd:CreateParty-2" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="CreateParty" targetNamespace="ec:services:wsdl:CreateParty-2_1">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:CreateParty-2_1" xmlns:cpr="ec:schema:xsd:CreateParty-2_1" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="CreateParty" targetNamespace="ec:services:wsdl:CreateParty-2_1">
 	<wsdl:types>
 		<xsd:schema targetNamespace="ec:services:wsdl:CreateParty-2_1" elementFormDefault="qualified">
-			<xsd:import namespace="ec:schema:xsd:CreateParty-2" schemaLocation="../../xsd/maindoc/EC-CreateParty-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CreateParty-2_1" schemaLocation="../../xsd/maindoc/2.1/EC-CreateParty-2.1.xsd"/>
 			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../../xsd/maindoc/EC-Ack-2.0.xsd"/>
 			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
 			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../../xsd/maindoc/EC-Fault-1.0.xsd"/>

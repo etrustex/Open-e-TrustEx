@@ -2,7 +2,7 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2" xmlns:iar="ec:schema:xsd:RetrieveInterchangeAgreementsRequest-2" xmlns:ias="ec:schema:xsd:RetrieveInterchangeAgreementsResponse-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="RetrieveInterchangeAgreementsRequest" targetNamespace="ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2">
 	<wsdl:types>
 		<xsd:schema targetNamespace="ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2" elementFormDefault="qualified">
-			<xsd:import namespace="ec:schema:xsd:RetrieveInterchangeAgreementsRequest-2" schemaLocation="../xsd/maindoc/EC-RetrieveInterchangeAgreementsRequest-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:RetrieveInterchangeAgreementsRequest-2" schemaLocation="../xsd/maindoc/EC-RetrieveInterchangeAgreementsRequest-2.1.xsd"/>
 			<xsd:import namespace="ec:schema:xsd:RetrieveInterchangeAgreementsResponse-2" schemaLocation="../xsd/maindoc/EC-RetrieveInterchangeAgreementsResponse-2.0.xsd"/>
 			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
 			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd"/>
@@ -65,7 +65,7 @@
 	</binding>
 	<service name="RetrieveInterchangeAgreementsRequestService">
 		<port name="RetrieveInterchangeAgreementsRequestPort" binding="tns:RetrieveInterchangeAgreementsRequestBinding">
-			<soap:address location="http://localhost:18181/RetrieveInterchangeAgreementsRequestService/RetrieveInterchangeAgreementsRequestPort"/>
+			<soap:address location="${etrustex.root.location}/services"/>
 		</port>
 	</service>
 </definitions>

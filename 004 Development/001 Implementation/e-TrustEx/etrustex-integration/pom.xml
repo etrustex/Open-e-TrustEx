@@ -2,24 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>etrustex-parent</artifactId>
-		<groupId>eu.europa.ec.cipa</groupId>
+		<groupId>eu.europa.ec.etrustex</groupId>
+		<artifactId>etrustex-node</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../etrustex-parent/pom.xml</relativePath>
 	</parent>
 	<version>${etrustex.version}</version>
 	<packaging>ejb</packaging>
 	<artifactId>etrustex-integration</artifactId>
-	<dependencies>
+	<dependencies>		
 		<dependency>
-			<groupId>org.springframework.integration
-			</groupId>
-			<artifactId>spring-integration-core
-			</artifactId>
-			<version>${org.springframework.integration.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>eu.europa.ec.cipa</groupId>
+			<groupId>eu.europa.ec.etrustex</groupId>
 			<artifactId>etrustex-services</artifactId>
 			<version>${etrustex.version}</version>
 			<exclusions>
@@ -28,36 +20,39 @@
 					<groupId>xml-apis</groupId>
 				</exclusion>
 				<exclusion>
-					<groupId>dom4j</groupId>
-					<artifactId>dom4j</artifactId>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>eu.europa.ec.cipa</groupId>
+			<groupId>eu.europa.ec.etrustex</groupId>
 			<artifactId>etrustex-types</artifactId>
 			<version>${etrustex.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-ws</artifactId>
-			<version>${org.springframework.integration.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>spring-ws-core</artifactId>
-					<groupId>org.springframework.ws</groupId>
-				</exclusion>
-			</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.integration</groupId>
+		    <artifactId>spring-integration-java-dsl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
-			<version>2.1.4.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -70,13 +65,16 @@
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-beans</artifactId>
-				</exclusion>								
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-support</artifactId>
-			<version>2.1.4.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -85,18 +83,38 @@
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-beans</artifactId>
-				</exclusion>					
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-jms</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
 			</exclusions>			  
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 	      	<groupId>com.sun.xml.wsit</groupId>
 	      	<artifactId>wsit-rt</artifactId>
-	      	<version>1.3.1</version>
 	    </dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-security</artifactId>
-			<version>2.1.2.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-ws-core</artifactId>
@@ -110,206 +128,121 @@
 					<artifactId>xmlsec</artifactId>
 					<groupId>org.apache.santuario</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.1.3</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
-			<version>4.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.3.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-context</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.santuario</groupId>
 			<artifactId>xmlsec</artifactId>
-			<version>1.4.6</version>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 		     <groupId>com.sun.org.apache.xml.security</groupId> -->
-<!-- 		     <artifactId>xmlsec</artifactId> -->
-<!-- 		     <version>1</version> -->
-<!-- 		</dependency> -->
-<!--   <dependency> -->
-<!--       <groupId>com.sun.xml.wsit</groupId> -->
-<!--       <artifactId>xmlsec</artifactId> -->
-<!--       <version>1.1</version> -->
-<!--     </dependency> -->
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-jms</artifactId>
-			<version>${org.springframework.integration.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-mail</artifactId>
-			<version>${org.springframework.integration.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-jmx</artifactId>
-			<version>${org.springframework.integration.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
-			<version>6.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.jms</groupId>
 			<artifactId>jms</artifactId>
-			<version>1.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<!-- Latest 2.3.x (not 2.4.x), at least 2.3.16 -->
-			<version>2.3.19</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 		  	<groupId>org.aspectj</groupId>
 		  	<artifactId>aspectjrt</artifactId>
-		  	<version>1.8.4</version>
-		</dependency>
-		
+		</dependency>		
 		<dependency>
 		  	<groupId>org.aspectj</groupId>
 		  	<artifactId>aspectjweaver</artifactId>
-		  	<version>1.8.4</version>
-		</dependency>	
-		
+		</dependency>			
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${org.springframework.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-beans</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
-		<!-- <dependency>
-		  <groupId>com.oracle.weblogic</groupId>
-		  <artifactId>wlfullclient</artifactId>
-		  <version>12.1.1.0</version>
-		  <scope>test</scope>
-		</dependency> 		
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.1.3.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-  			<groupId>org.mockito</groupId>
-  			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-		  <groupId>javax.validation</groupId>
-		  <artifactId>validation-api</artifactId>
-		  <version>1.1.0.Final</version>
-		  <scope>test</scope>
-		</dependency>	-->
-		
-		<!-- ESSI dependencies -->	
-		
-		
-		<!-- 
-		<dependency>
-		  <groupId>eu.europa.ec.digit.essi.services.central.client</groupId>
-		  <artifactId>essi-central-services-client</artifactId>
-		  <version>4.0.1</version>
-		</dependency>		
-		
-		<dependency>
-		    <groupId>eu.europa.ec.digit.iam.ecas.client</groupId>
-		    <artifactId>ecas-desktop</artifactId>
-		    <version>4.3.1</version>
-		</dependency>	 -->
-		
 		<dependency>
 			<groupId>net.sf.jtidy</groupId>
 			<artifactId>jtidy</artifactId>
-			<version>r938</version>
 		</dependency>
 		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-			<exclusions>
-				<exclusion>
-					<groupId>bouncycastle</groupId>
-					<artifactId>bcmail-jdk14</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>bouncycastle</groupId>
-					<artifactId>bcprov-jdk14</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> 
-				
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>			
+		</dependency> 				
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
 			<artifactId>flying-saucer-pdf-itext5</artifactId>
-			<version>9.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itext-asian</artifactId>
-			<version>5.2.0</version>
-		</dependency>
-		
-
-		
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>provided</scope>
 		</dependency>		
-		
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>	
-		
+		</dependency>			
 		<dependency>
 		  <groupId>org.apache.qpid</groupId>
 		  <artifactId>qpid-amqp-1-0-client-jms</artifactId>
-		  <version>0.32</version>
-		</dependency>		
-		
+		</dependency>				
 		<dependency>
 		  <groupId>org.apache.qpid</groupId>
 		  <artifactId>proton-j</artifactId>
-		  <version>0.13.0</version>
+		</dependency>							
+		<!-- Quartz framework -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.messaging.saaj</groupId>
+			<artifactId>saaj-impl</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>stax-api</artifactId>
+					<groupId>javax.xml.stream</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.wss</groupId>
+			<artifactId>xws-security</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -339,10 +272,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>

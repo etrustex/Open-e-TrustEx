@@ -34,6 +34,7 @@ Copyright EC DIGIT by PwC-->
 			<xsd:element ref="eccac:ProcessTimeline" minOccurs="0"/>
 			<xsd:element ref="eccbc:SummaryDescriptionCode"/>
 			<xsd:element ref="cbc:Remarks" minOccurs="0"/>
+			<xsd:element ref="cbc:ProfileID" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AdhocC2S" type="AdhocC2SType"/>

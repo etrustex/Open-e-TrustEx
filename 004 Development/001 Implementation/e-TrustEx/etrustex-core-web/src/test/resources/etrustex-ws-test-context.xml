@@ -19,7 +19,7 @@
 			See: http://static.springsource.org/spring-ws/sites/2.0/reference/html/client.html#client-web-service-template
 	-->
 	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"/>
-	<bean id="resolver" class="eu.europa.ec.cipa.services.util.ETrustExEndpointExceptionResolver"/>
+	<bean id="resolver" class="eu.europa.ec.etrustex.services.util.ETrustExEndpointExceptionResolver"/>
 	
 	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
 	    <constructor-arg ref="messageFactory"/>

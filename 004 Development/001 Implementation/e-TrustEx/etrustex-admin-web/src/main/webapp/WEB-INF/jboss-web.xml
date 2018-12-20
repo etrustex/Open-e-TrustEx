@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jboss-web>
-	<context-root>etrustex-admin-web</context-root>
-    <security-domain>cipadminRealm</security-domain>
-    <!-- <valve>
-        <class-name>eu.europa.ec.cipa.admin.web.security.CustomAuthenticator</class-name>
-    </valve>   -->
-</jboss-web>

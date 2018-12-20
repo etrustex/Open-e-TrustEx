@@ -1522,10 +1522,41 @@ Insert into `ETR_TB_HR_TEMPLATE` (`HRT_ID`,`HRT_NAME`,`HRT_DOC_ID`,`HRT_TRA_ID`,
 Insert into `ETR_TB_HR_TEMPLATE` (`HRT_ID`,`HRT_NAME`,`HRT_DOC_ID`,`HRT_TRA_ID`,`HRT_IS_DEFAULT`, `HRT_XSLT`) values (16212286,'DEFAULT',null,53,1,LOAD_FILE('D:/workspaces/open_etx_github/006 Deployment/Database Scripts/HR_templates/16212286.xsl'));
 Insert into `ETR_TB_HR_TEMPLATE` (`HRT_ID`,`HRT_NAME`,`HRT_DOC_ID`,`HRT_TRA_ID`,`HRT_IS_DEFAULT`, `HRT_XSLT`) values (1260,'DEFAULT',118,null,1,LOAD_FILE('D:/workspaces/open_etx_github/006 Deployment/Database Scripts/HR_templates/1260.xsl'));
 
-
-
 insert into `ETR_TB_EXTRACTION_CONFIG`(`DE_ID`,`DE_KEY`,`DE_XPATH`,`TRA_DOC_ID`) values (1,'JMS_TITLE','//*:DocumentBundle/*:Title',13);
 insert into `ETR_TB_EXTRACTION_CONFIG`(`DE_ID`,`DE_KEY`,`DE_XPATH`,`TRA_DOC_ID`) values (2,'JMS_BUSINESS_DOC_TYPE','//*:DocumentBundle/*:BusinessDocumentType',13);
 insert into `ETR_TB_EXTRACTION_CONFIG`(`DE_ID`,`DE_KEY`,`DE_XPATH`,`TRA_DOC_ID`) values (3,'JMS_USER_ID','//*:DocumentBundle/*:UserID',13);
+
+
+Insert into `ETR_TB_SERVICE_ENDPOINT` (`ID`,`NAME`) values (1,'etrustExSubmitSoapEndpoint');
+Insert into `ETR_TB_SERVICE_ENDPOINT` (`ID`,`NAME`) values (2,'etrustExWrapperSoapEndpoint');
+Insert into `ETR_TB_SERVICE_ENDPOINT` (`ID`,`NAME`) values (3,'etrustExReadSoapEndpoint');
+
+------------------------------------
+-- Quartz Tables
+------------------------------------
+
+Insert into `QRTZ2_TRIGGERS` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`) values ('quartzScheduler1','monitoringTrigger','DEFAULT','monitoringJob','myGroup',null,1543554000000,-1,5,'WAITING','CRON',1543498029000,0,null,0);
+Insert into `QRTZ2_TRIGGERS` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`) values ('quartzScheduler1','retentionTrigger','DEFAULT','retentionJob','myGroup',null,1543552200000,-1,5,'WAITING','CRON',1543498029000,0,null,0);
+
+
+Insert into `QRTZ2_CRON_TRIGGERS` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`CRON_EXPRESSION`,`TIME_ZONE_ID`) values ('quartzScheduler1','retentionTrigger','DEFAULT','0 30 5 1/1 * ? *','Europe/Luxembourg');
+Insert into `QRTZ2_CRON_TRIGGERS` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`CRON_EXPRESSION`,`TIME_ZONE_ID`) values ('quartzScheduler1','monitoringTrigger','DEFAULT','0 0 6 * * ?','Europe/Luxembourg');
+
+Insert into `QRTZ2_JOB_DETAILS` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`) values ('quartzScheduler1','retentionJob','myGroup',null,'eu.europa.ec.etrustex.integration.task.RetentionPolicyTask','1','0','0','1');
+Insert into `QRTZ2_JOB_DETAILS` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`) values ('quartzScheduler1','monitoringJob','myGroup',null,'eu.europa.ec.etrustex.integration.task.MonitoringTask','1','0','0','1');
+
+Insert into `QRTZ2_LOCKS` (`SCHED_NAME`,`LOCK_NAME`) values ('quartzScheduler1','TRIGGER_ACCESS');
+Insert into `QRTZ2_LOCKS` (`SCHED_NAME`,`LOCK_NAME`) values ('quartzScheduler1','STATE_ACCESS');
+
+Insert into `QRTZ2_SCHEDULER_STATE` (`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values ('quartzScheduler1','wlts0422.cc.cec.eu.int1543478985935',1543503322295,7500);
+Insert into `QRTZ2_SCHEDULER_STATE` (`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values ('quartzScheduler1','wltdig07.cc.cec.eu.int1543498029738',1543503320591,7500);
+Insert into `QRTZ2_SCHEDULER_STATE` (`SCHED_NAME`,`INSTANCE_NAME`,`LAST_CHECKIN_TIME`,`CHECKIN_INTERVAL`) values ('quartzScheduler1','wltdig07.cc.cec.eu.int1543497549234',1543503327541,7500);
+
+
+
+
+
+
+
 
 COMMIT;
