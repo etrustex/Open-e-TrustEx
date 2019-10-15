@@ -1,8 +1,0 @@
-<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
-    <handler-chain>
-       <handler>
-           <handler-name>ServiceSigHandler</handler-name>
-           <handler-class>eu.europa.ec.etrustex.services.jws.SigHandler</handler-class>
-       </handler>
-	</handler-chain>
-</handler-chains>

@@ -1,6 +1,0 @@
-package @app.group.id@.@app.name@.web.form.@page.name.resources@;
-
-
-public class @page.Form@ extends BaseForm {
-
-}

@@ -1,1 +1,0 @@
-(function(a){a.extend({_initRedactor:function(b){var c=a.extend({},b);a(".JS_redactor").redactor()}})})(jQuery);

@@ -1,8 +1,0 @@
-<scxml version="1.0" initialstate="RERECEIVED" xmlns="http://www.w3.org/2005/07/scxml">
- 	<state id="RECEIVED">
- 		<transition event="1" target="PROCESSED" />
-		<transition event="2" target="REJECTED" />
- 	</state>
- 	<state id="APPROVED" final="true" />
-	<state id="REJECTED" final="true"
- </scxml>

@@ -1,2 +1,0 @@
-<ec:${transactionResponseLocalName} xmlns:ec="${transactionNameSpace}" xmlns:ec1="ec:schema:xsd:CommonBasicComponents-0.1">
-</ec:${transactionResponseLocalName}>
