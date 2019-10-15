@@ -1,3 +1,0 @@
-#echo Transforming $1 with $2 to make $3...
-XSLTPATH=`echo $0 | sed s,[^/]*$,, | sed s,^$,./,`
-java -jar "${XSLTPATH}saxon.jar" -o $3 $1 $2 $4 $5 $6 $7 $8 $9
