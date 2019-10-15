@@ -1,0 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+<%--@elvariable id="revisionId" type="java.lang.String"--%>
+
+<!-- Optional script highcharts -->
+<!-- ================================ -->
+<script src="<c:url value="/scripts/optionals/highcharts/highcharts@pagescript.timestamp@.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/scripts/optionals/highcharts/highcharts.init@pagescript.timestamp@.js"/>" type="text/javascript"></script>
+<!-- ================================ -->

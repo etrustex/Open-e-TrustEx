@@ -1,0 +1,195 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<c:url value="/login.do" var="urlLogin"/>
+<c:url value="/party/create.do" var="urlPartyCreate"/>
+<c:url value="/party/search.do" var="urlPartySearch"/>
+<c:url value="/partyAgreement/create.do" var="urlPartyAgreementCreate"/>
+<c:url value="/partyAgreement/search.do" var="urlPartyAgreementSearch"/>
+<c:url value="/certificate/new.do" var="urlCertificateCreate"/>
+<c:url value="/certificate/search.do" var="urlCertificateSearch"/>
+<c:url value="/home.do" var="urlHome"/>
+<c:url value="/role.do" var="urlRole"/>
+<c:url value="/profile/create.do" var="urlProfileCreate"/>
+<c:url value="/profile/search.do" var="urlProfileSearch"/>
+<c:url value="/document/create.do" var="urlDocumentCreate"/>
+<c:url value="/document/search.do" var="urlDocumentSearch"/>
+<c:url value="/trasaction/create.do" var="urlTrasactionCreate"/>
+<c:url value="/trasaction/search.do" var="urlTrasactionSearch"/>
+<c:url value="/ica/create.do" var="urlIcaCreate"/>
+<c:url value="/ica/multi/create.do" var="urlIcaCreateMultiple"/>
+<c:url value="/ica/search.do" var="urlIcaSearch"/>
+<c:url value="/user/create.do" var="urlUserCreate"/>
+<c:url value="/user/search.do" var="urlUserSearch"/>
+<c:url value="/user/changePwd.do" var="urlChangePwd"/>
+<c:url value="/metadata/create.do" var="urlMetadataCreate"/>
+<c:url value="/metadata/search.do" var="urlMetadataSearch"/>
+<c:url value="/endpoint/JMScreate.do" var="urlJMSendpointCreate"/>
+<c:url value="/endpoint/WScreate.do" var="urlWSendpointCreate"/>
+<c:url value="/endpoint/AMQPcreate.do" var="urlAMQPendpointCreate"/>
+<c:url value="/endpoint/search.do" var="urlEndpointSearch"/>
+<c:url value="/transaction/create.do" var="urlTransactionCreate"/>
+<c:url value="/transaction/search.do" var="urlTransactionSearch"/>
+<c:url value="/profile/create.do" var="urlProfileCreate"/>
+<c:url value="/profile/search.do" var="urlProfileSearch"/>
+<c:url value="/logs/search.do?module=ETXADMIN" var="cipadminLogs"/>
+<c:url value="/logs/search.do?module=ETRUSTEX" var="etrustexLogs"/>
+<c:url value="/message/search.do" var="message"/>
+<c:url value="/bulkredispatch/search.do" var="redispatch"/>
+<c:url value="/retentionPolicy/create.do" var="urlRetentionPolicyCreate"/>
+<c:url value="/retentionPolicy/search.do" var="urlRetentionPolicySearch"/>
+
+<spring:eval expression="false" var="userPwdLogin"/>
+<div id="top-nav-multi">
+<ul>
+    <%-- Home --%>
+	<li>
+	    <a id="homeMenuItem" href="${urlHome}" ><fmt:message key="menu.home"/></a>
+	</li>
+
+    <sec:authorize access="hasAnyRole('ADM', 'CBO', 'LBO', 'SUP')">
+        <%-- Business Configuration --%>
+	    <li class="has-sub"><a><fmt:message key="menu.business.configuration"/></a>
+	        <ul>
+                <%-- Party --%>
+                <li class="has-sub"><a><fmt:message key="menu.party"/></a>
+                    <ul>
+                        <sec:authorize access="hasAnyRole('ADM', 'CBO', 'LBO')">
+                            <li><a href="${urlPartyCreate}" ><fmt:message key="submenu.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlPartySearch}" ><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+
+                <%-- Interchange Agreement --%>
+                <li class="has-sub"><a><fmt:message key="menu.ica"/></a>
+                    <ul>
+                        <sec:authorize access="hasAnyRole('ADM', 'CBO', 'LBO')">
+                            <li><a href="${urlIcaCreate}" ><fmt:message key="submenu.single.create"/></a></li>
+                        </sec:authorize>
+                        <sec:authorize access="hasAnyRole('ADM', 'CBO')">
+                            <li><a href="${urlIcaCreateMultiple}" ><fmt:message key="submenu.multiple.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlIcaSearch}" ><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+
+                <sec:authorize access="hasAnyRole('ADM', 'CBO')">
+                    <%-- Party Agreement --%>
+                    <li class="has-sub"><a href="#"><fmt:message key="submenu.partyAgreement"/></a>
+                        <ul>
+                            <li><a href="${urlPartyAgreementCreate}" ><fmt:message key="submenu.create"/></a></li>
+                            <li><a href="${urlPartyAgreementSearch}" ><fmt:message key="submenu.search"/></a></li>
+                        </ul>
+                    </li>
+
+                    <%-- Routing Endpoints --%>
+                    <li class="has-sub"><a href="#"><fmt:message key="submenu.endpoint"/></a>
+                        <ul>
+                                <li class="has-sub"><a href="#"><fmt:message key="submenu.create"/></a>
+                                    <ul>
+                                        <li><a href="${urlJMSendpointCreate}" ><fmt:message key="submenu.create.endpoint.jms"/></a></li>
+                                        <li><a href="${urlWSendpointCreate}" ><fmt:message key="submenu.create.endpoint.ws"/></a></li>
+                                        <li><a href="${urlAMQPendpointCreate}" ><fmt:message key="submenu.create.endpoint.amqp"/></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="${urlEndpointSearch}" ><fmt:message key="submenu.search"/></a></li>
+                        </ul>
+                    </li>
+
+
+                    <%-- Retention Policy --%>
+<%-- Hidden for branch branch 2.2.1. Asked by Cristian via lync
+                    <li class="has-sub"><a href="#"><fmt:message key="submenu.retentionPolicy"/></a>
+                        <ul>
+                            <li><a href="${urlRetentionPolicyCreate}" ><fmt:message key="submenu.create"/></a></li>
+                            <li><a href="${urlRetentionPolicySearch}" ><fmt:message key="submenu.search"/></a></li>
+                        </ul>
+                    </li>
+--%>
+                </sec:authorize>
+
+                <%-- CIPAdmin Users --%>
+                <sec:authorize access="hasAnyRole('ADM', 'SUP')">
+                    <li class="has-sub"><a><fmt:message key="menu.user"/></a>
+                        <ul>
+                            <sec:authorize access="hasAnyRole('ADM', 'CBO')">
+                                <li><a href="${urlUserCreate}"><fmt:message key="submenu.create"/></a></li>
+                            </sec:authorize>
+                            <li><a href="${urlUserSearch}"><fmt:message key="submenu.search"/></a></li>
+                            <c:if test="${userPwdLogin}">
+                                <li><a href="${urlChangePwd}"><fmt:message key="common.popup.title.password.change"/></a></li>
+                            </c:if>
+                        </ul>
+                    </li>
+                </sec:authorize>
+            </ul>
+	    </li>
+    </sec:authorize>
+
+    <sec:authorize access="hasAnyRole('ADM', 'SUP')">
+	    <%-- Technical Configuration --%>
+	    <li class="has-sub"><a><fmt:message key="menu.technical.configuration"/></a>
+	        <ul>
+                <li><a href="${urlRole}"><fmt:message key="menu.role"/></a></li>
+
+                <li class="has-sub"><a><fmt:message key="menu.document"/></a>
+                    <ul>
+                        <sec:authorize access="hasAnyRole('ADM')">
+                            <li><a href="${urlDocumentCreate}"><fmt:message key="submenu.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlDocumentSearch}"><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub"><a><fmt:message key="menu.transaction"/></a>
+                    <ul>
+                        <sec:authorize access="hasRole('ADM')">
+                            <li><a href="${urlTransactionCreate}"><fmt:message key="submenu.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlTransactionSearch}"><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub"><a><fmt:message key="menu.profile"/></a>
+                    <ul>
+                        <sec:authorize access="hasRole('ADM')">
+                            <li><a href="${urlProfileCreate}"><fmt:message key="submenu.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlProfileSearch}"><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+
+                <li class="has-sub"><a href="#"><fmt:message key="submenu.metadata"/></a>
+                    <ul>
+                        <sec:authorize access="hasRole('ADM')">
+                            <li><a href="${urlMetadataCreate}" ><fmt:message key="submenu.create"/></a></li>
+                        </sec:authorize>
+                        <li><a href="${urlMetadataSearch}" ><fmt:message key="submenu.search"/></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <%-- Monitoring and Support --%>
+        <li class="has-sub"><a><fmt:message key="menu.monitoring.support"/></a>
+            <ul>
+                <li class="has-sub"><a><fmt:message key="submenu.messages"/></a> 
+                	<ul>
+                		<li><a href="${message}"> <fmt:message key="submenu.messages.inspect"/></a></li>
+                		<li><a href="${redispatch}"> <fmt:message key="submenu.messages.redispatch"/></a></li>		
+            		</ul>
+                </li>
+                <li><a href="${cipadminLogs}"> <fmt:message key="menu.logs.cipadmin"/></a></li>
+                <li><a href="${etrustexLogs}"> <fmt:message key="menu.logs.etrustex"/></a></li>
+            </ul>
+        </li>
+    </sec:authorize> <%-- hasAnyRole('ADM', 'SUP') --%>
+</ul>
+</div>
+

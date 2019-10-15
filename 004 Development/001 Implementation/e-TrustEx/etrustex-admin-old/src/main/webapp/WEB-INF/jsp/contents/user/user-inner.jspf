@@ -1,0 +1,38 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+
+<div class="columns clear">
+	<input type="hidden" id="userMessage" value="${userMessage}"/>
+	<form:hidden id="userId" name="userId" path="userForm.user.id" />
+	
+	<div id="msgNoRecordWarning" class="hidden">
+		<fmt:message key="user.management.noRecord.message"/>
+	</div>
+	<div id="msgNoRecordWarningTitle" class="hidden">
+		<fmt:message key="user.title"/>
+	</div>
+	
+	<jsp:include page="fragments/main_info.jspf"/>
+
+	<div class="cl"/>
+
+	<div id="configurationDiv">
+		<jsp:include page="fragments/user_configurations.jspf"/>
+	</div>
+
+	<div class="hr"></div>
+
+	<c:choose>
+		<c:when test="${pageMode == 'new'}">
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/create_buttons.jspf"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/edit_buttons.jspf"/>
+		</c:otherwise>
+	</c:choose>
+</div>

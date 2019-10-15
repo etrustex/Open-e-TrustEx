@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-application xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-application" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_5.xsd http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/1.1/weblogic-application.xsd">
+    <!--weblogic-version:10.3.3-->
+<!--     <wls:session-descriptor> -->
+<!--         <wls:persistent-store-type>replicated_if_clustered</wls:persistent-store-type> -->
+<!--     </wls:session-descriptor> -->
+    <wls:prefer-application-packages>
+    	<wls:package-name>org.springframework.scheduling.quartz.*</wls:package-name>
+		<wls:package-name>org.quartz.*</wls:package-name>
+<!--     	<wls:package-name>com.sun.xml.*</wls:package-name>      -->
+   		<wls:package-name>freemarker.*</wls:package-name>
+   		<wls:package-name>javax.xml.xquery.*</wls:package-name>   	
+    	<wls:package-name>javax.namespace.xml.*</wls:package-name>
+		<wls:package-name>org.apache.log4j.*</wls:package-name>
+		<wls:package-name>com.sun.xml.wss.*</wls:package-name>	
+		<wls:package-name>antlr.*</wls:package-name>
+		<wls:package-name>org.springframework.*</wls:package-name>
+		<wls:package-name>org.slf4j.*</wls:package-name>
+		<wls:package-name>org.opensaml.*</wls:package-name>
+		<wls:package-name>javassist.*</wls:package-name>
+		<wls:package-name>org.apache.tiles.*</wls:package-name>
+		<wls:package-name>org.joda.*</wls:package-name>
+		<wls:package-name>org.apache.commons.lang.*</wls:package-name>
+    </wls:prefer-application-packages>
+    <wls:prefer-application-resources>
+    	<wls:resource-name>org/slf4j/impl/StaticLoggerBinder.class</wls:resource-name>
+	</wls:prefer-application-resources>
+</wls:weblogic-application>

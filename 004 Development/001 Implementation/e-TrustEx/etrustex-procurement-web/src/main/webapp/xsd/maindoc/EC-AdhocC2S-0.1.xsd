@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by European Commission (European Commission) -->
+<!--
+Wed 28/05/2008 13:34:50.73 AdhocC2S
+-->
+<!--
+Package 0.02
+Copyright EC DIGIT by PwC-->
+<!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="ec:schema:xsd:AdhocC2S-0.1" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:eccbc="ec:schema:xsd:CommonBasicComponents-0.1" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-0.1" targetNamespace="ec:schema:xsd:AdhocC2S-0.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.2">
+	<!-- ===== UBL Imports ===== -->
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="../common/UBL-CommonAggregateComponents-2.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemaLocation="../common/UBL-CommonBasicComponents-2.0.xsd"/>
+	<xsd:import namespace="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" schemaLocation="../common/UnqualifiedDataTypeSchemaModule-2.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" schemaLocation="../common/UBL-QualifiedDatatypes-2.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" schemaLocation="../common/UBL-CommonExtensionComponents-2.0.xsd"/>
+	<!-- ===== EC Imports ===== -->
+	<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-0.1" schemaLocation="../custom/EC-CommonAggregateComponents-0.1.xsd"/>
+	<xsd:import namespace="ec:schema:xsd:CommonBasicComponents-0.1" schemaLocation="../custom/EC-CommonBasicComponents-0.1.xsd"/>
+	<!-- ===== Root Element ===== -->
+	<xsd:complexType name="AdhocC2SType">
+		<xsd:sequence>
+			<xsd:element ref="ext:UBLExtensions" minOccurs="0"/>
+			<xsd:element ref="cbc:UBLVersionID" minOccurs="0"/>
+			<xsd:element ref="cbc:CustomizationID" minOccurs="0"/>
+			<xsd:element ref="cbc:ID" minOccurs="0"/>
+			<xsd:element ref="cbc:IssueDate"/>
+			<xsd:element ref="cbc:IssueTime" minOccurs="0"/>
+			<xsd:element ref="cac:AdditionalDocumentReference" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element ref="cac:OriginatorDocumentReference" minOccurs="0"/>
+			<xsd:element ref="eccac:ECRequestForQuotationDocumentReference" minOccurs="0"/>
+			<xsd:element ref="cac:OriginatorCustomerParty" minOccurs="0"/>
+			<xsd:element ref="cac:SellerSupplierParty"/>
+			<xsd:element ref="eccac:ProcessTimeline" minOccurs="0"/>
+			<xsd:element ref="eccbc:SummaryDescriptionCode"/>
+			<xsd:element ref="cbc:Remarks" minOccurs="0"/>
+			<xsd:element ref="cbc:ProfileID" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AdhocC2S" type="AdhocC2SType"/>
+</xsd:schema>

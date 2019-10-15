@@ -1,0 +1,29 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:set var="partyType" value="${param.partyType}"/>
+
+<c:choose>
+  <c:when test="${partyType eq 'first'}">
+    <c:set var="partyDelegates" value="${interchangeAgreement.firstPartyDelegates}"/>
+  </c:when>
+  <c:otherwise>
+    <c:set var="partyDelegates" value="${interchangeAgreement.secondPartyDelegates}"/>
+  </c:otherwise>
+</c:choose>
+
+<c:if test="${fn:length(partyDelegates) > 0}">
+    <div class="cl"/>
+    <div class="notification note-info no-margin">
+        <p class="normal">
+            <fmt:message key="ica.delegatedParties.infos"></fmt:message>
+            <ul type="disc">
+                <c:forEach var="delegate" items="${partyDelegates}">
+                    <li>${delegate.name}</li>
+                </c:forEach>
+            </ul>
+        </p>
+    </div>
+</c:if>

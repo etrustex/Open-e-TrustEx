@@ -1,0 +1,50 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<%-- <form:hidden id="errorKey" name="errorKey" path="login.errorKey" /> --%>
+
+<j:box box_title_key="login">
+
+	<%--<c:if test="${login.errorKey!=null}">
+		<div class="notification note-error">
+			<p>
+				<fmt:message key="${login.errorKey}" />
+			</p>
+		</div>
+	</c:if> --%>
+	
+	<div id="usernameDiv" class="field required">
+		<div class="field-label">
+			<h6>
+				<fmt:message key="login.username" />:
+			</h6>
+		</div>
+		<input type="text" name="j_username" class="field-value JS_live-validation JS_show_validation_error "/>
+		<span class="required-toggle required-required"></span>
+	</div>
+	<br/>
+	
+	<!-- We only need the user in the database, as it is ECAS authentication, no password needed at the application level-->
+	<div id="passwordDiv" class="field required">
+		<div class="field-label">
+			<h6>
+				<fmt:message key="login.password" />:
+			</h6>
+		</div>
+		<input type="password" name="j_password" class="field-value JS_live-validation JS_show_validation_error" />
+		<span class="required-toggle required-required"></span>
+	</div>
+
+	<div class="cl"></div>
+    <input type="submit" value="Login" class="alternate blue_button"/>
+    <!-- <input type="reset" value="Reset"/> -->
+<%-- 	
+	<j:button action_id="action_login" action_class="fr"
+		button_type_class="alternate blue_button" 
+		button_optional_class="no-icon" label_key="button.login" />
+ --%>
+</j:box>
+

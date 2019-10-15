@@ -1,0 +1,47 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<c:url var="url" value="/bulkredispatch/upload.do" />
+
+	
+<form:form modelAttribute="bulkRedispatchLoadForm" action="${url}" acceptCharset="UTF-8" id="bulkRedispatchLoadForm" method="post" enctype="multipart/form-data">
+<j:box >
+		
+		<div id="inputBox">
+		
+		<fmt:message key="bulkredispatch.label"/> 
+		
+		
+		<br/>
+				
+		<j:field field_class="required" field_style="">					
+			<fmt:message key="bulkredispatch.search.csv" var="searchCSVTooltip"/> 
+	        <div class="uploader fl" style="width:250px">
+	            <input id="file" name="file" type="file" class="fileInput" style="opacity: 0;" title="${searchCSVTooltip}">
+	            <span id="csv_filename" class="filename">${searchCSVTooltip}</span>
+	            <span class="action"></span>
+	        </div>
+	        <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+		 </j:field>
+		
+		
+		
+		<div class="hr"/>
+		
+		<j:button action_id="csv_upload_action_ok" action_class="fr" 
+				button_type_class="alternate blue_button"
+				button_optional_class="no-icon" label_key="button.redispatch"/>
+		
+		</div>
+		<div id="outputBox" hidden = "true">
+			<fmt:message key="bulkredispatch.path"/> <b id="container"/>
+			<br/>
+			<br/>
+			<div class="notification note-attention small no-margin"><p><fmt:message key="bulkredispatch.warning"/></p></div>
+		</div>
+</j:box>
+</form:form>

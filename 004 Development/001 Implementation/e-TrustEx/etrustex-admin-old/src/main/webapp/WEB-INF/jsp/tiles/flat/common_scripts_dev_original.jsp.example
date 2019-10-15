@@ -1,0 +1,48 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="@tiles.uri@" prefix="tiles" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+
+<%-- ================== --%>
+<%-- PAGE CONTROLLER JS --%>
+<%-- ================== --%>
+<tiles:useAttribute name="pageScript" classname="java.lang.String" scope="request" ignore="true"/>
+
+
+<%
+if (null==pageScript || pageScript.equals("")) {
+    pageScript = "/scripts/jscaf/genericPageController-min.js?v=@build.timestamp@";
+}
+%>
+<script id="page_script" src="<c:url value="<%=pageScript%>"/>?v=@build.timestamp@" type="text/javascript"></script>
+
+
+<%-- ================================ --%>
+<%-- OPTIONAL JS / CSS                --%>
+<%-- ================================ --%>
+<tiles:@tiles.insert.attribute@="optional_scripts_datatables" ignore="true"/>
+<tiles:@tiles.insert.attribute@="optional_scripts_flexslider" ignore="true"/>
+<tiles:@tiles.insert.attribute@="optional_scripts_highcharts" ignore="true"/>
+<tiles:@tiles.insert.attribute@="optional_scripts_redactor" ignore="true"/>
+<tiles:@tiles.insert.attribute@="optional_scripts_jstree" ignore="true"/>
+<tiles:@tiles.insert.attribute@="optional_scripts_select2" ignore="true"/>
+
+
+<!--flat theme plugins-->
+<script id="serialexpand-script" type="text/javascript" src="<c:url value="/scripts/optionals/flat/jquery.serialexpand.js?v=@build.timestamp@"/>"></script>
+<script id="serialtabs-script" type="text/javascript" src="<c:url value="/scripts/optionals/flat/jquery.serialtabs.js?v=@build.timestamp@"/>"></script>
+<script id="serialaccordion-script" type="text/javascript" src="<c:url value="/scripts/optionals/flat/jquery.serialaccordion.js?v=@build.timestamp@"/>"></script>
+<script id="serialbox-script" type="text/javascript" src="<c:url value="/scripts/optionals/flat/jquery.serialbox.js?v=@build.timestamp@"/>"></script>
+
+
+
+<%-- ========== --%>
+<%-- REQUIRE JS  --%>
+<%-- ========== --%>
+<%--
+RequireJS MUST be kept after datatables declaration !!! conflict when declared before !!!
+[base] module should be handled and configured inside the linked page JS
+EVEN IF THE IDE COMPLAINS : DON'T PUT ANY TYPE DEFINITION FOR THIS SCRIPT !!!
+--%>
+<script src="<c:url value="/scripts/optionals/@require.js@?v=@build.timestamp@"/>"></script>

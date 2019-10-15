@@ -1,0 +1,212 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+	
+<%-- 	
+<c:choose>
+	<c:when test="${not empty certificateMode and certificateMode eq 'view' }">
+		<c:set var="url" value="/certificate/${certificateId}/view" />
+	</c:when>
+	<c:when test="${not empty certificateMode and certificateMode eq 'edit' }">
+		<c:set var="url" value="/certificate/${certificateId}/edit" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="url" value="/certificate/new" />
+	</c:otherwise>
+</c:choose>
+ --%>
+ <div id="msgDeleteCertificateConfirmation" class="hidden">
+	<fmt:message key="certificate.deletion.confirmation.message"/>
+</div>
+ <div id="msgDeleteCertificateConfirmationNote" class="hidden">
+	<fmt:message key="certificate.deletion.confirmation.message_note"/>
+</div>
+<div id="msgDeleteCertificateConfirmationTitle" class="hidden">
+	<fmt:message key="certificate.deletion.confirmation.message.title"/>
+</div>
+
+<c:url var="url" value="/certificate/import.do" />
+
+<div id="manageCertificatesPopup">
+	<form:form modelAttribute="certificatesForm" action="${url}" acceptCharset="UTF-8" id="importCertificatesForm" method="post" enctype="multipart/form-data" target="upload_target">
+		<input type="hidden" id="manageCertsMsg" value="${manageCertsMsg}"/>
+		
+		<j:box box_title_key="certificate.upload.title">
+			<div class="col-50">
+				<c:if test="${not empty certificatesForm.party and not empty certificatesForm.party.name }">
+					<j:field label_key="party.name">
+							<span class="field-view no-border text-color-light-grey">${certificatesForm.party.name}</span>
+					</j:field>
+				</c:if>
+				<div class="cl"></div>
+				<j:field label_key="certificate.usage" field_class="required" > 
+				 	<form:select path="newCertificate.certificate.usage" id="certificateUsage" class="field-value JS_live-validation">
+						<form:options items="${certificateUsages}" itemLabel="name"/>
+					</form:select>
+				 </j:field>
+				 <div class="cl"></div>
+				 <j:field label_key="certificate.active"> 
+				 	<form:hidden path="newCertificate.certificate.isActive" id="isActive" class="field-value"/>
+				 	<span class="field-other-input fl">
+	                    <span id="isActive_bs" class="JS_buttonSet JS_live-validation" associatedPropertyId="isActive">
+               	            <c:choose>
+				                <c:when test="${certificatesForm.newCertificate.certificate.isActive}">
+				                    <c:set var="isActiveCheckedYes" value='checked="checked"' scope="page"/>
+				                    <c:set var="isActiveCheckedNo" value='' scope="page"/>
+				                </c:when>
+				                <c:otherwise>
+				                    <c:set var="isActiveCheckedYes" value='' scope="page"/>
+				                    <c:set var="isActiveCheckedNo" value='checked="checked"' scope="page"/>
+				                </c:otherwise>
+				            </c:choose>
+				            <input type="radio" id="isActive_bs_Y" name="isActive_bs" value="true" ${isActiveCheckedYes}/>
+                            <label for="isActive_bs_Y"><fmt:message key="common.yes"/></label>
+                            <input type="radio" id="isActive_bs_N" name="isActive_bs" value="false"  ${isActiveCheckedNo}/>
+                            <label for="isActive_bs_N"><fmt:message key="common.no"/></label>
+	                    </span>
+	                 </span>
+				 </j:field>
+				<div class="cl"></div>
+				<j:field label_key="certificate.revoked"> 
+				 	<form:hidden path="newCertificate.certificate.isRevoked" id="isRevoked" class="field-value"/>
+				 	<span class="field-other-input fl">
+	                    <span id="isRevoked_bs" class="JS_buttonSet JS_live-validation" associatedPropertyId="isRevoked">
+               	            <c:choose>
+				                <c:when test="${certificatesForm.newCertificate.certificate.isRevoked}">
+				                    <c:set var="isRevokedCheckedYes" value='checked="checked"' scope="page"/>
+				                    <c:set var="isRevokedCheckedNo" value='' scope="page"/>
+				                </c:when>
+				                <c:otherwise>
+				                    <c:set var="isRevokedCheckedYes" value='' scope="page"/>
+				                    <c:set var="isRevokedCheckedNo" value='checked="checked"' scope="page"/>
+				                </c:otherwise>
+				            </c:choose>
+				            <input type="radio" id="isRevoked_bs_Y" name="isRevoked_bs" value="true" ${isRevokedCheckedYes}/>
+                            <label for="isRevoked_bs_Y"><fmt:message key="common.yes"/></label>
+                            <input type="radio" id="isRevoked_bs_N" name="isRevoked_bs" value="false"  ${isRevokedCheckedNo}/>
+                            <label for="isRevoked_bs_N"><fmt:message key="common.no"/></label>
+	                    </span>
+	                 </span>
+				 </j:field>
+			</div>
+			<div class="col-50">
+				<j:field label_key="certificate.file" field_class="required">
+					<%-- <div class="selector_container">
+					    <div class="field">
+							<div class="field-label"><h6><fmt:message key="certificate.file"/></h6></div> --%>
+							<fmt:message key="submenu.search.certificate" var="searchCertTooltip"/> 
+					        <div class="uploader fl" style="width:250px">
+					            <input id="certificate_file" name="file" type="file" class="fileInput" style="opacity: 0;" title="${searchCertTooltip}">
+					            <span id="certificate_filename" class="filename">${searchCertTooltip}</span>
+					            <span class="action"></span>
+					        </div>
+					    <!-- </div> -->
+						
+						<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+					<!-- </div> -->
+				 </j:field>
+			</div> 
+			<div class="hr"></div>
+			
+			 <j:button action_id="certificate_add_action_ok" action_class="fr"
+				button_type_class="alternate blue_button"
+				button_optional_class="no-icon" label_key="button.import"/>
+		</j:box>
+		<j:box box_title_key="certificate.results.title">
+			<c:choose>
+				<c:when test="${empty certificatesForm.certificates}">
+					<div id="noRecordDiv">
+						<span class="icon-bullet-line">
+							<fmt:message key="no.certificates.found"></fmt:message>
+						</span>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="field fr">
+						<div class="field-label">
+							<h6>
+								<fmt:message key="table.filter" />
+							</h6>
+						</div>
+						<input class="table-filter field-value" tableidtofilter="certificateListTable" type="text"/>
+					</div>
+		
+					<div class="cl"/>
+					
+					<div id="certificateTableDiv" > <!-- class="scrollable-table-y" -->
+						<table id="certificateTable" class="default tablesorter-table">
+							<caption>
+								<fmt:message key="certificate.records.found">
+									<fmt:param value="${fn:length(certificatesForm.certificates)}" />
+								</fmt:message>
+							</caption>
+		
+							<thead>
+								<tr>
+									<th><fmt:message key="certificate.serialNumber" /></th>
+									<th><fmt:message key="common.valid.from" /></th>
+									<th><fmt:message key="common.valid.until" /></th>
+									<th><fmt:message key="certificate.usage" /></th>
+									<th><fmt:message key="certificate.created.by" /></th>
+									<th><fmt:message key="certificate.active" /></th>
+									<th><fmt:message key="certificate.revoked" /></th>
+									<th><fmt:message key="table.column.actions" /></th>
+								</tr>
+							</thead>
+		
+							<tbody>
+								<c:forEach var="certificateWrapper" items="${certificatesForm.certificates}" varStatus="certificateListStatus">
+									<c:set var="certificate" value="${certificateWrapper.certificate}"/>
+									<tr class="${certificateListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }" id="${certificateListStatus.index}">
+										<td class="select-certificate">${certificate.serialNumber}</td>
+										<td><fmt:formatDate value="${certificate.validityStartDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+										<td><fmt:formatDate value="${certificate.validityEndDate}" pattern="dd/MM/yyyy HH:mm:ss"/></<td>
+										<td>
+											<c:choose>
+												<c:when test="${certificate.usage eq 'KEY_ENCIPHERMENT'}"><fmt:message key="certificate.usage.key_encipherment" /></c:when>
+											</c:choose>
+											
+										</td>
+										<td>${certificate.accessInfo.creationId}</td>
+										<td>
+											<c:choose>
+												<c:when test="${certificate.isActive}">
+													<fmt:message key="common.yes" />
+												</c:when>
+												<c:otherwise>
+													<fmt:message key="common.no" />
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${certificate.isRevoked}">
+													<fmt:message key="common.yes" />
+												</c:when>
+												<c:otherwise>
+													<fmt:message key="common.no" />
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td class="action">
+											<fmt:message key="tooltip.button.delete" var="deleteTooltip"/>
+											<fmt:message key="tooltip.button.edit" var="editTooltip"/>
+											<a title="${deleteTooltip}" class="deleteCertificateRow"><span class="icon icon-reject"></span></a> 
+											<a title="${editTooltip}" class="editCertificateRow"><span class="icon icon-edit"></span></a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</j:box>
+		<div class="hr"></div>
+		<jsp:include page="/WEB-INF/jsp/contents/certificate/fragments/certificates_popup_buttons.jspf"/>
+	</form:form>
+</div>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://www.bea.com/ns/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd">
+    <wls:weblogic-version>12.1.1</wls:weblogic-version>
+<!--
+
+    <wls:resource-description>
+        <wls:jndi-name>eTrustExDs</wls:jndi-name>
+        <wls:res-ref-name>jdbc/eTrustExDs</wls:res-ref-name>
+    </wls:resource-description>
+-->
+
+    <wls:container-descriptor>
+        <wls:allow-all-roles>true</wls:allow-all-roles>
+    </wls:container-descriptor>
+    
+    <wls:context-root>etrustex-admin-web</wls:context-root>
+    
+    <wls:session-descriptor>
+    	<wls:cookie-path>/etrustex-admin-web</wls:cookie-path>
+    	<wls:debug-enabled>true</wls:debug-enabled>
+        <wls:persistent-store-type>replicated_if_clustered</wls:persistent-store-type>
+    </wls:session-descriptor>
+    
+    <!-- 
+    <wls:jsp-descriptor>
+        <precompile>true</precompile>
+        <precompile-continue>true</precompile-continue>
+    </wls:jsp-descriptor>
+     -->
+     
+</wls:weblogic-web-app>

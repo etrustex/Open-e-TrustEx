@@ -1,0 +1,3 @@
+<ec:SubmitDocumentResponse xmlns:ec="ec:services:wsdl:Document-1">
+        ${body}
+</ec:SubmitDocumentResponse>

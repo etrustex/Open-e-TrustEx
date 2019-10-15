@@ -1,0 +1,27 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<div class="columns clear">
+    <div class="col-100 clear">
+        <div class="inner-box">
+            <c:choose>
+                <c:when test="${not empty message}">
+                    <h6>${message}</h6>
+                    <div class="hidden">
+                        Failed URL: ${url}
+                        <br/>
+                        <c:out value="${exception.class.name}"/>: <c:out value="${exception.message}"/>
+                        <br/>
+                        <c:forEach items="${exception.stackTrace}" var="ste">
+                          <c:out value="${ste}"/>
+                        </c:forEach>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h1><fmt:message key="home.welcome.header"/></h1>
+                    <h6>${welcomeMessage}</h6>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</div>

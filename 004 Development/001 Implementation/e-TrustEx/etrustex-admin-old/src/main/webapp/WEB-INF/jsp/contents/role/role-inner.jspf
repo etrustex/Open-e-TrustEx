@@ -1,0 +1,26 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<div id="msgDeleteConfirmation" class="hidden">
+	<fmt:message key="role.management.confirmation.message">
+        	<fmt:param value="${roleForm.code}" />
+	</fmt:message>
+</div>
+
+<div id="msgDeleteConfirmationTitle" class="hidden">
+	<fmt:message key="role.management.confirmation.message.title"/>
+</div>
+
+<sec:authorize access="hasAnyRole('ADM')">
+	<div id="newRoleDiv">
+	    <jsp:include page="/WEB-INF/jsp/contents/role/fragments/creation.jspf"/>
+	</div>
+</sec:authorize>
+    
+<div id="allRolesDiv">
+    <jsp:include page="/WEB-INF/jsp/contents/role/fragments/allRoles.jspf"/>
+</div>
+

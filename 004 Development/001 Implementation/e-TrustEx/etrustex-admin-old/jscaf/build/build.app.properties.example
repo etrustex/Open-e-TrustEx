@@ -1,0 +1,22 @@
+
+# APPLICATION PROPERTIES
+# ----------------------
+
+app.group.id					= eu.europa.ec.digit
+app.name                		= myapp
+app.name.display        		= MyApp
+
+app.version             		= 1.0.0
+app.build.number        		= 1
+
+app.js.file             		= common.app.js
+app.css.file            		= common.app.css
+
+app.server.autodeploy.dir		= ${project.build.directory}
+
+
+
+#ONLY FOR ANT BUILD
+#------------------
+#app.target.dir                  = ../../build/web
+

@@ -1,0 +1,45 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<div class="section-title-bullet"> <h1><fmt:message key="user.subtitle.information"/></h1></div>
+
+<div class="inner-box no-background columns clear">
+	<div class="col-50">
+        <div style="display:inline-block;">
+            <j:field label_key="user.name" field_class="required ">
+                <form:input path="userForm.user.name" id="username" class="field-value JS_live-validation" type="text" readonly="${pageMode ne 'new'}"/>
+            </j:field>
+            <j:button action_id="user_action_changePassword" action_class="fr hidden" button_style="margin-top: 7px; margin-left: 4px;"
+                  button_optional_class="no-icon" label_key="button.change.password" />
+            <cipa:error_label fieldPath="userForm.user.name"/>
+        </div>
+
+        <div id="passwordFlagDiv">
+            <form:checkbox id="changePasswordFlag" path="userForm.changePasswordFlag"></form:checkbox>
+        </div>
+
+        <div id="user_password_div" >
+            <div class="columns cl">
+                <j:field label_key="user.password">
+                    <form:input path="userForm.user.password" id="userPassword1" class="field-value JS_live-validation JS_show_validation_error JS_comp-field1 JS_comp-equal" type="password" />
+                </j:field>
+                <cipa:error_label fieldPath="userForm.user.password"/>
+            </div>
+
+            <div class="columns cl">
+                <j:field label_key="user.password.confirm">
+                    <form:input path="userForm.passwordCheck" id="userPassword2" class="field-value JS_live-validation JS_show_validation_error JS_comp-field1 JS_comp-equal" type="password" />
+                </j:field>
+            </div>
+        </div>
+    </div>
+    <div class="col-50">
+        <div id="pwdReccommendations" class="notification note-info small">
+            <fmt:message key="info.party.credentials.recommendations"/>
+        </div>
+    </div>
+</div>

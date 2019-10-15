@@ -1,0 +1,57 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+
+<c:choose>
+    <c:when test="${empty binaries}">
+        <div id="noRecordDiv">
+            <span class="icon-bullet-line">
+                <fmt:message key="no.record.found"></fmt:message>
+            </span>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div id="binariesListTableDiv" class="scrollable-table-y">
+            <table id="binariesListTable" class="default tablesorter-table">
+                <thead>
+                    <tr>
+                        <th><fmt:message key="message.binaries.id" /></th>
+                        <th><fmt:message key="message.binaries.created" /></th>
+                        <th><fmt:message key="message.binaries.created.by" /></th>
+                        <th><fmt:message key="message.binaries.modified" /></th>
+                        <th><fmt:message key="message.binaries.modified.by" /></th>
+                        <th><fmt:message key="message.binaries.type" /></th>
+                        <th><fmt:message key="message.binaries.path" /></th>
+                        <th><fmt:message key="message.binaries.mimeType" /></th>
+                        <th><fmt:message key="message.binaries.size" /></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var="b" items="${binaries}" varStatus="binaryListStatus">
+                        <tr class="${binaryListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+                            <td >${b.id}</td>
+                            <td ><fmt:formatDate value="${b.accessInfo.creationDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                            <td >${b.accessInfo.creationId}</td>
+                            <td ><fmt:formatDate value="${b.accessInfo.modificationDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                            <td >${b.accessInfo.modificationId}</td>
+                            <td >${b.binaryType}</td>
+                            <td >${b.fileId}</td>
+                            <td >${b.mimeCode}</td>
+                            <td >${b.size}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+<j:button action_id="dialog_stuff_action_cancel"
+		  action_class="fr"
+		  button_type_class="alternate blue_button"
+		  button_optional_class="no-icon"
+		  label_key="button.cancel" />

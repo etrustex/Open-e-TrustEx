@@ -1,0 +1,90 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<input type="hidden" id="id" value="${partyAgreement.id}" />
+
+<div  class="inner-box columns clear no-background">
+    <div id="msgDeleteConfirmation" class="hidden">
+        <fmt:message key="partyAgreement.management.confirmation.message">
+            <fmt:param value="${partyAgreement.id}" />
+        </fmt:message>
+    </div>
+
+    <div id="msgNoRecordWarning" class="hidden">
+        <fmt:message key="partyAgreement.management.noRecord.message"/>
+    </div>
+    <div id="msgNoRecordWarningTitle" class="hidden">
+        <fmt:message key="partyAgreement.title"/>
+    </div>
+
+    <j:field label_key="partyAgreement.authorizingParty" field_class="cl" label_class="large">
+        <span class="field-view no-border text-color-light-grey" title="${partyAgreement.authorizingParty.name}" rel="tooltip">${partyAgreement.authorizingParty.name}</span>
+    </j:field>
+
+    <j:field label_key="partyAgreement.authorizingParty.identifiers" field_class="cl" label_class="large">
+        <span class="field-view field-view-list no-border text-color-light-grey">
+            <c:forEach var="pi" items="${partyAgreement.authorizingParty.identifiers}">
+                ${pi.schemeId} &emsp; ${pi.value} <br/>
+            </c:forEach>
+        </span>
+    </j:field>
+
+    <br/>
+
+    <j:field label_key="partyAgreement.delegateParty" field_class="cl" label_class="large">
+        <span class="field-view no-border text-color-light-grey" title="${partyAgreement.delegateParty.name}" rel="tooltip">${partyAgreement.delegateParty.name}</span>
+    </j:field>
+
+    <j:field label_key="partyAgreement.delegateParty.identifiers" field_class="cl" label_class="large">
+        <span class="field-view field-view-list no-border text-color-light-grey">
+            <c:forEach var="pi" items="${partyAgreement.delegateParty.identifiers}">
+                ${pi.schemeId} &emsp; ${pi.value} <br/>
+            </c:forEach>
+        </span>
+    </j:field>
+
+    <br/>
+
+    <j:field label_key="partyAgreement.transactions.all" field_class="cl" label_class="large">
+        <span class="field-view field-view-list no-border text-color-light-grey">
+            <c:choose>
+                <c:when test="${empty partyAgreement.transactions}"><fmt:message key="common.yes"/></c:when>
+                <c:otherwise><fmt:message key="common.no"/></c:otherwise>
+            </c:choose>
+        </span>
+    </j:field>
+
+    <br/>
+
+     <c:if test="${!empty partyAgreement.transactions}">
+        <j:box box_title_key="partyAgreement.transactions">
+            <div id="transactionsTableDiv" class="">
+                <table id="txResultsListTable" class="default tablesorter-table">
+                    <thead>
+                        <tr>
+                            <th><fmt:message key="transaction.search.list.header.name" /></th>
+                            <th><fmt:message key="transaction.search.list.header.version" /></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <c:forEach var="tx" items="${partyAgreement.transactions}" varStatus="status">
+                            <tr id="${tx.id}" class="${status.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+                                <td>${tx.name}</td>
+                                <td>${tx.version}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </j:box>
+     </c:if>
+</div>
+
+<div class="hr"></div>
+
+<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/view_buttons.jspf"/>

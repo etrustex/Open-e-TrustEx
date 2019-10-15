@@ -1,0 +1,71 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+
+<form:hidden id="searchOnLoad" path="profileSearchForm.searchOnLoad"/>
+<c:if test="${profiles != null}">
+	<j:box box_title_key="search.results">
+		<c:choose>
+			<c:when test="${empty profiles}">
+				<div id="noRecordDiv">
+					<span class="icon-bullet-line">
+						<fmt:message key="no.record.found"></fmt:message>
+					</span>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="field fr">
+					<div class="field-label">
+						<h6>
+							<fmt:message key="table.filter" />
+						</h6>
+					</div>
+					<input class="table-filter field-value" tableidtofilter="profilesListTable" type="text"/>
+				</div>
+	
+				<div class="cl"/>
+				
+				<div id="profilesListTableDiv" class="scrollable-table-y">
+					<table id="profilesListTable" class="default tablesorter-table">
+						<caption>
+							<fmt:message key="records.found">
+								<fmt:param value="${fn:length(profiles)}" />
+							</fmt:message>
+						</caption>
+	
+						<thead>
+							<tr>
+								<th><fmt:message key="profile.search.list.header.name" /></th>
+								<th><fmt:message key="profile.search.list.header.namespace" /></th>
+								<th><fmt:message key="profile.search.list.header.businessDomains" /></th>
+								<th><fmt:message key="profile.search.list.header.confidentiality" /></th>
+								<th><fmt:message key="profile.search.list.header.integrity" /></th>
+								<th><fmt:message key="profile.search.list.header.availability" /></th>
+							</tr>
+						</thead>
+	
+						<tbody>
+							<c:forEach var="pr" items="${profiles}" varStatus="prListStatus">
+								<tr id="${pr.id}" class="clickable ${prListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+									<td ><a class="select-profile">${pr.name}</a></td>
+									<td >${pr.namespace}</td>
+									<td>
+										<c:forEach items="${pr.businessDomains}" var="bd">
+											${bd.name}<br/>
+										</c:forEach>
+									</td>
+									<td>${pr.ciaLevel.confidentialityLevel}</td>
+									<td>${pr.ciaLevel.integrityLevel}</td>
+									<td>${pr.ciaLevel.availabilityLevel}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</j:box>
+</c:if>

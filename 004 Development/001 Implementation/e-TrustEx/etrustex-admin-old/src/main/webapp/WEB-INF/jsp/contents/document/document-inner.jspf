@@ -1,0 +1,53 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %>
+
+<form:hidden id="documentId" name="documentId" path="documentForm.id" />
+
+<div class="columns clear">
+	<div  class="columns clear">
+		<j:field label_key="document.name" field_class="required"> 
+			<form:input path="documentForm.name" id="name" class="field-value JS_live-validation action_save_on_enter_document" type="text" />
+		</j:field>
+		<cipa:error_label fieldPath="documentForm.name"/>
+		<div class="cl"/>
+
+		<j:field label_key="document.localName" field_class="required"> 
+			<form:input path="documentForm.localName" id="localName" class="field-value JS_live-validation action_save_on_enter_document" type="text" />
+		</j:field>
+		<cipa:error_label fieldPath="documentForm.localName"/>
+		<div class="cl"/>
+		
+		<j:field label_key="document.namespace" field_class="required" > 
+			<form:input path="documentForm.namespace" id="namespace" class="field-value JS_live-validation action_save_on_enter_document" type="text" cssStyle="width:400px;"/>
+		</j:field>
+		<cipa:error_label fieldPath="documentForm.namespace"/>
+		<div class="cl"/>
+
+		<j:field label_key="document.typeCode" field_class="required"> 
+			<form:input path="documentForm.documentTypeCode" id="documentTypeCode" class="field-value JS_live-validation action_save_on_enter_document" type="text" cssStyle="width:50px;"/>
+		</j:field>
+		<cipa:error_label fieldPath="documentForm.documentTypeCode"/>
+		<div class="cl"/>
+
+		<j:field label_key="document.version" > 
+			<form:input path="documentForm.version" id="version" class="field-value JS_live-validation action_save_on_enter_document" type="text" cssStyle="width:50px;"/>
+		</j:field>
+		<cipa:error_label fieldPath="documentForm.version"/>
+		<div class="cl"/>
+	</div>
+
+	<div class="hr"></div>
+	
+	<c:choose>
+		<c:when test="${pageMode == 'new'}">
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/create_buttons.jspf"/>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/edit_buttons.jspf"/>
+		</c:otherwise>
+	</c:choose>
+</div>

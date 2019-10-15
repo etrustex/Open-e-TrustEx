@@ -1,0 +1,27 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+
+	<form:hidden path="userForm.isChangePwdMode"/>
+	<form:hidden path="userForm.user.id"/>
+	<j:field label_key="user.old.password" field_class="required "> 
+		<form:input path="userForm.oldPassword" id="oldPassword" class="field-value JS_live-validation" type="text"/>
+	</j:field>
+	<cipa:error_label fieldPath="userForm.oldPassword"/>
+	<br/>
+	<j:field label_key="user.new.password" field_class="required "> 
+		<form:input path="userForm.user.password" id="userPassword1" class="field-value JS_live-validation" type="text"/>
+	</j:field>
+	<cipa:error_label fieldPath="userForm.user.password"/>
+	<br/>
+	<j:field label_key="user.new.password.confirm" field_class="required "> 
+		<form:input path="userForm.passwordCheck" id="userPassword2" class="field-value JS_live-validation" type="text"/>
+	</j:field>
+	<cipa:error_label fieldPath="userForm.passwordCheck"/>
+	<br/>
+	<div class="hr"></div>
+	
+	<j:button action_id="action_change_pwd" action_class="fr" button_type_class="alternate blue_button" button_icon_class="icon-bw-save" label_key="button.save" />
+    <j:button action_id="action_clear" action_class="fr" button_type_class="alternate gray_button" button_icon_class="icon-reset" label_key="button.clear"/>
+    <j:button action_id="action_cancel" action_class="fr" button_type_class="alternate gray_button" button_optional_class="no-icon" label_key="button.cancel" />

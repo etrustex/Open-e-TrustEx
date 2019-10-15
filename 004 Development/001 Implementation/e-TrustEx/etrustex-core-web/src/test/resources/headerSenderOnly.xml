@@ -1,0 +1,7 @@
+<ec:Header>
+	<ec1:BusinessHeader>
+		<stan:Sender>
+			<stan:Identifier>0088:000886688005</stan:Identifier>
+		</stan:Sender>
+	</ec1:BusinessHeader>
+</ec:Header>

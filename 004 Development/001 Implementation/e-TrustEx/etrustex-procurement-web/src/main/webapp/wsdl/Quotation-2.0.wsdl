@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" name="Quotation" xmlns:tns="ec:services:wsdl:Quotation-2" targetNamespace="ec:services:wsdl:Quotation-2" xmlns:quo="ec:schema:xsd:Quotation-0.1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:Quotation-2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:Quotation-0.1" schemaLocation="../xsd/maindoc/EC-Quotation-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../xsd/maindoc/EC-Ack-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd"/>
+			<xsd:element name="SubmitQuotationRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Quotation" type="quo:QuotationType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitQuotationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Ack" type="ack:AcknowledgmentType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<message name="submitQuotationRequest">
+		<part name="SubmitQuotationRequest" element="tns:SubmitQuotationRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="submitQuotationResponse">
+		<part name="SubmitQuotationResponse" element="tns:SubmitQuotationResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	
+	<portType name="QuotationPortType">
+		<operation name="submitQuotation">
+			<input message="tns:submitQuotationRequest"/>
+			<output message="tns:submitQuotationResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="QuotationBinding" type="tns:QuotationPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitQuotation">
+			<input>
+				<soap:body parts="SubmitQuotationRequest" use="literal"/>
+				<soap:header message="tns:submitQuotationRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="SubmitQuotationResponse" use="literal"/>
+				<soap:header message="tns:submitQuotationResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="QuotationService">
+		<port name="QuotationPort" binding="tns:QuotationBinding">
+			<soap:address location="${eprior.root.location}/services"/>
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,9 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/contents/_common/defaultTagLibInclude.jsp" %>   
+
+<j:box box_title_key="box.title.key">
+
+    box content
+
+</j:box>
+

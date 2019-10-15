@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<j:field label_key="user.party"  field_class="${required}">
+    <span id="displaypartyName" class="field-view" style="width:200px;">${userForm.newUserConfiguration.party.name}</span>
+</j:field>
+<cipa:error_label fieldPath="userForm.newUserConfiguration.party.id"/>
+<form:hidden id="partyId" path="userForm.newUserConfiguration.party.id" />
+<form:hidden id="partyName" path="userForm.newUserConfiguration.party.name" />
+<c:set var="showResetBtn" value="${not empty userForm.newUserConfiguration.party.id}"/>
+
+<j:button action_id="action_search_party" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-search" tooltip_key="button.search"/>
+<c:if test="${showResetBtn}">
+	<j:button action_id="action_remove_party" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-reset" tooltip_key="button.remove"/>
+</c:if>

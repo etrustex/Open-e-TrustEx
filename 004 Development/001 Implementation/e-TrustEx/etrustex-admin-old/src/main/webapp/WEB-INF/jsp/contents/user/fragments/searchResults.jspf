@@ -1,0 +1,116 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+<c:choose>
+	<c:when test="${empty users}">
+		<div id="noRecordDiv">
+			<span class="icon-bullet-line">
+				<fmt:message key="no.record.found"></fmt:message>
+			</span>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="notification note-info small no-margin">
+            <p class="normal">
+                <fmt:message key="user.result.infos"></fmt:message>
+            </p>
+        </div>
+        
+		<div class="field fr">
+			<div class="field-label">
+				<h6>
+					<fmt:message key="table.filter" />
+				</h6>
+			</div>
+			<input class="table-filter field-value" tableidtofilter="userResultsListTable" type="text"/>
+		</div>
+		
+		<div class="cl"/>
+
+		<div id="userResultsListTableDiv" class="scrollable-table-y">
+			<table id="userResultsListTable" class="default tablesorter-table">
+				<caption>
+					<fmt:message key="user.records.found">
+						<fmt:param value="${fn:length(users)}" />
+					</fmt:message>
+				</caption>
+
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th><fmt:message key="user.search.list.header.username" /></th>
+						<th><fmt:message key="user.search.list.header.role" /></th>
+						<th><fmt:message key="user.search.list.header.businessDomain" /></th>
+						<th><fmt:message key="user.search.list.header.party" /></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="user" items="${users}" varStatus="userListStatus">
+						<tr id="${user.id}"
+							class="clickable ${userListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+							<td>
+								<c:if test="${fn:length(user.accessRights) > 1}">
+                      					<span id="${user.id}" class="toggle-trigger-content icon-dataGrid active"></span>
+ 										</c:if>
+                 					</td>
+							
+							<td class="text-bold text-color-blue"><a class="select-user">${user.name}</a></td>
+							<c:choose>
+								<c:when test="${fn:length(user.accessRights) > 1 or fn:length(user.accessRights) eq 0}">
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</c:when>
+								<c:otherwise>
+									<td>${user.accessRights.iterator().next().role.code}</td>
+									<td>${user.accessRights.iterator().next().businessDomain.name}</td>
+									<td>${user.accessRights.iterator().next().party.name}</td>
+								</c:otherwise>
+							</c:choose>
+						</tr>
+						<c:if test="${fn:length(user.accessRights) > 1}">
+							<tr id="content_${user.id}" class="sub-row">
+                 						<td>&nbsp;</td>
+                 						<td colspan="4" class="sub-row">
+                     						<span class="sub-table-title fl">
+                     							<fmt:message key="table.row.details" />
+                     						</span>
+                     						<table class="default sub-table">
+                         						<thead>
+                         							<tr>
+				                                <th><fmt:message key="user.search.list.header.role" /></th>
+												<th><fmt:message key="user.search.list.header.businessDomain" /></th>
+												<th><fmt:message key="user.search.list.header.party" /></th>
+				                            </tr>
+                         						</thead>
+                         						<tbody>
+											<c:forEach var="accesRight" items="${user.accessRights}" varStatus="accessRightListStatus">
+                        									<tr id="${user.id}" class="${accessRightListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+                         									<td class="text-bold text-color-blue">
+						                                ${accesRight.role.code}
+						                            </td>
+						                            <td>
+						                                ${accesRight.businessDomain.name}
+						                            </td>
+						                            <td>
+						                                ${accesRight.party.name}
+						                            </td>
+					                            </tr>
+											</c:forEach>
+										</tbody>
+									</table>
+			                    </td>
+			                </tr>
+						</c:if>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:otherwise>
+</c:choose>

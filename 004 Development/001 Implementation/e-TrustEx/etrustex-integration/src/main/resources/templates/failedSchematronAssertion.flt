@@ -1,0 +1,1 @@
+<ec2:FailedAssert xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${assertion}</ec2:FailedAssert>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_5.xsd"
+        version="2.5">
+
+    <display-name>jSCAF custom tags</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>j</short-name>
+    <uri>http://eu.europa.ec.digit.jscaf/tags</uri>
+
+
+    <tag-file>
+        <name>form</name>
+        <path>/WEB-INF/tags/jscaf/form.tag</path>
+    </tag-file>
+
+    <tag-file>
+        <name>accordion_box</name>
+        <path>/WEB-INF/tags/jscaf/accordion_box.tag</path>
+    </tag-file>
+    <tag-file>                                                 
+        <name>bean_message</name>
+        <path>/WEB-INF/tags/jscaf/bean_message.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>bean_write</name>
+        <path>/WEB-INF/tags/jscaf/bean_write.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>box</name>
+        <path>/WEB-INF/tags/jscaf/box.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>box_title</name>
+        <path>/WEB-INF/tags/jscaf/box_title.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>button</name>
+        <path>/WEB-INF/tags/jscaf/button.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>buttonset</name>
+        <path>/WEB-INF/tags/jscaf/buttonset.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>dashboard_button_item</name>
+        <path>/WEB-INF/tags/jscaf/dashboard_button_item.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>field</name>
+        <path>/WEB-INF/tags/jscaf/field.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>field_date</name>
+        <path>/WEB-INF/tags/jscaf/field_date.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>list_counter_list_item</name>
+        <path>/WEB-INF/tags/jscaf/list_counter_list_item.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>list_item_child</name>
+        <path>/WEB-INF/tags/jscaf/list_item_child.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>list_item_parent</name>
+        <path>/WEB-INF/tags/jscaf/list_item_parent.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>notification_block</name>
+        <path>/WEB-INF/tags/jscaf/notification_block.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>radio_group_item</name>
+        <path>/WEB-INF/tags/jscaf/radio_group_item.tag</path>
+    </tag-file>
+    <tag-file>
+        <name>search_box</name>
+        <path>/WEB-INF/tags/jscaf/search_box.tag</path>
+    </tag-file>
+
+    <!--
+    <tag-file>
+        <name></name>
+        <path>/WEB-INF/tags/jscaf/</path>
+    </tag-file>
+    -->
+
+</taglib>

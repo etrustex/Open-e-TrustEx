@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://www.bea.com/ns/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd">
+    <wls:weblogic-version>12.1.1</wls:weblogic-version>
+   
+    <wls:container-descriptor>
+        <wls:allow-all-roles>true</wls:allow-all-roles>
+    </wls:container-descriptor>
+    <wls:context-root>etrustex-procurement-web</wls:context-root>
+    <wls:work-manager>
+        <wls:name>epriorWorkManager</wls:name>
+        <wls:max-threads-constraint>
+            <wls:name>maxThreads</wls:name>
+            <wls:count>10</wls:count>
+        </wls:max-threads-constraint>
+        <wls:capacity>
+            <wls:name>maxCapacity</wls:name>
+            <wls:count>100</wls:count>
+        </wls:capacity>
+    </wls:work-manager>
+</wls:weblogic-web-app>
