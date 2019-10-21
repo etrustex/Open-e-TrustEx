@@ -1,0 +1,29 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:doc="ec:services:wsdl:Document-1"
+	xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-2"
+	xmlns:ec2="ec:schema:xsd:EventNotification-1"
+	xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xmlns:urn1="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:stan="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+   	<soapenv:Header>
+	   <doc:Header>
+		 <ec1:BusinessHeader>
+			<stan:Sender>
+			   <stan:Identifier schemeID="${SENDER_IDENTIFIER_SCHEME_ID}">${SENDER_IDENTIFIER}</stan:Identifier>
+			</stan:Sender>
+			<stan:Receiver>
+			   <stan:Identifier schemeID="${RECEIVER_IDENTIFIER_SCHEME_ID}">${RECEIVER_IDENTIFIER}</stan:Identifier>
+			</stan:Receiver>
+		 </ec1:BusinessHeader>
+	  </doc:Header>
+   	</soapenv:Header>
+	<soapenv:Body>   		
+      	<doc:SubmitDocumentRequest>
+      		<doc:transactionNamespace>{ec:services:wsdl:EventNotification-1}SubmitEventNotificationRequest</doc:transactionNamespace>
+ 			${BODY}
+      	</doc:SubmitDocumentRequest>
+   	</soapenv:Body>
+</soapenv:Envelope>
+ 

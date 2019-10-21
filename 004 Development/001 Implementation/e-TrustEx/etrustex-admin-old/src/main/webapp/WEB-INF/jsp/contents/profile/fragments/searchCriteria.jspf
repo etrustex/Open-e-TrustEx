@@ -1,0 +1,29 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+
+<div  class="columns clear">
+	<j:field label_key="profile.name" field_class="cl">
+	 	<form:input path="profileSearchForm.name_search" class="field-value action_search_on_enter_profile"/>
+	</j:field>
+	<cipa:error_label fieldPath="profileSearchForm.name_search"/>
+	<div class="cl"/>
+	
+	<j:field label_key="party.businessDomain"> 
+	 	<form:select path="profileSearchForm.businessDomain.id" id="businessDomain" cssClass="form-control" items="${businessDomains}" itemValue="id" itemLabel="name">
+	 		<form:option value="-1"><fmt:message key="choose.please"/></form:option>
+	 	</form:select>
+	 </j:field>
+	 <cipa:error_label fieldPath="profileSearchForm.businessDomain"/>
+	<div class="cl"/>
+	
+	<j:field label_key="transaction.name" field_class="cl">
+	 	<form:input path="profileSearchForm.transactionName" class="field-value action_search_on_enter_profile"/> 
+	</j:field>
+	<cipa:error_label fieldPath="profileSearchForm.transactionName"/>
+	<div class="cl"/>
+</div>

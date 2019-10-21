@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Package 0.01
+Copyright EC DIGIT by PwC
+ -->
+<!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="ec:schema:xsd:ExtensionComponents-0.1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:eccbc="ec:schema:xsd:CommonBasicComponents-0.1" xmlns:ns1="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" targetNamespace="ec:schema:xsd:ExtensionComponents-0.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<!-- ===== UBL Imports ===== -->
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemaLocation="../common/UBL-CommonBasicComponents-2.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" schemaLocation="../common/UBL-CommonAggregateComponents-2.0.xsd"/>
+	<xsd:import namespace="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" schemaLocation="../common/UnqualifiedDataTypeSchemaModule-2.0.xsd"/>
+	<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" schemaLocation="../common/UBL-QualifiedDatatypes-2.0.xsd"/>
+	<!-- ===== EC Imports ===== -->
+	<xsd:import namespace="ec:schema:xsd:CommonBasicComponents-0.1" schemaLocation="./EC-CommonBasicComponents-0.1.xsd"/>
+	<!-- ===== Generic Read Services Element Declaration ===== -->
+	<xsd:element name="RetrieveIndicatorList" type="RetrieveIndicatoIndicatorListType"/>
+	<xsd:element name="RetrieveIndicatorReference" type="RetrieveIndicatorReferenceType"/>
+	<xsd:complexType name="RetrieveIndicatoIndicatorListType">
+		<xsd:sequence>
+			<xsd:element ref="RetrieveIndicatorReference" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RetrieveIndicatorReferenceType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID"/>
+			<xsd:element ref="cbc:DocumentTypeCode"/>
+			<xsd:element ref="eccbc:RetrieveIndicator"/>
+            <xsd:element ref="eccbc:CustomerID"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

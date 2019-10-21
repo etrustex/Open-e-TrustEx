@@ -1,0 +1,38 @@
+<databaseChangeLog
+	    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+	    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+ 
+ 	<!-- EXAMPLES   
+    <changeSet id="1" author="chiricr">
+        <comment>test table</comment>
+        <createTable tableName="TEST_LIQUIBASE">
+        	<column name="ID" type="NUMBER(19, 0)" >
+        		<constraints nullable="false"/>
+        	</column>
+        	<column name="NAME" type="VARCHAR2(255)">
+        		<constraints nullable="false"/>
+        	</column>
+        	<column name="DESC" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="2" author="chiricr">
+        <comment>test data</comment>
+        <insert tableName="TEST_LIQUIBASE">
+        	<column name="ID" valueNumeric="1000"/>
+        	<column name="NAME" value="SOME_TEXT"/>
+        </insert>
+    </changeSet>    
+    EXAMPLES END HERE -->
+    
+    <property name="now" value="sysdate" dbms="oracle" />
+    
+   	<include file="db.changelog-structure.xml" relativeToChangelogFile="true"/>
+
+    <include file="db.changelog-data.xml" relativeToChangelogFile="true"/>    
+    
+    
+</databaseChangeLog>

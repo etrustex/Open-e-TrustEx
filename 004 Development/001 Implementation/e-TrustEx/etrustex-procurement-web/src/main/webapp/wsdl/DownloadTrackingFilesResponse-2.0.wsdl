@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:DownloadTrackingFilesResponse-2" xmlns:apr="ec:schema:xsd:DownloadTrackingFilesResponse-0.1" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DownloadTrackingFilesResponse" targetNamespace="ec:services:wsdl:DownloadTrackingFilesResponse-2">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:DownloadTrackingFilesResponse-2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:DownloadTrackingFilesResponse-0.1" schemaLocation="../xsd/maindoc/EC-DownloadTrackingFilesResponse-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../xsd/maindoc/EC-Ack-2.0.xsd" />
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd" />
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd" />
+			<xsd:element name="SubmitDownloadTrackingFilesResponseRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="DownloadTrackingFilesResponse" type="apr:DownloadTrackingFilesResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitDownloadTrackingFilesResponseResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Ack" type="ack:AcknowledgmentType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	<message name="submitDownloadTrackingFilesResponseRequest">
+		<part name="SubmitDownloadTrackingFilesResponseRequest" element="tns:SubmitDownloadTrackingFilesResponseRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="submitDownloadTrackingFilesResponseResponse">
+		<part name="SubmitDownloadTrackingFilesResponseResponse" element="tns:SubmitDownloadTrackingFilesResponseResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	<portType name="DownloadTrackingFilesResponsePortType">
+		<operation name="submitDownloadTrackingFilesResponse">
+			<input message="tns:submitDownloadTrackingFilesResponseRequest"/>
+			<output message="tns:submitDownloadTrackingFilesResponseResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="DownloadTrackingFilesResponseBinding" type="tns:DownloadTrackingFilesResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitDownloadTrackingFilesResponse">
+			<input>
+				<soap:body parts="SubmitDownloadTrackingFilesResponseRequest" use="literal"/>
+				<soap:header message="tns:submitDownloadTrackingFilesResponseRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="SubmitDownloadTrackingFilesResponseResponse" use="literal"/>
+				<soap:header message="tns:submitDownloadTrackingFilesResponseResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="DownloadTrackingFilesResponseService">
+		<port name="DownloadTrackingFilesResponsePort" binding="tns:DownloadTrackingFilesResponseBinding">
+			<soap:address location="${eprior.root.location}/services"/>
+		</port>
+	</service>
+</definitions>

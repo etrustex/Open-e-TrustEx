@@ -1,0 +1,35 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+
+<c:choose>
+	<c:when test="${pageMode eq ''}">
+		<j:field label_key="metadata.transaction">
+            <span id="displayTansactionName" class="field-view" style="width:200px;">${partyAgreementSearchForm.transaction_search.name} ${partyAgreementSearchForm.transaction_search.version}</span>
+        </j:field>
+        <cipa:error_label fieldPath="partyAgreementSearchForm.transaction_search.id"/>
+        <form:hidden id="transactionId" path="partyAgreementSearchForm.transaction_search.id"/>
+        <form:hidden id="transactionName" path="partyAgreementSearchForm.transaction_search.name"/>
+        <form:hidden id="transactionVersion" path="partyAgreementSearchForm.transaction_search.version"/>
+        <c:set var="showResetBtn" value="${not empty partyAgreementSearchForm.transaction_search.id}"/>
+	</c:when>
+	<c:otherwise>
+		<j:field label_key="metadata.transaction">
+            <span id="displayTansactionName" class="field-view" style="width:200px;">${partyAgreementSearchForm.transaction.name} ${partyAgreementSearchForm.transaction.version}</span>
+        </j:field>
+        <cipa:error_label fieldPath="partyAgreementSearchForm.transaction.id"/>
+        <form:hidden id="transactionId" path="partyAgreementSearchForm.transaction.id"/>
+        <form:hidden id="transactionName" path="partyAgreementSearchForm.transaction.name"/>
+        <form:hidden id="transactionVersion" path="partyAgreementSearchForm.transaction.version"/>
+        <c:set var="showResetBtn" value="${not empty partyAgreementSearchForm.transaction.id}"/>
+	</c:otherwise>
+</c:choose>
+
+<j:button action_id="action_search_tx" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-search" tooltip_key="button.search"/>
+<c:if test="${showResetBtn}">
+    <j:button action_id="action_remove_tx" action_class="fl showing" button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-reset" tooltip_key="button.remove"/>
+</c:if>

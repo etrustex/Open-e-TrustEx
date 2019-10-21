@@ -1,0 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<div class="columns cl">
+	<div class="col-33">
+		<j:field label_key="cia.confidentiality" field_class="required notEditable"> 
+	        <form:select 	path="transactionForm.ciaLevel.confidentialityLevel" 
+	        				name="confidentialityLevel" id="confidentialityLevel" 
+	        				class="field-value JS_live-validation">
+				<form:options items="${confidentialityLevels}" />
+			</form:select>
+		</j:field>
+	</div>
+	<div class="col-33">
+		<j:field label_key="cia.integrity" field_class="required notEditable">
+	        <form:select 	path="transactionForm.ciaLevel.integrityLevel" 
+	        				name="integrityLevel" id="integrityLevel" 
+	        				class="field-value JS_live-validation">
+				<form:options items="${integrityLevels}" />
+			</form:select>
+		</j:field>
+	</div>
+	<div class="col-33">
+		<j:field label_key="cia.availability" field_class="required notEditable">
+	        <form:select 	path="transactionForm.ciaLevel.availabilityLevel" 
+	        				name="availabilityLevel" id="availabilityLevel" 
+	        				class="field-value JS_live-validation">
+				<form:options items="${availabilityLevels}" />
+			</form:select>
+		</j:field>
+	</div>
+</div>

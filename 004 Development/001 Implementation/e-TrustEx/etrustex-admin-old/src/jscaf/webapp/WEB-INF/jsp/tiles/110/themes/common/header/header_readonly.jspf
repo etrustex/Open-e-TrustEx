@@ -1,0 +1,22 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://eu.europa.ec.digit.jscaf/tags" prefix="j" %>
+
+<div id="header" class="read-only">
+
+    <jsp:include page="header_readonly_top_bar.jspf"/>
+
+    <div class="milestone"></div>
+
+    <div id="app_action_back_home" class="logo"></div>
+
+    <div class="logo-text">[APP NAME]</div>
+
+    <jsp:include page="header_readonly_user_infos.jspf"/>
+
+    <jsp:include page="header_readonly_other_links.jspf"/>
+
+</div>
+
+

@@ -1,0 +1,67 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<c:choose>
+	<c:when test="${empty icas}">
+		<div id="noRecordDiv">
+			<span class="icon-bullet-line">
+				<fmt:message key="no.record.found"></fmt:message>
+			</span>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="notification note-info small no-margin">
+            <p class="normal">
+                <fmt:message key="ica.result.infos"/>
+            </p>
+        </div>
+	
+		<div class="field fr">
+			<div class="field-label">
+				<h6>
+					<fmt:message key="table.filter" />
+				</h6>
+			</div>
+			<input class="table-filter field-value" tableidtofilter="icaResultsListTable" type="text"/>
+		</div>
+		
+		<div class="cl"/>
+		
+        <div id="icaResultsListTableDiv" class="scrollable-table-y">
+			<table id="icaResultsListTable" class="default tablesorter-table">
+				<caption>
+					<fmt:message key="ica.records.found">
+						<fmt:param value="${fn:length(icas)}" />
+					</fmt:message>
+				</caption>
+
+				<thead>
+					<tr>
+						<th><fmt:message key="ica.search.list.header.profile" /></th>
+						<th><fmt:message key="ica.search.list.header.firstParty" /></th>
+						<th><fmt:message key="ica.search.list.header.secondParty" /></th>
+						<th><fmt:message key="ica.search.list.header.validFrom" /></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<c:forEach var="ica" items="${icas}" varStatus="icaListStatus">
+						<%--<tr onclick="window.location='?${ica.id}'" id="line_${ica.id}" --%>
+						<tr id="${ica.id}"
+							class="clickable ${icaListStatus.index % 2 == 0 ? 'zebra1' : 'zebra2' }">
+							<td><a class="select-ica">${ica.profile.name}</a></td>
+							<c:forEach var="partyRole" items="${ica.partyRoles}">
+								<td>${partyRole.role.name} - ${partyRole.party.name}</td>
+							</c:forEach>
+							<td>${ica.validityStartDate}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:otherwise>
+</c:choose>

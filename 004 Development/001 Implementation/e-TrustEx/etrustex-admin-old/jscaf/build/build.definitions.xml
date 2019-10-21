@@ -1,0 +1,212 @@
+<project name="jscaf-definitions">
+
+    <property file="build.properties"/>
+    <property file="build.svn.properties"/>
+
+    <tstamp>
+        <format property="_timestamp" pattern="yyyyMMddHHmmssSSS" locale="en,GB"/>
+    </tstamp>
+
+    <tstamp>
+        <format property="_timestamp.last.modified" pattern="EEE, dd MMM yyyy HH:mm:ss zzz" locale="en,GB"/>
+    </tstamp>
+
+    <tstamp>
+        <format property="_timestamp.display" pattern="dd/MM/yyyy HH:mm" locale="en,GB"/>
+    </tstamp>
+
+
+    <!--======================================================================-->
+    <!--                     JAR - LIBRARIES DEFINITIONS                      -->
+    <!--======================================================================-->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <fileset dir="${jscaf.build.lib.ant.dir}" includes="ant-contrib-*.jar"/>
+        </classpath>
+    </taskdef>	
+	
+
+    <fileset id="yui.jar" dir="${jscaf.build.lib.yui.dir}">
+        <include name="*.jar"/>
+    </fileset>
+
+
+    <!--======================================================================-->
+    <!--                     COMMON TARGETS - MACRODEFS                       -->
+    <!--======================================================================-->
+
+    <target name="yui">
+        <echo>yui-compress file : ${file}</echo>
+        <java classname="com.yahoo.platform.yui.compressor.Bootstrap" fork="yes" failonerror="true">
+            <classpath>
+                <fileset refid="yui.jar"/>
+            </classpath>
+            <arg line="-o ${file} ${file}"/>
+        </java>
+    </target>
+
+    <macrodef name="lessjs">
+        <attribute name="input"/>
+        <attribute name="output"/>
+        <sequential>
+            <java jar="${jscaf.build.lib.rhino.jar}" fork="true" output="@{output}" failonerror="true">
+                <arg path="${jscaf.build.lib.rhino.lesscss.js}"/>
+                <arg path="@{input}"/>
+            </java>
+            <echo>Lessjs: generated @{output}</echo>
+        </sequential>
+    </macrodef>
+
+    <target name="delog">
+        <echo>DELOG file : ${file}</echo>
+        <replace file="${file}" token="$._log("
+                 value="//$._log("></replace>
+        <replace file="${file}" token="$._L("
+                 value="//$._L("></replace>
+    </target>
+	
+    <macrodef name="lintjs">
+        <attribute name="input"/>
+        <sequential>
+            <echo>JSLINT: processing file @{input}</echo>
+            <java jar="${jscaf.build.lib.rhino.jar}" fork="true" failonerror="true">
+                <arg path="${jscaf.build.lib.rhino.jslint.js}"/>
+                <arg path="@{input}"/>
+                <arg value="${jscaf.build.lib.rhino.jslint.options}"/>
+            </java>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="hintjs">
+        <attribute name="input"/>
+        <sequential>
+            <echo>JSHINT: processing file @{input}</echo>
+            <java jar="${jscaf.build.lib.rhino.jar}" fork="true" failonerror="false">
+                <arg path="${jscaf.build.lib.rhino.jshint.js}"/>
+                <arg path="@{input}"/>
+                <arg value="${jscaf.build.lib.rhino.jshint.options}"/>
+            </java>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="lintcss">
+        <attribute name="input"/>
+        <sequential>
+            <echo>CSSLINT: processing file @{input}</echo>
+            <java jar="${jscaf.build.lib.rhino.jar}" fork="true" failonerror="true">
+                <arg path="${jscaf.build.lib.rhino.csslint.js}"/>
+                <arg path="@{input}"/>
+                <arg value="${jscaf.build.lib.rhino.csslint.options}"/>
+            </java>
+        </sequential>
+    </macrodef>
+
+     <macrodef name="default">
+         <attribute name="property"/>
+         <attribute name="default"/>
+         <attribute name="description" default=""/>
+
+         <sequential>
+             <condition property="@{property}" value="@{default}">
+                 <not>
+                     <isset property="@{name}"/>
+                 </not>
+             </condition>
+         </sequential>
+     </macrodef>    
+
+
+    <macrodef name="replaceAll" taskname="@{taskname}">
+        <attribute name="src" />
+        <attribute name="dest" default="" />
+        <attribute name="replace" default="" />
+        <attribute name="with" default="" />
+        <sequential>
+            <loadresource property="@{dest}">
+                <propertyresource name="@{src}" />
+                <filterchain>
+                    <tokenfilter>
+                        <filetokenizer/>
+                        <replacestring from="@{replace}" to="@{with}"/>
+                    </tokenfilter>
+                </filterchain>
+            </loadresource>
+        </sequential>
+    </macrodef>
+
+
+
+    <scriptdef language="javascript" name="upper">
+        <attribute name="string" />
+        <attribute name="to" />
+     
+        project.setProperty( attributes.get( "to" ),
+                             attributes.get( "string" ).toUpperCase() );
+    </scriptdef>
+     
+    <scriptdef language="javascript" name="lower">
+        <attribute name="string" />
+        <attribute name="to" />
+     
+        project.setProperty( attributes.get( "to" ),
+                             attributes.get( "string" ).toLowerCase() );
+    </scriptdef>
+     
+    <scriptdef language="javascript" name="ucfirst">
+        <attribute name="string" />
+        <attribute name="to" />
+     
+        var the_string = attributes.get( "string" );
+        project.setProperty( attributes.get( "to" ),
+                    the_string.substr(0,1).toUpperCase() + the_string.substr(1) );
+    </scriptdef>
+     
+    <scriptdef language="javascript" name="capitalize">
+        <attribute name="string" />
+        <attribute name="to" />
+     
+        var s = new String( attributes.get( "string" ) );
+        project.setProperty( attributes.get( "to" ),
+                s.toLowerCase().replace( /^.|sS/g,
+                function(a) { return a.toUpperCase(); }) );
+    </scriptdef>
+
+ <scriptdef name="substring" language="javascript">
+     <attribute name="text" />
+     <attribute name="start" />
+     <attribute name="end" />
+     <attribute name="property" />
+     <![CDATA[
+       var text = attributes.get("text");
+       var start = attributes.get("start");
+       var end = attributes.get("end") || text.length();
+       project.setProperty(attributes.get("property"), text.substring(start, end));
+     ]]>
+  </scriptdef>
+
+ <scriptdef name="lastIndexOf" language="javascript">
+     <attribute name="text" />
+     <attribute name="search" />
+     <attribute name="property" />
+     <![CDATA[
+       var text = attributes.get("text");
+       var search = attributes.get("search");
+       project.setProperty(attributes.get("property"), text.lastIndexOf(search));
+     ]]>
+  </scriptdef>
+
+ <scriptdef name="indexOf" language="javascript">
+     <attribute name="text" />
+     <attribute name="search" />
+     <attribute name="property" />
+     <![CDATA[
+       var text = attributes.get("text");
+       var search = attributes.get("search");
+       project.setProperty(attributes.get("property"), text.indexOf(search));
+     ]]>
+  </scriptdef>   
+
+
+
+     
+</project>

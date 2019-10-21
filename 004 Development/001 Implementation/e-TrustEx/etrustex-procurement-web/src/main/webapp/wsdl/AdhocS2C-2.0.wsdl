@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" name="AdhocS2C" xmlns:tns="ec:services:wsdl:AdhocS2C-2" targetNamespace="ec:services:wsdl:AdhocS2C-2" xmlns:prop="ec:schema:xsd:AdhocS2C-0.1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:AdhocS2C-2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:AdhocS2C-0.1" schemaLocation="../xsd/maindoc/EC-AdhocS2C-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../xsd/maindoc/EC-Ack-2.0.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd"/>
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd"/>
+			<xsd:element name="SubmitAdhocS2CRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AdhocS2C" type="prop:AdhocS2CType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitAdhocS2CResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Ack" type="ack:AcknowledgmentType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<message name="submitAdhocS2CRequest">
+		<part name="SubmitAdhocS2CRequest" element="tns:SubmitAdhocS2CRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="submitAdhocS2CResponse">
+		<part name="SubmitAdhocS2CResponse" element="tns:SubmitAdhocS2CResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	
+	<portType name="AdhocS2CPortType">
+		<operation name="submitAdhocS2C">
+			<input message="tns:submitAdhocS2CRequest"/>
+			<output message="tns:submitAdhocS2CResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="AdhocS2CBinding" type="tns:AdhocS2CPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitAdhocS2C">
+			<input>
+				<soap:body parts="SubmitAdhocS2CRequest" use="literal"/>
+				<soap:header message="tns:submitAdhocS2CRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="SubmitAdhocS2CResponse" use="literal"/>
+				<soap:header message="tns:submitAdhocS2CResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="AdhocS2CService">
+		<port name="AdhocS2CPort" binding="tns:AdhocS2CBinding">
+			<soap:address location="${eprior.root.location}/services"/>
+		</port>
+	</service>
+</definitions>

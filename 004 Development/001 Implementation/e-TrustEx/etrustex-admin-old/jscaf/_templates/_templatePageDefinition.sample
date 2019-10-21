@@ -1,0 +1,20 @@
+    <!-- ************************************************* -->
+    <!--              @page.name@                          -->
+    <!-- ************************************************* -->
+
+    <definition name="page.@page.name.resources@" extends="base.layout.menu">
+        <put-attribute name="pageContent" value="/WEB-INF/jsp/contents/@full.page.name@/@page.name@.jsp"/>
+        <put-attribute name="pageScript" value="/pagescripts/@full.page.name@/@pagescript@.js"/>
+
+        <put-attribute name="pageTitle" value="@page.name.resources@.page.title"/>
+        <put-attribute name="pageIconClass" value="icon-page-@page.name@"/>
+
+        <put-attribute name="pageDefaultHiddenClass" value="hidden"/>
+    </definition>
+
+    <!--AJAX FRAGMENTS-->
+    <definition name="page.@page.name.resources@.inner"
+                template="/WEB-INF/jsp/contents/@full.page.name@/@page.name@-inner.jspf"/>
+             
+
+</tiles-definitions>            

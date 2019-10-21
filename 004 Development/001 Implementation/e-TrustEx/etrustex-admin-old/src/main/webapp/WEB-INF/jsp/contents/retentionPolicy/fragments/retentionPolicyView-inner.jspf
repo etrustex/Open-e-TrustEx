@@ -1,0 +1,39 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa"%>
+
+<input type="hidden" id="id" name="id" value="${retentionPolicyForm.id}" />
+<div  class="inner-box columns clear no-background">
+    <!-- Deletion Messages -->
+    <div id="msgDeleteConfirmation" class="hidden">
+        <fmt:message key="retentionPolicy.management.confirmation.message"/>
+    </div>
+
+    <j:field label_key="party.businessDomain" field_class="cl">
+        <span class="field-view no-border text-color-light-grey">${retentionPolicyForm.businessDomain.name}</span>
+    </j:field>
+
+    <j:field label_key="retentionPolicy.transaction" field_class="cl">
+        <span class="field-view no-border text-color-light-grey">${retentionPolicyForm.transaction.name} ${retentionPolicyForm.transaction.version}</span>
+    </j:field>
+
+    <j:field label_key="retentionPolicy.value" field_class="cl">
+        <span class="field-view no-border text-color-light-grey">${retentionPolicyForm.value}</span>
+    </j:field>
+
+    <j:field label_key="retentionPolicy.activeFlag" field_class="cl">
+        <span class="field-view no-border text-color-light-grey">
+            <c:choose>
+                <c:when test="${retentionPolicyForm.activeFlag}"><fmt:message key="common.yes"/></c:when>
+                <c:otherwise><fmt:message key="common.no"/></c:otherwise>
+            </c:choose>
+        </span>
+    </j:field>
+</div>
+
+<div class="hr"></div>
+
+<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/view_buttons.jspf"/>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="ec:services:wsdl:UploadTrackingFilesResponse-2" xmlns:apr="ec:schema:xsd:UploadTrackingFilesResponse-0.1" xmlns:ack="ec:schema:xsd:Ack-2" xmlns:eccac="ec:schema:xsd:CommonAggregateComponents-2" xmlns:fault="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="UploadTrackingFilesResponse" targetNamespace="ec:services:wsdl:UploadTrackingFilesResponse-2">
+	<wsdl:types>
+		<xsd:schema targetNamespace="ec:services:wsdl:UploadTrackingFilesResponse-2" elementFormDefault="qualified">
+			<xsd:import namespace="ec:schema:xsd:UploadTrackingFilesResponse-0.1" schemaLocation="../xsd/maindoc/EC-UploadTrackingFilesResponse-0.1.xsd"/>
+			<xsd:import namespace="ec:schema:xsd:Ack-2" schemaLocation="../xsd/maindoc/EC-Ack-2.0.xsd" />
+			<xsd:import namespace="ec:schema:xsd:CommonAggregateComponents-2" schemaLocation="../xsd/custom/EC-CommonAggregateComponents-2.0.xsd" />
+			<xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:Fault-1" schemaLocation="../xsd/maindoc/EC-Fault-1.0.xsd" />
+			<xsd:element name="SubmitUploadTrackingFilesResponseRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="UploadTrackingFilesResponse" type="apr:UploadTrackingFilesResponseType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SubmitUploadTrackingFilesResponseResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Ack" type="ack:AcknowledgmentType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Header" type="eccac:HeaderType"/>
+			<xsd:element name="Fault" type="fault:FaultType"/>
+		</xsd:schema>
+	</wsdl:types>
+	<message name="submitUploadTrackingFilesResponseRequest">
+		<part name="SubmitUploadTrackingFilesResponseRequest" element="tns:SubmitUploadTrackingFilesResponseRequest"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="submitUploadTrackingFilesResponseResponse">
+		<part name="SubmitUploadTrackingFilesResponseResponse" element="tns:SubmitUploadTrackingFilesResponseResponse"/>
+		<part name="Header" element="tns:Header"/>
+	</message>
+	<message name="FaultResponse">
+		<part name="FaultResponse" element="tns:Fault"/>
+	</message>
+	<portType name="UploadTrackingFilesResponsePortType">
+		<operation name="submitUploadTrackingFilesResponse">
+			<input message="tns:submitUploadTrackingFilesResponseRequest"/>
+			<output message="tns:submitUploadTrackingFilesResponseResponse"/>
+			<fault name="FaultResponse" message="tns:FaultResponse"/>
+		</operation>
+	</portType>
+	<binding name="UploadTrackingFilesResponseBinding" type="tns:UploadTrackingFilesResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="submitUploadTrackingFilesResponse">
+			<input>
+				<soap:body parts="SubmitUploadTrackingFilesResponseRequest" use="literal"/>
+				<soap:header message="tns:submitUploadTrackingFilesResponseRequest" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</input>
+			<output>
+				<soap:body parts="SubmitUploadTrackingFilesResponseResponse" use="literal"/>
+				<soap:header message="tns:submitUploadTrackingFilesResponseResponse" part="Header" use="literal">
+					<soap:headerfault message="tns:FaultResponse" part="FaultResponse" use="literal"/>
+				</soap:header>
+			</output>
+			<fault name="FaultResponse">
+				<soap:fault name="FaultResponse" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+	<service name="UploadTrackingFilesResponseService">
+		<port name="UploadTrackingFilesResponsePort" binding="tns:UploadTrackingFilesResponseBinding">
+			<soap:address location="${eprior.root.location}services"/>
+		</port>
+	</service>
+</definitions>

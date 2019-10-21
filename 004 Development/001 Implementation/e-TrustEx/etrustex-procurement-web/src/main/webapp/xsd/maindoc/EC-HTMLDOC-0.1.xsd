@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 rel. 3 sp1 (http://www.altova.com) by XMLSPY 2006 Professional Ed. Release 3, Installed for 10 users (with SMP from 2006-08-30 to 2007-08-31) (European Commission) -->
+<!--
+Package 0.01 on 04 July 2008
+Copyright EC DIGIT by PwC-->
+<!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns="ec:schema:xsd:HTMLDOC-0.1" 
+targetNamespace="ec:schema:xsd:HTMLDOC-0.1" 
+elementFormDefault="qualified" 
+attributeFormDefault="unqualified" 
+version="0.1">
+	<!-- ===== Root Element ===== -->
+	<xsd:element name="HTML"/>
+	<!--Insert CData in this element-->
+</xsd:schema>

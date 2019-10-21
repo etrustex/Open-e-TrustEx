@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration-2.0.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms-2.0.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+			http://www.springframework.org/schema/integration/ws
+			http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.0.xsd
+			http://www.springframework.org/schema/web-services
+      		http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	
+	<!-- This is the definition of the endpoint mapping for the web service 
+		calls the MessageDispacherServlet delegates incoming soap message processing 
+		to this bean. We use content base routing to determine to wich spring integration 
+		endpoint the message should be forwarded -->
+    <ctx:annotation-config />
+
+	
+	<bean id="messageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="endpointMapping"/>
+        <property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property> 
+    </bean>
+    
+    <bean id="readMessageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="readEndpointMapping"/>
+        <property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property> 
+    </bean>
+    
+    <bean id="wrapperMessageReceiver" class="org.springframework.ws.soap.server.SoapMessageDispatcher">
+        <property name="endpointMappings" ref="wrapperEndpointMapping"/>
+		<property name="endpointExceptionResolvers">
+			<list>
+				<ref bean="resolver" />
+			</list>
+		</property>               
+    </bean>
+	
+<!-- 	<bean id="endpointMapping" -->
+<!-- 		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping"> -->
+		
+<!-- 		<property name="defaultEndpoint" ref="etrustExSubmitSoapEndpoint" />			 -->
+<!-- 	</bean> -->
+	
+	<bean id="endpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+		<property name="mappings">
+			<props>
+				<prop key="{ec:services:wsdl:InboxRequest-2}SubmitInboxRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:InboxRequest-2.1}SubmitInboxRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveRequest-2}SubmitRetrieveRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-2}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-2.2}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequest-2}SubmitQueryRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequestJustice-2}SubmitQueryRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2}SubmitRetrieveInterchangeAgreementsRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2_1}SubmitRetrieveInterchangeAgreementsRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}StoreDocumentWrapperRequest">etrustExWrapperSoapEndpoint</prop>				
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}DeleteDocumentWrapperRequestRequest">etrustExWrapperSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}RetrieveDocumentWrapperRequestRequest">etrustExWrapperSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:ViewRequest-2}SubmitViewRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:CreateParty-2_1}CreatePartyRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:CreateInterchangeAgreement-2_1}CreateInterchangeAgreementRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:Document-1}DeleteDocumentRequest">etrustExReadSoapEndpoint</prop>
+			</props>
+		</property>	
+		<property name="defaultEndpoint" ref="etrustExSubmitSoapEndpoint" />			
+		<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>
+	</bean>
+	
+	<bean id="readEndpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+		<property name="mappings">
+			<props>
+				<prop key="{ec:services:wsdl:InboxRequest-2}SubmitInboxRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveRequest-2}SubmitRetrieveRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:StatusRequest-2}SubmitStatusRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequest-2}SubmitQueryRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:QueryRequestJustice-2}SubmitQueryRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2}SubmitRetrieveInterchangeAgreementsRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:RetrieveInterchangeAgreementsRequest-2_1}SubmitRetrieveInterchangeAgreementsRequestRequest">etrustExReadSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:ViewRequest-2}SubmitViewRequestRequest">etrustExReadSoapEndpoint</prop> 
+			</props>
+		</property>	
+		<property name="defaultEndpoint" ref="resolver" />
+		<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>	
+				
+	</bean>
+	
+	<bean id="wrapperEndpointMapping"
+		class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+		<property name="mappings">
+			<props>
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}StoreDocumentWrapperRequest">etrustExWrapperSoapEndpoint</prop>				
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}DeleteDocumentWrapperRequestRequest">etrustExWrapperSoapEndpoint</prop>
+				<prop key="{ec:services:wsdl:DocumentWrapper-2}RetrieveDocumentWrapperRequestRequest">etrustExWrapperSoapEndpoint</prop>
+			</props>
+		</property>
+		<property name="defaultEndpoint" ref="resolver" />		
+		<property name="interceptors">
+	    	<list>
+	      		<ref bean="httpLoggingInterceptor" />
+	      		<ref bean="wsSecurityInterceptor"/>
+	    	</list>
+  		</property>	
+	</bean>
+	
+	<bean id="resolver" class="eu.europa.ec.etrustex.services.util.ETrustExEndpointExceptionResolver">		
+	</bean>
+	
+</beans>

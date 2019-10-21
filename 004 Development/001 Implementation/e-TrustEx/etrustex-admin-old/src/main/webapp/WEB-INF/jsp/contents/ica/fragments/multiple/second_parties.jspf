@@ -1,0 +1,15 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %> 	
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<input id="error_msg" type="hidden" value="${errorMsg}">
+
+
+<div class="content cl">
+    <jsp:include page="/WEB-INF/jsp/contents/ica/fragments/multiple/existing_agreement_parties.jspf" />
+</div>
+
+<div id="secondPartiesDialog" class="">
+    <jsp:include page="/WEB-INF/jsp/contents/ica/fragments/multiple/second_parties_dialog.jspf" />
+</div>
+

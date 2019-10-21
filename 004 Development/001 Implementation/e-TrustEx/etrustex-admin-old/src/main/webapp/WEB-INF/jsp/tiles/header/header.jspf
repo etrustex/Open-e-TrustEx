@@ -1,0 +1,22 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf" %>
+
+<div id="header">
+
+    <jsp:include page="header_top_bar.jspf"/>
+
+    <!-- <div class="milestone"></div>-->
+
+    <div class="logo"></div>
+
+    <div class="logo-text">CIPAdmin</div>
+
+    <!--<jsp:include page="header_user_infos.jspf"/>-->
+
+    <jsp:include page="header_other_links.jspf"/>
+
+    <jsp:include page="header_navigation.jspf"/>
+
+</div>

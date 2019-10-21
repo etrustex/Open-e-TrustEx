@@ -1,0 +1,101 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<input type="hidden" id="transactionId" name="transactionId" value="${transactionForm.id}" />
+
+<div  class="inner-box columns clear no-background">
+	<div id="msgNoRecordWarning" class="hidden">
+		<fmt:message key="transaction.management.noRecord.message"/>
+	</div>
+	<div id="msgNoRecordWarningTitle" class="hidden">
+		<fmt:message key="transaction.title"/>
+	</div>
+
+	<div class="col-50">
+		<j:field label_key="transaction.name">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.name}</span>
+		</j:field>
+		<div class="cl"/>
+	
+		<j:field label_key="transaction.version">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.version}</span>
+		</j:field>
+		<div class="cl"/>
+	
+		<j:field label_key="transaction.namespace">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.namespace}</span>
+		</j:field>
+		<div class="cl"/>
+	
+		<j:field label_key="transaction.document">
+			<span class="field-view no-border text-color-light-grey">${not empty transactionForm.document ? ''.concat(transactionForm.document.name).concat(' ').concat(transactionForm.document.version) : ''}</span>
+		</j:field>
+		<div class="cl"/>
+	</div>
+	
+	<div class="col-50">
+		<j:field label_key="transaction.requestLocalName">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.requestLocalName}</span>
+		</j:field>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.responseLocalName">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.responseLocalName}</span>
+		</j:field>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.senderRole">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.senderRole.name}</span>
+		</j:field>
+		<div class="cl"/>
+		
+		<j:field label_key="transaction.receiverRole">
+			<span class="field-view no-border text-color-light-grey">${transactionForm.receiverRole.name}</span>
+		</j:field>
+		<div class="cl"/>
+	</div>
+	
+	<c:set var="confidentialityLevel">${transactionForm.ciaLevel.confidentialityLevel}</c:set>
+	<c:set var="integrityLevel">${transactionForm.ciaLevel.integrityLevel}</c:set>
+	<c:set var="availabilityLevel">${transactionForm.ciaLevel.availabilityLevel}</c:set>
+	<c:if test="${not empty confidentialityLevel and not empty integrityLevel and not empty availabilityLevel}">
+		<j:field label_key="cia.confidentiality">
+				<span class="field-view no-border text-color-light-grey">${confidentialityLevels[confidentialityLevel]}</span>
+		</j:field>
+		<j:field label_key="cia.integrity">
+			<span class="field-view no-border text-color-light-grey">${integrityLevels[integrityLevel]}</span>
+		</j:field>
+		<j:field label_key="cia.availability">
+			<span class="field-view no-border text-color-light-grey">${availabilityLevels[availabilityLevel]}</span>
+		</j:field>
+		<div class="cl"/>
+	</c:if>
+
+	<j:field label_key="transaction.profiles">
+		<c:choose>
+			<c:when test="${empty transactionForm.profiles}">
+				<span class="field-view no-border text-color-light-grey"><fmt:message key="common.none"/></span>
+			</c:when>
+			<c:otherwise>
+				<div id="" class="field-view no-border text-color-light-grey" style="overflow-y: auto; height:100px;">
+					<c:forEach items="${transactionForm.profiles}" var="profile">
+						<span >${profile.name}</span><br/>
+					</c:forEach>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</j:field>
+	<div class="cl"/>
+</div>
+
+<div class="hr"></div>
+
+<j:button action_id="dialog_transaction_action_cancel"
+		  action_class="fr"
+		  button_type_class="alternate blue_button"
+		  button_optional_class="no-icon"
+		  label_key="button.cancel" />

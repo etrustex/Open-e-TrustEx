@@ -1,0 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin" %>
+
+
+<form:hidden path="userSearchForm.searchOnLoad"/>
+<j:field label_key="user.name" field_class="cl"> 
+ 	<form:input path="userSearchForm.usernameSearch" class="field-value action_search_on_enter" type="text" />
+</j:field>
+<cipa:error_label fieldPath="userSearchForm.usernameSearch"/>
+
+<j:field label_key="user.role" field_class="cl"> 
+	<form:select path="userSearchForm.userRoleIdSearch" class="field-value action_search_on_enter">
+		<form:options items="${userRoleList}" itemValue="id" itemLabel="description"/>
+	</form:select>
+</j:field>
+<cipa:error_label fieldPath="userSearchForm.userRoleIdSearch"/>
+		
+<j:field label_key="user.businessDomain" field_class="cl"> 
+	<form:select path="userSearchForm.businessDomainIdSearch" class="field-value action_search_on_enter action_refresh_parties">
+		<form:options items="${businessDomainList}" itemValue="id" itemLabel="name"/>
+	</form:select>
+</j:field>
+<cipa:error_label fieldPath="userSearchForm.businessDomainIdSearch"/>
+
+<j:field label_key="user.party" field_class="cl"> 
+	<form:select path="userSearchForm.partyIdSearch" class="field-value action_search_on_enter">
+		<form:option value="-1">--<fmt:message key="choose.please" />--</form:option>
+		<form:options items="${partyList}" itemValue="id" itemLabel="name"/>
+	</form:select>
+</j:field>
+<cipa:error_label fieldPath="userSearchForm.partyIdSearch"/>

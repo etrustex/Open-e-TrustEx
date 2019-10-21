@@ -1,0 +1,176 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.europa.ec.etrustex</groupId>
+		<artifactId>etrustex-node</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<version>${etrustex.version}</version>
+	<artifactId>etrustex-types</artifactId>
+	<properties>
+		<xsd.base.location>${parentproject.xsd.base.location}</xsd.base.location>
+		<wsdl.base.location>${parentproject.wsdl.base.location}</wsdl.base.location>
+	</properties>
+	
+	<build>
+	
+	<resources>
+		 <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>**/*.wsdl</exclude>
+          <exclude>**/*.xsd</exclude>
+        </excludes>
+      </resource>
+      </resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<!-- Use one execution per WSDL file, as the wsdlLocation can specify 
+						only one file at a time. The wsdlLocation is the location how the WSDL file 
+						will be referenced in the code (using class.getResource). Also important: 
+						use a different stale file for each WSDL file! Also important: path must 
+						be "/WEB-INF/wsdl" because this is how the deployment descriptor needs it. 
+						It must be absolute because class.getResource is used and we therefore need 
+						an asbolute path! -->
+					<execution>
+						<id>wsimport1</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlFiles>
+								<wsdlFile>DocumentWrapper-2.0.wsdl</wsdlFile>
+								<wsdlFile>QueryRequest-2.0.wsdl</wsdlFile>
+								<wsdlFile>QueryRequestJustice-2.0.wsdl</wsdlFile>
+								<wsdlFile>DocumentBundleJustice-2.0.wsdl</wsdlFile>
+								<wsdlFile>RetrieveRequest-2.1.wsdl</wsdlFile>
+								<wsdlFile>StatusRequest-2.1.wsdl</wsdlFile>
+								<wsdlFile>CreateParty-2.0.wsdl</wsdlFile>
+								<wsdlFile>/2.1/CreateParty-2.1.wsdl</wsdlFile>
+								<wsdlFile>TenderReceipt-2.0.wsdl</wsdlFile>
+								<wsdlFile>Document-1.0.wsdl</wsdlFile>
+								<wsdlFile>CallForTenders-2.0.wsdl</wsdlFile>
+								<wsdlFile>InvitationToTender-2.0.wsdl</wsdlFile>
+								<wsdlFile>TendererQualificationResponse-2.0.wsdl</wsdlFile>
+								<wsdlFile>EventNotification-1.0.wsdl</wsdlFile>
+								<wsdlFile>/2.1/CreateParty-2.1.wsdl</wsdlFile>
+								<wsdlFile>/2.1/CreateInterchangeAgreement-2.1.wsdl</wsdlFile>
+								<wsdlFile>DocumentBundle-2.0.wsdl</wsdlFile>
+								<wsdlFile>/2.1/RetrieveInterchangeAgreementsRequest-2.1.wsdl</wsdlFile>
+								<wsdlFile>InboxRequest-2.0.wsdl</wsdlFile>
+								<wsdlFile>RetrieveInterchangeAgreementsRequest-2.0.wsdl</wsdlFile>
+							</wsdlFiles>
+							<wsdlLocation>/wsdl</wsdlLocation>
+							<staleFile>${project.build.directory}/stale/.stale-wsimport1</staleFile>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<wsdlDirectory>src/main/resources/wsdl</wsdlDirectory>
+					<bindingDirectory>src/main/resources</bindingDirectory>
+					<sourceDestDir>target/generated-sources/xjc</sourceDestDir>
+					<xjcArgs>
+						<xjcArg>-no-header</xjcArg>
+<!-- 						<xjcArg>-extension</xjcArg>  -->
+<!-- 						<xjcArg>-episode</xjcArg> -->
+					</xjcArgs>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.sun.xml.ws</groupId>
+						<artifactId>jaxws-tools</artifactId>
+						<version>2.2.10</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>types-no-mime.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>package-api</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.jvnet.jax-ws-commons
+										</groupId>
+										<artifactId>
+											jaxws-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.2,)
+										</versionRange>
+										<goals>
+											<goal>wsimport</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.jvnet.jaxb2.maven2
+										</groupId>
+										<artifactId>
+											maven-jaxb2-plugin
+										</artifactId>
+										<versionRange>
+											[0.8.0,)
+										</versionRange>
+										<goals>
+											<goal>generate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

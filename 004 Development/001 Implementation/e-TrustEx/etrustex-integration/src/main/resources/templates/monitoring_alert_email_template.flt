@@ -1,0 +1,10 @@
+Hello,
+
+The following monitoring queries returned results:
+
+<#list QUERIES as query>
+- ${query.query}	        	
+</#list>
+
+
+ 

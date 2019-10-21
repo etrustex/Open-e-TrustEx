@@ -1,0 +1,74 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib tagdir="/WEB-INF/tags/jscaf" prefix="j" %>
+<%@ taglib tagdir="/WEB-INF/tags/cipadmin" prefix="cipa" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
+<c:choose>
+    <c:when test="${pageMode eq 'edit' or pageMode eq 'new'}">
+        <%-- Create or edit --%>
+        <c:set var="partyType" value="${param.partyType}"/>
+        <c:set var="idPath" value="partyAgreementForm.${partyType}Party.id"/>
+        <c:set var="namePath" value="partyAgreementForm.${partyType}Party.name"/>
+        <c:set var="required" value="required"/>
+
+        <c:choose>
+            <c:when test="${partyType eq 'authorizing'}">
+                <c:set var="name" value="${partyAgreementForm.authorizingParty.name}"/>
+                <c:set var="labelKey" value="partyAgreement.authorizingParty"/>
+                <c:set var="showResetBtn"
+                       value="${pageMode eq 'new' and not empty partyAgreementForm.authorizingParty.id}"/>
+                <c:set var="showSearchBtn" value="${pageMode ne 'edit'}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="name" value="${partyAgreementForm.delegateParty.name}"/>
+                <c:set var="labelKey" value="partyAgreement.delegateParty"/>
+                <c:set var="showResetBtn" value="${not empty partyAgreementForm.delegateParty.id}"/>
+                <c:set var="showSearchBtn" value="true"/>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
+
+    <c:otherwise>
+        <%-- Search --%>
+        <c:set var="partyType" value="${param.partyType}"/>
+        <c:set var="idPath" value="partyAgreementSearchForm.${partyType}Party_search.id"/>
+        <c:set var="namePath" value="partyAgreementSearchForm.${partyType}Party_search.name"/>
+        <c:set var="required" value=""/>
+        <c:set var="showSearchBtn" value="true"/>
+
+        <c:choose>
+            <c:when test="${partyType eq 'authorizing'}">
+                <c:set var="name" value="${partyAgreementSearchForm.authorizingParty_search.name}"/>
+                <c:set var="labelKey" value="partyAgreement.authorizingParty"/>
+                <c:set var="showResetBtn" value="${not empty partyAgreementSearchForm.authorizingParty_search.id}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="name" value="${partyAgreementSearchForm.delegateParty_search.name}"/>
+                <c:set var="labelKey" value="partyAgreement.delegateParty"/>
+                <c:set var="showResetBtn" value="${not empty partyAgreementSearchForm.delegateParty_search.id}"/>
+            </c:otherwise>
+        </c:choose>
+    </c:otherwise>
+</c:choose>
+
+
+<j:field label_key="${labelKey}" field_class="cl ${required}">
+    <span id="display${partyType}PartyName" class="field-view" style="width:200px;">${name}</span>
+
+    <form:hidden id="${partyType}PartyId" path="${idPath}"/>
+    <form:hidden id="${partyType}PartyName" path="${namePath}"/>
+
+    <c:if test="${showSearchBtn}">
+        <j:button action_id="action_search_${partyType}_party" action_class="fl showing action_search_party"
+                  button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-search"
+                  tooltip_key="button.search"/>
+    </c:if>
+    <c:if test="${showResetBtn}">
+        <j:button action_id="action_remove_${partyType}_party" action_class="fl showing action_remove_party"
+                  button_style="margin-top: 7px; margin-left: 4px;" button_type_class='' button_icon_class="icon-reset"
+                  tooltip_key="button.remove"/>
+    </c:if>
+</j:field>
+<cipa:error_label fieldPath="${idPath}"></cipa:error_label>

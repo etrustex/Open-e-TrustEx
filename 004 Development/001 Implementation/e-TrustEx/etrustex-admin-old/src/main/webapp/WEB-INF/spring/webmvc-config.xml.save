@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd                 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd                 
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+                
+    <!-- Enable annotation based AOP definitions -->
+    <aop:aspectj-autoproxy/>
+    
+    <!-- The controllers are autodetected POJOs labeled with the @Controller annotation. -->
+    <context:component-scan base-package="eu.europa.ec.etrustex.admin.old.web" use-default-filters="false">
+        <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+        <context:include-filter type="regex" expression="eu.europa.ec.etrustex.admin.old.web.validators.*"/>
+        <context:include-filter expression="org.springframework.stereotype.Service" type="annotation"/>
+    </context:component-scan>
+   	<!-- <context:component-scan base-package="eu.europa.ec.etrustex.admin.old.web.controller, eu.europa.ec.etrustex.admin.old.web.validators" /> -->
+    
+    <!-- Turns on support for mapping requests to Spring MVC @Controller methods
+         Also registers default Formatters and Validators for use across all @Controllers -->
+    <mvc:annotation-driven validator="validator"> <!-- TODO Implement conversion-service="applicationConversionService" --> 
+    	<mvc:argument-resolvers>
+    		<!-- Support for @ActiveUser User parameter in controller methods -->
+           <bean class="eu.europa.ec.etrustex.admin.old.web.security.CurrentUserHandlerMethodArgumentResolver"/>
+      	</mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" p:validationMessageSource-ref="messageSource"/>
+    
+    <!--
+        This is here as well as in the root applicationContext because the processing of the @Value annotation is performed by a BeanPostProcessor. 
+        And BeanPostProcessor interfaces are scoped per-container.
+    -->
+    <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
+    
+    <!-- expose specific properties to application  -->
+	<bean id="envProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="singleton" value="true" />
+		<property name="properties">
+			<props>
+				<prop key="user.password.login">${user.password.login}</prop>
+				<prop key="etrustex.version">${etrustex.version}</prop>
+				<prop key="etrustex.environment">${etrustex.environment}</prop>
+				<prop key="timestamp">${timestamp}</prop>
+			</props>
+		</property>
+	</bean>
+    
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources -->
+    <mvc:resources location="/, classpath:/META-INF/web-resources/" mapping="/resources/**"/>
+    
+
+    <!-- Allows for mapping the DispatcherServlet to "/" by forwarding static resource 
+    requests to the container's default Servlet -->
+    <mvc:default-servlet-handler/>
+
+    <!-- Register "global" interceptor beans to apply to all registered HandlerMappings -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="locale"/>
+		<mvc:interceptor>
+			<mvc:mapping path="/ica/multi/create*"/>
+			<bean class="eu.europa.ec.etrustex.admin.old.web.interceptors.ICAMultiInterceptor" />
+		</mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- Selects a static view for rendering without the need for an explicit controller -->
+    <!-- 
+    <mvc:view-controller path="/uncaughtException" view-name="uncaughtException"/>
+     -->
+
+    <!-- Resolves localized messages*.properties and application.properties files in the application to allow for internationalization. -->
+    <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource" 
+    	p:basenames="classpath:eu/europa/ec/cipa/admin/web/i18n/uitext,classpath:messages/errors/applicationErrors"
+    	p:defaultEncoding="UTF-8"/>
+
+    <!-- Store preferred language configuration in a cookie -->
+    <bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver" id="localeResolver" p:cookieName="locale"/>
+
+    <!-- This bean resolves specific types of exceptions to corresponding logical - view names for error views. 
+    The default behaviour of DispatcherServlet - is to propagate all exceptions to the servlet 
+    container: this will happen - here with all other types of exceptions. -->
+    <!--<bean class="eu.europa.ec.etrustex.admin.old.web.exceptions.DefaultExceptionResolver" p:defaultErrorView="uncaughtException" p:order="0">-->
+        <!--<property name="exceptionMappings">-->
+			<!--<map>-->
+				<!--<entry key="NoSuchRequestHandlingMethodException" value="resourceNotFound"/>-->
+				<!--<entry key="AccessDeniedException" value="authenticationError"/>-->
+				<!--<entry key="Exception" value="uncaughtException"/>-->
+			<!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+    
+    <bean class="eu.europa.ec.etrustex.admin.old.web.exceptions.DefaultExceptionResolver" p:order="0"/>
+
+    <!-- Enable this for integration of file upload functionality -->
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver" p:maxUploadSize="1000000"/>
+    
+	<!-- View resolvers -->
+    <!-- TODO Might make sense to integrate with JSCAF?
+	<bean class="org.springframework.js.ajax.AjaxUrlBasedViewResolver" id="ajaxViewResolver" p:order="0">
+	   <property name="viewClass" value="org.springframework.js.ajax.tiles2.AjaxTilesView"/>
+	</bean>
+     -->
+	
+	<bean id="tilesviewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" p:order="0" />
+  	
+  	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="1" />
+	
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles-defs.xml</value>
+			</list>
+		</property>
+		<property name="completeAutoload" value="true"></property>
+	</bean>
+	
+	<!-- To use @PreAuthorize annotation in controllers. It goes here and not in applicationContext-secuirity.xml 
+   	because the visibility of beans in child contexts - the controller beans aren't visible from the parent context. -->
+   	<security:global-method-security pre-post-annotations="enabled"/>
+   	
+   	<!-- We use this session scoped bean to know if the navigation is coming from "Search" or "Creation" screens. For example, in the user module: 
+   		1. Set its value property to "create" and "search" in the respective "/create" and "/search" handler methods of the UserController  
+   		2. Add an input type hidden in user.jsp <input type="hidden" id="refererPage" value="${refererPage.action}"/>. 
+   		3. In user.js do the check with $("#refererPage").val() == 'create') return to /create, otherwise to search  
+   		-->
+   	<bean id="refererPage" class="eu.europa.ec.etrustex.admin.old.web.utils.Referer" scope="session">
+	  <aop:scoped-proxy/>
+	</bean>
+	<!-- This is to expose the bean in jsp views -->
+	<bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+	    <property name="attributes">
+	        <map>
+	            <entry key="refererPage">
+	                <ref bean="refererPage" />
+	            </entry>
+	        </map>
+	    </property>
+	</bean>
+ 
+<!--     <bean id="icaResultExcelView" class="eu.europa.ec.etrustex.admin.old.web.report.xls.SearchResultReport" /> -->
+     
+
+	<!-- TODO Implement <bean class="eu.europa.ec.etrustex.admin.old.web.ApplicationConversionServiceFactoryBean" id="applicationConversionService"/> -->
+</beans>

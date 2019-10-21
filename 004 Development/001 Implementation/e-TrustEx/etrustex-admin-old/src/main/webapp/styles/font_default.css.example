@@ -1,0 +1,346 @@
+/************************************************************************/
+/********** DEFAULT FONT SIZES ******************************************/
+/************************************************************************/
+ body {
+  font-size: 12px;
+}
+ #top-reference {
+  font-size: 27px;
+}
+ a.button-secondary-link {
+  font-size: 12px;
+}
+ strong {
+  font-size: 12px;
+}
+ small {
+  font-size: 10px;
+}
+ .small {
+  font-size: 10px;
+}
+ .very-small {
+  font-size: 9px;
+}
+ .big {
+  font-size: 14px;
+}
+ .very-big {
+  font-size: 15px;
+}
+ h1 {
+  font-size: 31px;
+}
+ h2 {
+  font-size: 25px;
+}
+ h3 {
+  font-size: 19px;
+}
+ h4 {
+  font-size: 16px;
+}
+ h5 {
+  font-size: 14px;
+}
+ h6 {
+  font-size: 12px;
+}
+ h1.section-title {
+  font-size: 15px;
+}
+ h1.section-title-bullet {
+  font-size: 15px;
+}
+ .section-title h1 {
+  font-size: 16px;
+}
+ .section-title-bullet h1 {
+  font-size: 16px;
+}
+ .code {
+  font-size: 12px;
+}
+ h1 a.label {
+  font-size: 12px;
+}
+ h2 a.label {
+  font-size: 12px;
+}
+ h3 span.label {
+  font-size: 12px;
+}
+ h4 span.label {
+  font-size: 9px;
+}
+ #globalErrorDialog .title {
+  font-size: 23px;
+}
+ #error-content .title {
+  font-size: 23px;
+}
+ #page-title-wrapper h1 {
+  font-size: 25px;
+}
+ #page-title-wrapper .middle-content a {
+  font-size: 11px;
+}
+ .box > .header h2 {
+  font-size: 16px;
+}
+ #footer .version {
+  font-size: 12px;
+}
+ .box > .header ul li a {
+  font-size: 14px;
+}
+ .box > .header ul li .button-notification {
+  font-size: 12px;
+}
+ .title-box > .header h6 {
+  font-size: 12px;
+}
+ ul.grid-view li h3 {
+  font-size: 17px;
+}
+ .inner-box {
+  font-size: 12px;
+}
+ .inner-box h1 {
+  font-size: 15px;
+}
+ .inner-box h2 {
+  font-size: 12px;
+}
+ .separator-title h1 {
+  font-size: 23px;
+}
+ table {
+  font-size: 11px;
+}
+ table caption {
+  font-size: 9px;
+}
+ .table-caption-left {
+  font-size: 9px;
+}
+ .table-caption-right {
+  font-size: 9px;
+}
+ table.costs-summary {
+  font-size: 11px;
+}
+ td a.main-link {
+  font-size: 12px;
+}
+ .field .field-view {
+  font-size: 13px;
+}
+ .field .field-view.big {
+  font-size: 17px;
+}
+ .field h6 {
+  font-size: 12px;
+}
+ .field .hint {
+  font-size: 9px;
+}
+ h5.sub-title-right {
+  font-size: 9px;
+}
+ .notification p {
+  font-size: 12px;
+}
+ .notification h1 {
+  font-size: 14px;
+}
+ .notification h2 {
+  font-size: 12px;
+}
+ .button {
+  font-size: 12px;
+}
+ .insertEventMenu .action-menu {
+  font-size: 9px;
+}
+ .ac_results li {
+  font-size: 12px;
+}
+ .summary-title-wrap h1 {
+  font-size: 17px;
+}
+ .summary-title-wrap h2 {
+  font-size: 14px;
+}
+ .toggle-trigger-header-line h1 {
+  font-size: 15px;
+}
+ .toggle-trigger-header-line h2 {
+  font-size: 13px;
+}
+ .toggle-trigger-header-line h3 {
+  font-size: 12px;
+}
+ #globalErrorDialog > .title {
+  font-size: 16px;
+}
+ .help-dialog h1 {
+  font-size: 15px;
+}
+ .help-dialog p {
+  font-size: 12px;
+}
+ ul#dashboard-buttons li a {
+  font-size: 12px;
+}
+ .box > .header ul li .multiple-button-notification {
+  font-size: 12px;
+}
+ .title-box > .header {
+  font-size: 14px;
+}
+ .field .field-value.big {
+  font-size: 14px !important;
+}
+ .ui-widget,
+ .ui-widget input,
+ .ui-widget select,
+ .ui-widget textarea {
+  font-size: 11px;
+}
+ .ui-widget button {
+  font-size: 11px;
+}
+ .ui-dialog-buttonpane > .ui-dialog-buttonset > button.ui-button {
+  font-size: 12px;
+}
+ .ui-dialog-title {
+  font-size: 14px;
+}
+ .ui-widget textarea {
+  font-size: 12px;
+}
+ .ui-widget button {
+  font-size: 12px;
+}
+ .notice-item p {
+  font-size: 12px;
+}
+ ul#dashboard-buttons li a div.item-counter {
+  font-size: 29px;
+}
+ ul#dashboard-buttons li.red a div.item-counter {
+  font-size: 29px;
+}
+ ul.list-counter-small.light li .counter {
+  font-size: 15px;
+}
+ ul.list-counter-small li.selected .counter.round {
+  font-size: 14px;
+}
+ ul.list-counter-small li.empty .counter {
+  font-size: 12px;
+}
+ ul.list-counter-small.light li.child .counter {
+  font-size: 11px;
+}
+ ul.list-counter-big li a {
+  font-size: 23px;
+}
+ ul.list-counter-big li span {
+  font-size: 12px;
+}
+ div.horiz-list-items .parent-item > .title {
+  font-size: 17px;
+}
+ div.horiz-list-items .item a > div.title-block.single {
+  font-size: 15px;
+}
+ .date-box > .day {
+  font-size: 17px;
+}
+ .counter-box > .counter {
+  font-size: 23px;
+}
+ .date-box > .month {
+  font-size: 14px;
+}
+ ul.news li > .version {
+  font-size: 12px;
+}
+ ul.news li > .version span {
+  font-size: 12px;
+}
+ ul.news.small li a {
+  font-size: 12px;
+}
+ .counter-box-big > .counter {
+  font-size: 25px;
+}
+ .counter-box-big > .title {
+  font-size: 12px;
+}
+ .post {
+  font-size: 12px;
+}
+ .post h5 {
+  font-size: 15px;
+}
+ .post b {
+  font-size: 14px;
+}
+ ul.blog-post-comments li.comment > .author {
+  font-size: 13px;
+}
+ .wizard li a span.title {
+  font-size: 14px;
+}
+ .wizard li a {
+  font-size: 12px;
+}
+ .mail-content .section-subtitle {
+  font-size: 14px;
+}
+ .mail-header .mail-title {
+  font-size: 15px;
+}
+ .mail-content em {
+  font-size: 14px;
+}
+ .mail-content td {
+  font-size: 11px;
+}
+ .mail-content .section-title {
+  font-size: 15px;
+}
+ #msgbox_dialog h4 {
+  font-size: 14px;
+}
+ h3.popover-title {
+  font-size: 13px;
+}
+ .field span.max-length-count {
+  font-size: 9px;
+}
+ input {
+  font-size: 13px !important;
+}
+ select {
+  font-size: 13px !important;
+}
+ option {
+  font-size: 10px !important;
+}
+.firefox  option {
+  font-size: 12px !important;
+}
+ optgroup {
+  font-size: 11px !important;
+}
+.firefox  optgroup {
+  font-size: 13px !important;
+}
+ textarea {
+  font-size: 13px !important;
+}
+

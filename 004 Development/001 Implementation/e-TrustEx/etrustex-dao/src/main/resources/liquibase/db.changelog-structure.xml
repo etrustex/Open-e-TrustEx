@@ -1,0 +1,860 @@
+<databaseChangeLog
+	    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+	    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="6" author="chiricr">
+        <comment>drop PRO_BUD_ID in ETR_TB_PROFILE</comment>
+	    <dropColumn columnName="PRO_BUD_ID"
+	            tableName="ETR_TB_PROFILE"/>
+    </changeSet>
+
+    <changeSet id="13" author="chiricr">
+        <comment>add LOG_CLASS in ETR_TB_LOG</comment>
+	    <addColumn tableName="ETR_TB_LOG">
+	        <column name="LOG_CLASS" type="varchar(255)"/>
+	    </addColumn>
+    </changeSet>
+
+	<changeSet id="27" author="guerrpa">
+		<comment>ETRUSTEX-1098. Resize the field CERT_ENCODED_DATA in the table ETR_TB_CERTIFICATE</comment>
+		<sql dbms="oracle"
+			 splitStatements="true">
+			ALTER TABLE ETR_TB_CERTIFICATE ADD (TMP_CERT_ENCODED_DATA  CLOB);
+			UPDATE ETR_TB_CERTIFICATE SET TMP_CERT_ENCODED_DATA = CERT_ENCODED_DATA;
+			ALTER TABLE ETR_TB_CERTIFICATE DROP COLUMN CERT_ENCODED_DATA;
+			ALTER TABLE ETR_TB_CERTIFICATE RENAME COLUMN TMP_CERT_ENCODED_DATA TO CERT_ENCODED_DATA;
+		</sql>
+	</changeSet>
+
+	<changeSet id="29" author="guerrpa">
+		<comment>add username/date in ETR_TB_METADATA</comment>
+		<addColumn tableName="ETR_TB_METADATA">
+			<column name="CRE_DT" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="ETR_TB_METADATA">
+			<column name="CRE_ID" type="varchar(255)"/>
+		</addColumn>
+		<addColumn tableName="ETR_TB_METADATA">
+			<column name="MOD_DT" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="ETR_TB_METADATA">
+			<column name="MOD_ID" type="varchar(255)"/>
+		</addColumn>
+	</changeSet>
+	
+    <changeSet id="36" author="chiricr">
+        <comment>add ETR_TB_MESSAGE_PRIORITY</comment>
+	    <createTable tableName="ETR_TB_MESSAGE_PRIORITY">
+	    	<column name="MP_ID" type="number(19, 0)"/>
+	    	<column name="MP_CRED_ID" type="number(19, 0)"/>
+	    	<column name="MP_TRANS_ID" type="number(19, 0)"/>
+	    	<column name="MP_PRIORITY" type="number(1, 0)"/>
+	    	<column name="CRE_ID" type="varchar(255)"/>
+	    	<column name="CRE_DT" type="timestamp"/>
+	    	<column name="MOD_ID" type="varchar(255)"/>
+	    	<column name="MOD_DT" type="timestamp"/>
+	    </createTable>
+	    <addUniqueConstraint columnNames="MP_CRED_ID, MP_TRANS_ID" tableName="ETR_TB_MESSAGE_PRIORITY"/>
+    </changeSet>
+    
+    <changeSet id="37" author="chiricr">
+        <comment>add ETR_TB_MONITORING_QUERY + PK ETR_TB_MESSAGE_PRIORITY</comment>
+	    <createTable tableName="ETR_TB_MONITORING_QUERY">
+	    	<column name="MON_ID" type="number(19, 0)"/>
+	    	<column name="MON_QUERY" type="varchar(2000)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="MON_ID" tableName="ETR_TB_MONITORING_QUERY"/>
+	    <addPrimaryKey columnNames="MP_ID" tableName="ETR_TB_MESSAGE_PRIORITY"/>
+    </changeSet>
+
+	<changeSet id="44" author="guerrpa">
+		<comment>ETRUSTEX-1336 Implement event notification</comment>
+		<renameTable newTableName="CPA_TB_EVT_NOTIF"
+					 oldTableName="CPA_TB_CFG_NOTIF"/>
+
+		<renameColumn columnDataType="NUMBER(19,0)"
+					  newColumnName="EVT_ID"
+					  oldColumnName="CNN_ID"
+					  tableName="CPA_TB_EVT_NOTIF"/>
+
+		<renameColumn columnDataType="NUMBER(19,0)"
+					  newColumnName="EVT_PRO_ID"
+					  oldColumnName="CNN_PRO_ID"
+					  tableName="CPA_TB_EVT_NOTIF"/>
+
+		<renameColumn columnDataType="NUMBER(19,0)"
+					  newColumnName="EVT_CBD_ID"
+					  oldColumnName="CNN_CBD_ID"
+					  tableName="CPA_TB_EVT_NOTIF"/>
+
+		<renameColumn columnDataType="NUMBER(19,0)"
+					  newColumnName="EVT_PTY_ID"
+					  oldColumnName="CNN_PTY_ID"
+					  tableName="CPA_TB_EVT_NOTIF"/>
+	</changeSet>
+
+	<changeSet id="45" author="guerrpa">
+		<addColumn tableName="CPA_TB_EVT_NOTIF">
+			<column name="EVT_TYPE" type="varchar(255)"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="46" author="guerrpa">
+		<preConditions onFail="CONTINUE">
+			<indexExists indexName="CNN_UK_ID"/>
+		</preConditions>
+		<dropUniqueConstraint tableName="CPA_TB_EVT_NOTIF"
+							  constraintName="CNN_UK_ID"/>
+	</changeSet>
+
+	<changeSet id="47" author="guerrpa">
+		<preConditions>
+			<not>
+				<indexExists indexName="CNN_UK_ID"/>
+			</not>
+		</preConditions>
+		<addUniqueConstraint columnNames="EVT_PRO_ID, EVT_CBD_ID, EVT_PTY_ID, EVT_TYPE"
+							 constraintName="ENN_UK_ID"
+							 tableName="CPA_TB_EVT_NOTIF"/>
+	</changeSet>
+	
+    <changeSet id="48" author="chiricr">
+        <comment>add ETR_TB_ENDPOINT_AMQP</comment>
+	    <createTable tableName="ETR_TB_ENDPOINT_AMQP">
+	    	<column name="ID" type="number(19, 0)"/>
+	    	<column name="EDP_AMQP_PROV_URL" type="varchar(255)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="ID" tableName="ETR_TB_ENDPOINT_AMQP"/>
+	    <addForeignKeyConstraint constraintName="FK_EDPAMQP_EDP" referencedTableName="ETR_TB_ENDPOINT" referencedColumnNames="EDP_ID" 
+	    	baseTableName="ETR_TB_ENDPOINT_AMQP" baseColumnNames="ID" />
+    </changeSet>
+
+	<changeSet id="57" author="guerrpa">
+		<comment>add new column to allow uniqueness per proxy host + port, provider url, etc</comment>
+		<addColumn tableName="ETR_TB_CREDENTIALS">
+			<column name="CRED_TYPE" type="varchar(255)"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="-10" author="chiricr">
+		<comment>Add index on CRED_USER column in ETR_TB_CREDENTIALS</comment>
+		<createIndex tableName="ETR_TB_CREDENTIALS" indexName="IDX_CRED_USER">
+			<column name="CRED_USER"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="67" author="guerrpa">
+		<comment>ETRUSTEX-2024: enabling evidence generation</comment>
+		<addColumn tableName="ETR_TB_PARTY">
+			<column name="PTY_EVIDENCE_GEN_FL" type="number(1, 0)" defaultValue="0"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="68" author="brighab">
+		<comment>add new column to save the retrieval date.</comment>
+		<addColumn tableName="ETR_TB_MESSAGE">
+			<column name="MSG_RETRIEVED_DATE" type="timestamp"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="69" author="brighab">
+		<comment>add new column salt. if password is encrypted with salt or no</comment>
+		<addColumn tableName="ETR_TB_CREDENTIALS">
+			<column name="CRED_SALTED" type="number(1, 0)" defaultValue="0"/>
+		</addColumn>		
+	</changeSet>
+	
+	<changeSet id="77" author="almahfa">
+		<comment>Policy Table</comment>
+		<createTable tableName="ETR_TB_POLICY">
+	    	<column name="POL_ID" type="number(19, 0)"/>
+	    	<column name="CRE_DT" type="timestamp"/>
+	    	<column name="CRE_ID" type="varchar(255)"/>
+	    	<column name="MOD_DT" type="timestamp"/>
+	    	<column name="MOD_ID" type="varchar(255)"/>
+	    	<column name="POL_ACTIVE_FLAG" type="number(1, 0)"/>
+	    	<column name="POL_TRA_ID" type="number(19, 0)"/>
+	    	<column name="POL_BD_ID" type="number(19, 0)"/>
+	    	<column name="POL_TYPE" type="varchar(20)"/>
+	    	<column name="POL_FREQUENCY" type="varchar(20)"/>
+	    	<column name="POL_VALUE" type="number(19, 0)"/>
+	    	<column name="POL_FLEXIBILITY" type="number(3, 0)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="POL_ID" tableName="ETR_TB_POLICY"/>
+	    <addForeignKeyConstraint constraintName="FK_POLICY_TX" referencedTableName="ETR_TB_TRANSACTION" referencedColumnNames="TRA_ID" 
+	    	baseTableName="ETR_TB_POLICY" baseColumnNames="POL_TRA_ID" />
+	    <addForeignKeyConstraint constraintName="FK_POLICY_BD" referencedTableName="CPA_TB_BUSINESS_DOMAIN" referencedColumnNames="CBD_ID" 
+	    	baseTableName="ETR_TB_POLICY" baseColumnNames="POL_BD_ID" />
+	</changeSet>
+	
+	<changeSet id="78" author="brighab">
+		<comment>Remove PTY_CERT_ID column in ETR_TB_PARTY</comment>
+		<dropColumn tableName="ETR_TB_PARTY" columnName="PTY_CERT_ID"/>
+	</changeSet>
+	
+	<changeSet id="78" author="almahfa">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="qrtz_job_details"/>
+			</not>
+		</preConditions>
+		
+		<comment>Quartz Tables</comment>
+
+		<!-- TABLES -->
+		
+		<createTable tableName="qrtz_job_details">
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="DESCRIPTION" type="varchar(250)"/>
+	    	<column name="JOB_CLASS_NAME" type="varchar(250)"/>
+	    	<column name="IS_DURABLE" type="varchar(1)"/>
+	    	<column name="IS_VOLATILE" type="varchar(1)"/>
+	    	<column name="IS_STATEFUL" type="varchar(1)"/>
+	    	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+	    	<column name="JOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="JOB_NAME,JOB_GROUP" tableName="qrtz_job_details"/>
+		
+		<createTable tableName="qrtz_job_listeners">
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="JOB_LISTENER" type="varchar(200)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="JOB_NAME,JOB_GROUP,JOB_LISTENER" tableName="qrtz_job_listeners"/>
+	    <addForeignKeyConstraint constraintName="FK_LISTENER" referencedTableName="QRTZ_JOB_DETAILS" referencedColumnNames="JOB_NAME,JOB_GROUP" 
+	    	baseTableName="qrtz_job_listeners" baseColumnNames="JOB_NAME,JOB_GROUP" />
+	    	
+	    
+	    <createTable tableName="qrtz_triggers">
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="IS_VOLATILE" type="varchar(1)"/>
+	    	<column name="DESCRIPTION" type="varchar(250)"/>
+	    	<column name="NEXT_FIRE_TIME" type="number(13, 0)"/>
+	    	<column name="PREV_FIRE_TIME" type="number(13, 0)"/>
+	    	<column name="PRIORITY" type="number(13, 0)"/>
+	    	<column name="TRIGGER_STATE" type="varchar(16)"/>
+	    	<column name="TRIGGER_TYPE" type="varchar(8)"/>
+	    	<column name="START_TIME" type="number(13, 0)"/>
+	    	<column name="END_TIME" type="number(13, 0)"/>
+	    	<column name="CALENDAR_NAME" type="varchar(200)"/>
+	    	<column name="MISFIRE_INSTR" type="number(2, 0)"/>
+	    	<column name="JOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK_TRIGGERS" referencedTableName="QRTZ_JOB_DETAILS" referencedColumnNames="JOB_NAME,JOB_GROUP" 
+	    	baseTableName="qrtz_triggers" baseColumnNames="JOB_NAME,JOB_GROUP" />
+	    
+	    <createTable tableName="qrtz_simple_triggers">
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="REPEAT_COUNT" type="number(7, 0)"/>
+	    	<column name="REPEAT_INTERVAL" type="number(12, 0)"/>
+	    	<column name="TIMES_TRIGGERED" type="number(10, 0)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz_simple_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK_SIMPLE_TRIGGERS" referencedTableName="QRTZ_TRIGGERS" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz_simple_triggers" baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz_cron_triggers">
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="CRON_EXPRESSION" type="varchar(120)"/>
+	    	<column name="TIME_ZONE_ID" type="varchar(80)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz_cron_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK_CRON_TRIGGERS" referencedTableName="QRTZ_TRIGGERS" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz_cron_triggers" baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz_blob_triggers">
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="BLOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz_blob_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK_BLOB_TRIGGERS" referencedTableName="QRTZ_TRIGGERS" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz_blob_triggers" baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz_trigger_listeners">
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="TRIGGER_LISTENER" type="varchar(200)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_NAME,TRIGGER_GROUP,TRIGGER_LISTENER" tableName="qrtz_trigger_listeners"/>
+	    <addForeignKeyConstraint constraintName="FK_TRIGGER_LISTENERS" referencedTableName="QRTZ_TRIGGERS" referencedColumnNames="TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz_trigger_listeners" baseColumnNames="TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz_calendars">
+	    	<column name="CALENDAR_NAME" type="varchar(200)"/>
+	    	<column name="CALENDAR" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="CALENDAR_NAME" tableName="qrtz_calendars"/>
+	    
+	    <createTable tableName="qrtz_paused_trigger_grps">
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="TRIGGER_GROUP" tableName="qrtz_paused_trigger_grps"/>
+	    
+	    <createTable tableName="qrtz_fired_triggers">
+	    	<column name="ENTRY_ID" type="varchar(95)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="IS_VOLATILE" type="varchar(1)"/>
+	    	<column name="INSTANCE_NAME" type="varchar(200)"/>
+	    	<column name="FIRED_TIME" type="number(13, 0)"/>
+	    	<column name="PRIORITY" type="number(13, 0)"/>
+	    	<column name="STATE" type="varchar(16)"/>
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="IS_STATEFUL" type="varchar(1)"/>
+	    	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="ENTRY_ID" tableName="qrtz_fired_triggers"/>
+	    
+	    <createTable tableName="qrtz_scheduler_state">
+	    	<column name="INSTANCE_NAME" type="varchar(200)"/>
+	    	<column name="LAST_CHECKIN_TIME" type="number(13, 0)"/>
+	    	<column name="CHECKIN_INTERVAL" type="number(13, 0)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="INSTANCE_NAME" tableName="qrtz_scheduler_state"/>
+	    
+	    <createTable tableName="qrtz_locks">
+	    	<column name="LOCK_NAME" type="varchar(40)"/>
+	    </createTable>
+		<addPrimaryKey columnNames="LOCK_NAME" tableName="qrtz_locks"/>
+		
+		<!-- INDEXES -->
+		
+		<createIndex 
+            indexName="etx_idx_qrtz_j_req_recovery"
+            tableName="qrtz_job_details">
+        	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_t_next_fire_time"
+            tableName="qrtz_triggers">
+        	<column name="NEXT_FIRE_TIME" type="number(13, 0)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_t_state"
+            tableName="qrtz_triggers">
+        	<column name="TRIGGER_STATE" type="varchar(16)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_t_nft_st"
+            tableName="qrtz_triggers">
+        	<column name="NEXT_FIRE_TIME" type="number(13, 0)"/>
+        	<column name="TRIGGER_STATE" type="varchar(16)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_t_volatile"
+            tableName="qrtz_triggers">
+        	<column name="IS_VOLATILE" type="varchar(1)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_trig_name"
+            tableName="qrtz_fired_triggers">
+        	<column name="TRIGGER_NAME" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_trig_group"
+            tableName="qrtz_fired_triggers">
+        	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_trig_nm_gp"
+            tableName="qrtz_fired_triggers">
+        	<column name="TRIGGER_NAME" type="varchar(200)"/>
+        	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_trig_volatile"
+            tableName="qrtz_fired_triggers">
+        	<column name="IS_VOLATILE" type="varchar(1)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_trig_inst_name"
+            tableName="qrtz_fired_triggers">
+        	<column name="INSTANCE_NAME" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_job_name"
+            tableName="qrtz_fired_triggers">
+        	<column name="JOB_NAME" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_job_group"
+            tableName="qrtz_fired_triggers">
+        	<column name="JOB_GROUP" type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_job_stateful"
+            tableName="qrtz_fired_triggers">
+        	<column name="IS_STATEFUL" type="varchar(1)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="etx_idx_qrtz_ft_job_req_recov"
+            tableName="qrtz_fired_triggers">
+        	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+    	</createIndex>
+		
+		<!-- REFERENCE DATA -->
+		
+		<insert tableName="qrtz_locks">
+			<column name="LOCK_NAME" value="TRIGGER_ACCESS" />
+		</insert>
+		<insert tableName="qrtz_locks">
+			<column name="LOCK_NAME" value="JOB_ACCESS" />
+		</insert>
+		<insert tableName="qrtz_locks">
+			<column name="LOCK_NAME" value="CALENDAR_ACCESS" />
+		</insert>
+		<insert tableName="qrtz_locks">
+			<column name="LOCK_NAME" value="STATE_ACCESS" />
+		</insert>
+		<insert tableName="qrtz_locks">
+			<column name="LOCK_NAME" value="MISFIRE_ACCESS" />
+		</insert>
+		
+	</changeSet>
+	
+	<changeSet id="80" author="almahfa">
+		<comment>Removing the old SLA Policy table ETR_TB_SLA_POLICY</comment>
+		<dropTable tableName="ETR_TB_SLA_POLICY"/>
+	</changeSet>
+	
+	<changeSet id="82" author="almahfa">
+		<comment>Updating ETR_TB_MESSAGE_PRIORITY table</comment>		
+		
+		<dropUniqueConstraint tableName="ETR_TB_MESSAGE_PRIORITY" uniqueColumns="MP_CRED_ID, MP_TRANS_ID" constraintName="MP_UNIQUE_CONST"/>
+		
+		<dropColumn tableName="ETR_TB_MESSAGE_PRIORITY" columnName="MP_CRED_ID"/>
+		
+		<addColumn tableName="ETR_TB_MESSAGE_PRIORITY">
+	        <column name="MP_SENDER_ID" type="number(19, 0)"/>
+	    </addColumn>
+	    
+	    <addUniqueConstraint columnNames="MP_SENDER_ID, MP_TRANS_ID" tableName="ETR_TB_MESSAGE_PRIORITY"/>
+	    
+	    <addForeignKeyConstraint constraintName="FK_MP_SENDER" referencedTableName="ETR_TB_PARTY" referencedColumnNames="PTY_ID" 
+	    	baseTableName="ETR_TB_MESSAGE_PRIORITY" baseColumnNames="MP_SENDER_ID" />
+	    
+	    <addForeignKeyConstraint constraintName="FK_MP_TX" referencedTableName="ETR_TB_TRANSACTION" referencedColumnNames="TRA_ID" 
+	    	baseTableName="ETR_TB_MESSAGE_PRIORITY" baseColumnNames="MP_TRANS_ID" />
+	</changeSet>
+	
+	<changeSet id="84" author="brighab">
+		<comment>Create Human Readable Template Table</comment>
+		<createTable tableName="ETR_TB_HR_TEMPLATE">
+	    	<column name="HRT_ID" type="number(19, 0)"/>
+	    	<column name="CRE_DT" type="timestamp"/>
+	    	<column name="CRE_ID" type="varchar(255)"/>
+	    	<column name="MOD_DT" type="timestamp"/>
+	    	<column name="MOD_ID" type="varchar(255)"/>
+	    	<column name="HRT_NAME" type="varchar(255)" />
+	    	<column name="HRT_XSLT" type="CLOB"/>
+	    	<column name="HRT_DOC_ID" type="number(19, 0)"/>
+	    	<column name="HRT_TRA_ID" type="number(19, 0)"/>
+	    	<column name="HRT_IS_DEFAULT" type="number(1, 0)" defaultValue="0"/>	    	
+	    </createTable>	    
+	    <addUniqueConstraint columnNames="HRT_NAME, HRT_DOC_ID, HRT_TRA_ID" tableName="ETR_TB_HR_TEMPLATE"/>
+	    <addPrimaryKey columnNames="HRT_ID" tableName="ETR_TB_HR_TEMPLATE"/>
+	    <addForeignKeyConstraint constraintName="FK_HR_TEMPLATE_TX" referencedTableName="ETR_TB_TRANSACTION" referencedColumnNames="TRA_ID" 
+	    	baseTableName="ETR_TB_HR_TEMPLATE" baseColumnNames="HRT_TRA_ID" />
+	    <addForeignKeyConstraint constraintName="FK_HR_TEMPLATE_DOC" referencedTableName="ETR_TB_DOCUMENT" referencedColumnNames="DOC_ID" 
+	    	baseTableName="ETR_TB_HR_TEMPLATE" baseColumnNames="HRT_DOC_ID" />
+	    
+	</changeSet>
+	
+	<changeSet id="90" author="almahfa">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="qrtz2_job_details"/>
+			</not>
+		</preConditions>
+		
+		<comment>Quartz2 Tables</comment>
+
+		<!-- TABLES -->
+		
+		<createTable tableName="qrtz2_job_details">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="DESCRIPTION" type="varchar(250)"/>
+	    	<column name="JOB_CLASS_NAME" type="varchar(250)"/>
+	    	<column name="IS_DURABLE" type="varchar(1)"/>
+	    	<column name="IS_NONCONCURRENT" type="varchar(1)"/>
+	    	<column name="IS_UPDATE_DATA" type="varchar(1)"/>
+	    	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+	    	<column name="JOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,JOB_NAME,JOB_GROUP" tableName="qrtz2_job_details"/>
+		
+	    <createTable tableName="qrtz2_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="DESCRIPTION" type="varchar(250)"/>
+	    	<column name="NEXT_FIRE_TIME" type="number(13, 0)"/>
+	    	<column name="PREV_FIRE_TIME" type="number(13, 0)"/>
+	    	<column name="PRIORITY" type="number(13, 0)"/>
+	    	<column name="TRIGGER_STATE" type="varchar(16)"/>
+	    	<column name="TRIGGER_TYPE" type="varchar(8)"/>
+	    	<column name="START_TIME" type="number(13, 0)"/>
+	    	<column name="END_TIME" type="number(13, 0)"/>
+	    	<column name="CALENDAR_NAME" type="varchar(200)"/>
+	    	<column name="MISFIRE_INSTR" type="number(2, 0)"/>
+	    	<column name="JOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz2_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK2_TRIGGERS" referencedTableName="QRTZ2_JOB_DETAILS" referencedColumnNames="SCHED_NAME,JOB_NAME,JOB_GROUP" 
+	    	baseTableName="qrtz2_triggers" baseColumnNames="SCHED_NAME,JOB_NAME,JOB_GROUP" />
+	    
+	    <createTable tableName="qrtz2_simple_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="REPEAT_COUNT" type="number(7, 0)"/>
+	    	<column name="REPEAT_INTERVAL" type="number(12, 0)"/>
+	    	<column name="TIMES_TRIGGERED" type="number(10, 0)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz2_simple_triggers"/>
+	    <addForeignKeyConstraint constraintName="qrtz2_S_TRIG_TO_TRIG_FK" referencedTableName="QRTZ2_TRIGGERS" referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz2_simple_triggers" baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz2_cron_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="CRON_EXPRESSION" type="varchar(120)"/>
+	    	<column name="TIME_ZONE_ID" type="varchar(80)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz2_cron_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK2_CRON_TRIGGERS" referencedTableName="QRTZ2_TRIGGERS" referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz2_cron_triggers" baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" />
+	   
+	   <createTable tableName="qrtz2_simprop_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	
+	    	<column name="STR_PROP_1" type="varchar(512)"/>
+	    	<column name="STR_PROP_2" type="varchar(512)"/>
+	    	<column name="STR_PROP_3" type="varchar(512)"/>
+	    	
+	    	<column name="INT_PROP_1" type="number(10, 0)"/>
+	    	<column name="INT_PROP_2" type="number(10, 0)"/>
+	    	<column name="LONG_PROP_1" type="number(13, 0)"/>
+	    	<column name="LONG_PROP_2" type="number(13, 0)"/>
+	    	
+	    	<column name="DEC_PROP_1" type="number(13, 4)"/>
+	    	<column name="DEC_PROP_2" type="number(13, 4)"/>
+	    	
+	    	<column name="BOOL_PROP_1" type="varchar(1)"/>
+	    	<column name="BOOL_PROP_2" type="varchar(1)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz2_simprop_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK2_simprop_TRIGGERS" referencedTableName="QRTZ2_TRIGGERS" referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz2_simprop_triggers" baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz2_blob_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="BLOB_DATA" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" tableName="qrtz2_blob_triggers"/>
+	    <addForeignKeyConstraint constraintName="FK2_BLOB_TRIGGERS" referencedTableName="QRTZ2_TRIGGERS" referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" 
+	    	baseTableName="qrtz2_blob_triggers" baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP" />
+	    
+	    <createTable tableName="qrtz2_calendars">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="CALENDAR_NAME" type="varchar(200)"/>
+	    	<column name="CALENDAR" type="BLOB"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,CALENDAR_NAME" tableName="qrtz2_calendars"/>
+	    
+	    <createTable tableName="qrtz2_paused_trigger_grps">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,TRIGGER_GROUP" tableName="qrtz2_paused_trigger_grps"/>
+
+	    <createTable tableName="qrtz2_fired_triggers">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="ENTRY_ID" type="varchar(95)"/>
+	    	<column name="TRIGGER_NAME" type="varchar(200)"/>
+	    	<column name="TRIGGER_GROUP" type="varchar(200)"/>
+	    	<column name="INSTANCE_NAME" type="varchar(200)"/>
+	    	<column name="FIRED_TIME" type="number(13, 0)"/>
+	    	<column name="SCHED_TIME" type="number(13, 0)"/>
+	    	<column name="PRIORITY" type="number(13, 0)"/>
+	    	<column name="STATE" type="varchar(16)"/>
+	    	<column name="JOB_NAME" type="varchar(200)"/>
+	    	<column name="JOB_GROUP" type="varchar(200)"/>
+	    	<column name="IS_NONCONCURRENT" type="varchar(1)"/>
+	    	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,ENTRY_ID" tableName="qrtz2_fired_triggers"/>
+	    
+	    <createTable tableName="qrtz2_scheduler_state">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="INSTANCE_NAME" type="varchar(200)"/>
+	    	<column name="LAST_CHECKIN_TIME" type="number(13, 0)"/>
+	    	<column name="CHECKIN_INTERVAL" type="number(13, 0)"/>
+	    </createTable>
+	    <addPrimaryKey columnNames="SCHED_NAME,INSTANCE_NAME" tableName="qrtz2_scheduler_state"/>
+	    
+	    <createTable tableName="qrtz2_locks">
+	    	<column name="SCHED_NAME" type="varchar(120)"/>
+	    	<column name="LOCK_NAME" type="varchar(40)"/>
+	    </createTable>
+		<addPrimaryKey columnNames="SCHED_NAME,LOCK_NAME" tableName="qrtz2_locks"/>	    	    
+		
+		<!-- INDEXES -->
+		
+		<createIndex 
+            indexName="et2_idx_qrtz_j_req_recovery"
+            tableName="qrtz2_job_details">
+        	<column name="SCHED_NAME" 		 type="varchar(120)"/>
+        	<column name="REQUESTS_RECOVERY" type="varchar(1)"/>
+    	</createIndex>
+    	<createIndex 
+            indexName="et2_idx_qrtz_j_grp"
+            tableName="qrtz2_job_details">
+        	<column name="SCHED_NAME" type="varchar(120)"/>
+        	<column name="JOB_GROUP" 		 type="varchar(200)"/>
+    	</createIndex>
+    	<createIndex indexName="idx_qrtz2_t_j" tableName="qrtz2_triggers"><column name="SCHED_NAME" type="varchar(120)"/><column name="JOB_NAME" type="varchar(200)"/><column name="JOB_GROUP" type="varchar(200)"/> </createIndex>
+		<createIndex indexName="idx_qrtz2_t_jg" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/> <column name="JOB_GROUP" type="varchar(200)"/> </createIndex>
+		<createIndex indexName="idx_qrtz2_t_c" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="CALENDAR_NAME" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_g" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_GROUP" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_state" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_STATE" type="varchar(16)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_n_state" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_NAME" type="varchar(200)"/><column name="TRIGGER_GROUP" type="varchar(200)"/><column name="TRIGGER_STATE"  type="varchar(16)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_n_g_state" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_GROUP" type="varchar(200)"/><column name="TRIGGER_STATE"  type="varchar(16)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_next_fire_time" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="NEXT_FIRE_TIME" type="number(13, 0)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_nft_st" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_STATE" type="varchar(16)"/><column name="NEXT_FIRE_TIME" type="number(13, 0)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_nft_misfire" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="MISFIRE_INSTR" type="number(2, 0)"/><column name="NEXT_FIRE_TIME" type="number(13, 0)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_nft_st_misfire" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="MISFIRE_INSTR" type="number(2, 0)"/><column name="TRIGGER_STATE" type="varchar(16)"/><column name="NEXT_FIRE_TIME" type="number(13, 0)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_t_nft_st_misfire_grp" tableName="qrtz2_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="MISFIRE_INSTR" type="number(2, 0)"/><column name="TRIGGER_STATE" type="varchar(16)"/><column name="NEXT_FIRE_TIME" type="number(13, 0)"/><column name="TRIGGER_GROUP" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_trig_inst_name" tableName="qrtz2_fired_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="INSTANCE_NAME" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_rcvry" tableName="qrtz2_fired_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="INSTANCE_NAME" type="varchar(200)"/><column name="REQUESTS_RECOVERY" type="varchar(1)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_j_g" tableName="qrtz2_fired_triggers"><column name="SCHED_NAME" type="varchar(120)"/><column name="JOB_NAME" type="varchar(200)"/><column name="JOB_GROUP" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_jg" tableName="qrtz2_fired_triggers"> <column name="SCHED_NAME" type="varchar(120)"/> <column name="JOB_GROUP" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_t_g" tableName="qrtz2_fired_triggers"> <column name="SCHED_NAME" type="varchar(120)"/><column name="TRIGGER_NAME" type="varchar(200)"/><column name="TRIGGER_GROUP" type="varchar(200)"/></createIndex>
+		<createIndex indexName="idx_qrtz2_ft_tg" tableName="qrtz2_fired_triggers"> <column name="SCHED_NAME" type="varchar(120)"/> <column name="TRIGGER_GROUP" type="varchar(200)"/></createIndex>
+		
+	</changeSet>
+	
+	<changeSet id="91" author="almahfa">
+		<addColumn tableName="ETR_TB_METADATA">
+	        <column name="MD_BUSINESSDOMAIN_ID" type="number(19, 0)"/>
+	    </addColumn>
+		<addForeignKeyConstraint constraintName="FK_METADATA_BD_FK" referencedTableName="CPA_TB_BUSINESS_DOMAIN" referencedColumnNames="CBD_ID" 
+	    	baseTableName="ETR_TB_METADATA" baseColumnNames="MD_BUSINESSDOMAIN_ID" />
+	</changeSet>
+	
+	<changeSet id="92" author="chiricr">
+		<comment>ETRUSTEX-3155: remove evidence generation</comment>
+		<dropColumn tableName="ETR_TB_PARTY" columnName="PTY_EVIDENCE_GEN_FL"/>
+	</changeSet>	
+	
+	<changeSet id="93" author="brighab">
+	    <comment>Add unique constraint</comment>		
+		<addUniqueConstraint columnNames="MD_TYPE, PID_DOC_ID, PID_ICA_ID, PID_PRO_ID, PID_TRA_ID, MD_SENDER_ID, MD_BUSINESSDOMAIN_ID"
+							 constraintName="MD_UNIQUE_KEY"
+							 tableName="ETR_TB_METADATA"/>
+	</changeSet>
+	
+	<changeSet id="94" author="almahfa">
+	    <comment>ETRUSTEX-4158: Add Initialisation Vector</comment>		
+		<addColumn tableName="ETR_TB_CREDENTIALS">
+	        <column name="IV" type="RAW(256)"/>
+	    </addColumn>
+	</changeSet>
+	
+	<changeSet id="95" author="chiricr">
+	    <comment>ETRUSTEX-4145</comment>		
+		<modifyDataType
+		            columnName="CERT_HOLDER"
+		            newDataType="varchar(400 char)"
+		            tableName="ETR_TB_CERTIFICATE"/>
+	</changeSet>	
+	
+	<changeSet id="96" author="chiricr">
+	    <comment>ETRUSTEX-4145</comment>		
+		<modifyDataType
+		            columnName="CERT_ISSUER"
+		            newDataType="varchar(400 char)"
+		            tableName="ETR_TB_CERTIFICATE"/>
+	</changeSet>
+
+	<changeSet id="97" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_RIGHT"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_RIGHT Table</comment>
+		<createTable tableName="AC_TB_RIGHT">
+			<column name="RGT_ID" type="number(19, 0)"/>
+			<column name="RGT_NAME" type="varchar(50)"/>
+			<column name="RGT_DESC" type="varchar(255)"/>
+		</createTable>
+		<addPrimaryKey columnNames="RGT_ID" tableName="AC_TB_RIGHT"/>
+	</changeSet>
+
+	<changeSet id="98" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_ROLE"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_ROLE Table</comment>
+		<createTable tableName="AC_TB_ROLE">
+			<column name="ROL_ID" type="number(19, 0)"/>
+			<column name="ROL_NAME" type="varchar(50)"/>
+			<column name="ROL_DESC" type="varchar(255)"/>
+		</createTable>
+		<addPrimaryKey columnNames="ROL_ID" tableName="AC_TB_ROLE"/>
+	</changeSet>
+
+	<changeSet id="100" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_BUSINESS_DOMAIN"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_BUSINESS_DOMAIN Table</comment>
+		<createTable tableName="AC_TB_BUSINESS_DOMAIN">
+			<column name="BD_ID" type="number(19, 0)"/>
+			<column name="BD_NAME" type="varchar(255)"/>
+			<column name="CRE_ID" type="varchar(255)"/>
+			<column name="CRE_DT" type="timestamp"/>
+			<column name="MOD_ID" type="varchar(255)"/>
+			<column name="MOD_DT" type="timestamp"/>
+			<column name="BD_RESP_SIG_REQUIRED" type="number(1, 0)"/>
+		</createTable>
+		<addPrimaryKey columnNames="BD_ID" tableName="AC_TB_BUSINESS_DOMAIN"/>
+	</changeSet>
+
+	<changeSet id="101" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_USER"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_USER Table</comment>
+		<createTable tableName="AC_TB_USER">
+			<column name="USR_ID" type="number(19, 0)"/>
+			<column name="USR_NAME" type="varchar(50)"/>
+			<column name="OPT_LOCK" type="number(38, 0)"/>
+			<column name="CRE_ID" type="varchar(255)"/>
+			<column name="CRE_DT" type="timestamp"/>
+			<column name="MOD_ID" type="varchar(255)"/>
+			<column name="MOD_DT" type="timestamp"/>
+			<column name="USR_BUSINESSDOMAIN_ID" type="number(19, 0)"/>
+		</createTable>
+		<addPrimaryKey columnNames="USR_ID" tableName="AC_TB_USER"/>
+		<addForeignKeyConstraint constraintName="FK_USER_BD_FK" referencedTableName="AC_TB_BUSINESS_DOMAIN" referencedColumnNames="BD_ID"
+								 baseTableName="AC_TB_USER" baseColumnNames="USR_BUSINESSDOMAIN_ID" />
+	</changeSet>
+
+	<changeSet id="102" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_ROLE_RIGHT"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_ROLE_RIGHT Table</comment>
+		<createTable tableName="AC_TB_ROLE_RIGHT">
+			<column name="ROL_ID" type="number(19, 0)"/>
+			<column name="RGT_ID" type="number(19, 0)"/>
+		</createTable>
+		<addPrimaryKey columnNames="ROL_ID,RGT_ID" tableName="AC_TB_ROLE_RIGHT"/>
+		<addForeignKeyConstraint constraintName="FK_ROLE_FK" referencedTableName="AC_TB_ROLE" referencedColumnNames="ROL_ID"
+								 baseTableName="AC_TB_ROLE_RIGHT" baseColumnNames="ROL_ID" />
+		<addForeignKeyConstraint constraintName="FK_RIGHT_FK" referencedTableName="AC_TB_RIGHT" referencedColumnNames="RGT_ID"
+								 baseTableName="AC_TB_ROLE_RIGHT" baseColumnNames="RGT_ID" />
+	</changeSet>
+
+	<changeSet id="103" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<tableExists tableName="AC_TB_USER_ROLE"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Create AC_TB_USER_ROLE Table</comment>
+		<createTable tableName="AC_TB_USER_ROLE">
+			<column name="USR_ID" type="number(19, 0)"/>
+			<column name="ROL_ID" type="number(19, 0)"/>
+		</createTable>
+		<addPrimaryKey columnNames="USR_ID,ROL_ID" tableName="AC_TB_USER_ROLE"/>
+		<addForeignKeyConstraint constraintName="FK_USER_FK" referencedTableName="AC_TB_USER" referencedColumnNames="USR_ID"
+								 baseTableName="AC_TB_USER_ROLE" baseColumnNames="USR_ID" />
+		<addForeignKeyConstraint constraintName="FK_ROLE" referencedTableName="AC_TB_ROLE" referencedColumnNames="ROL_ID"
+								 baseTableName="AC_TB_USER_ROLE" baseColumnNames="ROL_ID" />
+	</changeSet>
+
+	<changeSet id="104" author="brighab">
+		<preConditions onFail="CONTINUE">
+			<not>
+				<columnExists tableName="AC_TB_USER" columnName="USR_BUSINESSDOMAIN_ID"/>
+			</not>
+		</preConditions>
+		<comment>ETRUSTEX-4393: Add business domain</comment>
+		<addColumn tableName="AC_TB_USER">
+			<column name="CRE_ID" type="varchar(255)"/>
+		</addColumn>
+		<addColumn tableName="AC_TB_USER">
+			<column name="CRE_DT" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="AC_TB_USER">
+			<column name="MOD_ID" type="varchar(255)"/>
+		</addColumn>
+		<addColumn tableName="AC_TB_USER">
+			<column name="MOD_DT" type="timestamp"/>
+		</addColumn>
+		<addColumn tableName="AC_TB_USER">
+			<column name="USR_BUSINESSDOMAIN_ID" type="number(19, 0)"/>
+		</addColumn>
+		<addForeignKeyConstraint constraintName="FK_USER_BD_FK" referencedTableName="AC_TB_BUSINESS_DOMAIN" referencedColumnNames="BD_ID"
+								 baseTableName="AC_TB_USER" baseColumnNames="USR_BUSINESSDOMAIN_ID" />
+	</changeSet>
+	
+	<changeSet id="105" author="chiricr">
+		<dropColumn tableName="ETR_TB_ENDPOINT" columnName="EDP_MSG_TYPE"/>
+	</changeSet>
+	
+	<changeSet id="106" author="chiricr">
+		<dropColumn tableName="ETR_TB_ENDPOINT" columnName="EDP_AUTH_FLAG"/>
+	</changeSet>
+
+	<changeSet id="107" author="chiricr">
+		<createIndex tableName="ETR_TB_LOG" indexName="ETR_IX_LOG_CREDT">
+			<column name="CRE_DT"/>
+		</createIndex>
+		<createIndex tableName="ETR_TB_LOG" indexName="ETR_IX_LOG_CORREL_ID">
+			<column name="LOG_CORRELATION_ID"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="108" author="chiricr">
+		<preConditions onFail="CONTINUE">
+			<sqlCheck expectedResult="0">SELECT COUNT(INDEX_NAME) FROM ALL_INDEXES WHERE INDEX_NAME = 'ETR_IDX_LOG_ID'</sqlCheck>
+		</preConditions>
+		<createIndex tableName="ETR_TB_LOG" indexName="ETR_IDX_LOG_ID">
+			<column name="LOG_ID"/>
+		</createIndex>
+	</changeSet>
+
+</databaseChangeLog>

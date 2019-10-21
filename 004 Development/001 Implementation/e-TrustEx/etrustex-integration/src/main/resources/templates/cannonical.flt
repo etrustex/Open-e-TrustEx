@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecc:${LOCAL_NAME} xmlns:ecc="${NAMESPACE}">
+	<ec1:ECDocumentReceivedData xmlns:ec1="ec:schema:xsd:CommonAggregateComponents-0.1">
+		<ec2:InternalID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${MESSAGE_ID}</ec2:InternalID>
+		<ec2:SupplierID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${SUPPLIER_ID}</ec2:SupplierID>
+		<ec2:CustomerID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${CUSTOMER_ID}</ec2:CustomerID>
+		<urn:ID xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">${DOCUMENT_ID}</urn:ID>
+		<urn:ReceivedDate xmlns:urn="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">${RECEPTION_DATE}</urn:ReceivedDate>
+		<ec2:RegistrationDate xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${REGISTRATION_DATE}</ec2:RegistrationDate>
+		<ec2:AccountPayableID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${SUP_INT_ID}</ec2:AccountPayableID>
+		<ec2:DepartmentID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">${CUST_INT_ID}</ec2:DepartmentID>
+		<#if SUPPLIER_ADD??>
+			<ec2:SupplierAdditionalIDs xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">
+				<#list SUPPLIER_ADD as sup>
+					<ec2:AdditionalID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1" schemeID="${sup.schemeID}">${sup.value}</ec2:AdditionalID>
+				</#list>
+			</ec2:SupplierAdditionalIDs>
+		</#if>
+		<#if CUSTOMER_ADD??>
+			<ec2:CustomerAdditionalIDs xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1">
+				<#list CUSTOMER_ADD as cust>
+			 		<ec2:AdditionalID xmlns:ec2="ec:schema:xsd:CommonBasicComponents-0.1" schemeID="${cust.schemeID}">${cust.value}</ec2:AdditionalID>
+				</#list>
+			</ec2:CustomerAdditionalIDs>
+		</#if>
+		<ec1:ProcessingWarning>
+			${SCHEMATRON_WARNINGS}
+		</ec1:ProcessingWarning>
+		<ec3:ECReferencedDocumentData xmlns:ec3="ec:schema:xsd:CommonAggregateComponents-2">
+			<ec4:Status xmlns:ec4="ec:schema:xsd:CommonBasicComponents-2">${STATUS}</ec4:Status>
+			<ec4:ReceiveDate xmlns:ec4="ec:schema:xsd:CommonBasicComponents-2">${REC_DATE}</ec4:ReceiveDate>
+			<ec4:DocumentReferenceName xmlns:ec4="ec:schema:xsd:CommonBasicComponents-2">${REC_DOC_NAME}</ec4:DocumentReferenceName>
+		</ec3:ECReferencedDocumentData>
+	</ec1:ECDocumentReceivedData>
+		${DOCUMENT}
+</ecc:${LOCAL_NAME}>

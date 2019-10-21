@@ -1,0 +1,19 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="j" tagdir="/WEB-INF/tags/jscaf"%>
+<%@ taglib prefix="cipa" tagdir="/WEB-INF/tags/cipadmin"%>
+
+<j:box box_title_key="search.criteria">
+	<div id="searchCriteriaDiv">
+		<jsp:include page="fragments/searchCriteria.jspf"/>
+	<div class='hr'></div>
+		<jsp:include page="/WEB-INF/jsp/contents/_common/buttons/search_buttons.jspf"/>
+	</div>
+</j:box>
+
+<c:if test="${icas != null}">
+	<cipa:box box_title_key="search.results" excel_export="true">
+		<jsp:include page="fragments/searchResults.jspf"/>
+	</cipa:box>
+</c:if>
+	
