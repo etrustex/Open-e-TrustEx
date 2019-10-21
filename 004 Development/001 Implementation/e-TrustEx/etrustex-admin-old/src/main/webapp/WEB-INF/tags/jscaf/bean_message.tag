@@ -1,1 +1,0 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %><%@attribute name="message_key" type="java.lang.String" rtexprvalue="true" required="true" %><%@attribute name="text" type="java.lang.String" rtexprvalue="true" required="false" %><spring:message code="${message_key}" text="${text}" htmlEscape="true" javaScriptEscape="true"/>

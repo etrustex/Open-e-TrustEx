@@ -1,8 +1,0 @@
-<scxml version="1.0" initialstate="RECEIVED" xmlns="http://www.w3.org/2005/07/scxml">
- 	<state id="RECEIVED">
- 		<transition event="7" target="ARCHIVED" />
-		<transition event="4" target="FAILED" />
- 	</state>
- 	<state id="ARCHIVED" final="true" />
-	<state id="FAILED" final="true" />
- </scxml>
