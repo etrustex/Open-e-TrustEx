@@ -84,7 +84,7 @@
 		<org.quartz.scheduler.version>2.3.0</org.quartz.scheduler.version>
 		<aspectj.version>1.8.4</aspectj.version>
 		<aopalliance.version>1.0</aopalliance.version>
-		<com.fasterxml.jackson.version>2.9.8</com.fasterxml.jackson.version>
+		<com.fasterxml.jackson.version>2.11.0</com.fasterxml.jackson.version>
 		<com.sun.xml.wsit.version>1.3.1</com.sun.xml.wsit.version>
 		<com.sun.xml.messaging.saaj.version>1.3.23</com.sun.xml.messaging.saaj.version>
 		<com.sun.xml.parsers.version>1.4.5</com.sun.xml.parsers.version>
