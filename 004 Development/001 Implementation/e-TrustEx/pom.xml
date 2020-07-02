@@ -33,7 +33,7 @@
 		<net.sf.saxon.version>9.9.1-1</net.sf.saxon.version>
 		<net.sf.ehcache.version>2.10.3</net.sf.ehcache.version>
 		<net.sf.jtidy.version>r938</net.sf.jtidy.version>
-		<mysql.connector.java.version>5.1.21</mysql.connector.java.version>
+		<mysql.connector.java.version>8.0.16</mysql.connector.java.version>
 		<org.bouncycastle.version>1.48</org.bouncycastle.version>
 		<org.jasig.cas.client.version>3.1.12</org.jasig.cas.client.version>
 		<org.liquibase.version>3.3.5</org.liquibase.version>
