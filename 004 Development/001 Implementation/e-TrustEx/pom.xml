@@ -74,7 +74,7 @@
 		<swagger-codegen.version>2.2.3</swagger-codegen.version>
 		<swagger.codegen.maven.plugin.version>2.2.1</swagger.codegen.maven.plugin.version>
 		<org.hibernate.version>5.2.14.Final</org.hibernate.version>
-		<org.hibernate.validator.version>5.2.4.Final</org.hibernate.validator.version>
+		<org.hibernate.validator.version>5.3.6.Final</org.hibernate.validator.version>
 		<org.hibernate.javax.persistence.version>1.0.0.Final</org.hibernate.javax.persistence.version>
 		<org.hsqldb.version>2.3.3</org.hsqldb.version>
 		<org.mockito.version>1.10.19</org.mockito.version>
