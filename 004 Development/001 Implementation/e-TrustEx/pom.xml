@@ -29,7 +29,7 @@
 		<etrustex.admin.web.version>1.0.1-SNAPSHOT</etrustex.admin.web.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<ant.commons.net.version>1.6.5</ant.commons.net.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<net.sf.saxon.version>9.9.1-1</net.sf.saxon.version>
 		<net.sf.ehcache.version>2.10.3</net.sf.ehcache.version>
 		<net.sf.jtidy.version>r938</net.sf.jtidy.version>
