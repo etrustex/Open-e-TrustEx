@@ -22,9 +22,9 @@
 	</licenses>
 	<properties>
 		<jdk.version>1.8</jdk.version>
-		<etrustex.ear.version>open_eTrustEx_2.5.0</etrustex.ear.version>
-		<etrustex.version>open_eTrustEx_2.5.0</etrustex.version>
-		<eprior.version>open_eTrustEx_2.5.0</eprior.version>
+		<etrustex.ear.version>open_eTrustEx_2.6.0</etrustex.ear.version>
+		<etrustex.version>open_eTrustEx_2.6.0</etrustex.version>
+		<eprior.version>open_eTrustEx_2.6.0</eprior.version>
 		<edelivery.version>2.0.0</edelivery.version>
 		<etrustex.admin.web.version>1.0.1-SNAPSHOT</etrustex.admin.web.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
