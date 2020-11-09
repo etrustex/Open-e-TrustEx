@@ -45,7 +45,7 @@
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<commons.scxml.version>0.9</commons.scxml.version>
 		<commons.jexl.version>1.1</commons.jexl.version>
-		<commons.collections.version>3.2.1</commons.collections.version>
+		<commons.collections.version>3.2.2</commons.collections.version>
 		<commons.codec.version>1.9</commons.codec.version>
 		<commons.httpclient.version>3.1</commons.httpclient.version>
 		<commons.fileupload.version>1.4</commons.fileupload.version>
