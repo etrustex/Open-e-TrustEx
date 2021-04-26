@@ -41,7 +41,7 @@
 		<org.wildfly.jms.client.bom.version>10.1.0.Final</org.wildfly.jms.client.bom.version>
 		<org.xhtmlrenderer.version>9.0.8</org.xhtmlrenderer.version>
 		<commons.lang.version>2.6</commons.lang.version>
-		<commons.io.version>2.4</commons.io.version>
+		<commons.io.version>2.7</commons.io.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<commons.scxml.version>0.9</commons.scxml.version>
 		<commons.jexl.version>1.1</commons.jexl.version>
