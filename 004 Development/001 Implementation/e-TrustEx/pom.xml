@@ -58,7 +58,7 @@
 		<org.hornetq.jms.client.version>2.4.7.Final</org.hornetq.jms.client.version>
 		<org.jboss.as.web.version>7.1.1.Final</org.jboss.as.web.version>
 		<org.springframework.version>4.3.16.RELEASE</org.springframework.version>
-		<org.springframework.security.version>4.2.11.RELEASE</org.springframework.security.version>
+		<org.springframework.security.version>5.2.10.RELEASE</org.springframework.security.version>
 		<org.springframework.integration.version>4.3.19.RELEASE</org.springframework.integration.version>
 		<org.springframework.integration.dsl.version>1.2.2.RELEASE</org.springframework.integration.dsl.version>
 		<org.springframework.ws.version>3.0.7.RELEASE</org.springframework.ws.version>
